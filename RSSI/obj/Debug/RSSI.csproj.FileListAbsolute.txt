@@ -1,0 +1,14 @@
+C:\Users\rveloz\source\repos\Engraver\RSSI\bin\Debug\RSSI.exe.config
+C:\Users\rveloz\source\repos\Engraver\RSSI\bin\Debug\RSSI.exe
+C:\Users\rveloz\source\repos\Engraver\RSSI\bin\Debug\RSSI.pdb
+C:\Users\rveloz\source\repos\Engraver\RSSI\bin\Debug\HtmlAgilityPack.dll
+C:\Users\rveloz\source\repos\Engraver\RSSI\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\rveloz\source\repos\Engraver\RSSI\obj\Debug\RSSI.Main.resources
+C:\Users\rveloz\source\repos\Engraver\RSSI\obj\Debug\RSSI.Properties.Resources.resources
+C:\Users\rveloz\source\repos\Engraver\RSSI\obj\Debug\RSSI.csproj.GenerateResource.cache
+C:\Users\rveloz\source\repos\Engraver\RSSI\obj\Debug\RSSI.csproj.CoreCompileInputs.cache
+C:\Users\rveloz\source\repos\Engraver\RSSI\obj\Debug\RSSI.csproj.CopyComplete
+C:\Users\rveloz\source\repos\Engraver\RSSI\obj\Debug\RSSI.exe
+C:\Users\rveloz\source\repos\Engraver\RSSI\obj\Debug\RSSI.pdb
+C:\Users\rveloz\source\repos\Engraver\RSSI\obj\Debug\RSSI.csprojAssemblyReference.cache
+C:\Users\rveloz\source\repos\Engraver\RSSI\bin\Debug\Microsoft.Office.Interop.Excel.dll

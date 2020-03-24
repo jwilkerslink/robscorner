@@ -1,0 +1,17 @@
+C:\Users\rveloz\source\repos\Engraver\Engraver\bin\Debug\Engraver.exe.config
+C:\Users\rveloz\source\repos\Engraver\Engraver\bin\Debug\Engraver.exe.manifest
+C:\Users\rveloz\source\repos\Engraver\Engraver\bin\Debug\Engraver.application
+C:\Users\rveloz\source\repos\Engraver\Engraver\bin\Debug\Engraver.exe
+C:\Users\rveloz\source\repos\Engraver\Engraver\bin\Debug\Engraver.pdb
+C:\Users\rveloz\source\repos\Engraver\Engraver\bin\Debug\SimpleTCP.dll
+C:\Users\rveloz\source\repos\Engraver\Engraver\obj\Debug\Engraver.Form1.resources
+C:\Users\rveloz\source\repos\Engraver\Engraver\obj\Debug\Engraver.Properties.Resources.resources
+C:\Users\rveloz\source\repos\Engraver\Engraver\obj\Debug\Engraver.csproj.GenerateResource.cache
+C:\Users\rveloz\source\repos\Engraver\Engraver\obj\Debug\Engraver.csproj.CoreCompileInputs.cache
+C:\Users\rveloz\source\repos\Engraver\Engraver\obj\Debug\Engraver.exe.manifest
+C:\Users\rveloz\source\repos\Engraver\Engraver\obj\Debug\Engraver.application
+C:\Users\rveloz\source\repos\Engraver\Engraver\obj\Debug\Engraver.csproj.CopyComplete
+C:\Users\rveloz\source\repos\Engraver\Engraver\obj\Debug\Engraver.exe
+C:\Users\rveloz\source\repos\Engraver\Engraver\obj\Debug\Engraver.pdb
+C:\Users\rveloz\source\repos\Engraver\Engraver\obj\Debug\Engraver.csprojAssemblyReference.cache
+C:\Users\rveloz\source\repos\Engraver\Engraver\obj\Debug\Engraver.Login.resources

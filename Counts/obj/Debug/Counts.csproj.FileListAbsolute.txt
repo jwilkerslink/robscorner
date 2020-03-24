@@ -1,0 +1,10 @@
+C:\Users\rveloz\source\repos\Engraver\Counts\bin\Debug\Counts.exe.config
+C:\Users\rveloz\source\repos\Engraver\Counts\bin\Debug\Counts.exe
+C:\Users\rveloz\source\repos\Engraver\Counts\bin\Debug\Counts.pdb
+C:\Users\rveloz\source\repos\Engraver\Counts\obj\Debug\Counts.csprojAssemblyReference.cache
+C:\Users\rveloz\source\repos\Engraver\Counts\obj\Debug\Counts.Counts.resources
+C:\Users\rveloz\source\repos\Engraver\Counts\obj\Debug\Counts.Properties.Resources.resources
+C:\Users\rveloz\source\repos\Engraver\Counts\obj\Debug\Counts.csproj.GenerateResource.cache
+C:\Users\rveloz\source\repos\Engraver\Counts\obj\Debug\Counts.csproj.CoreCompileInputs.cache
+C:\Users\rveloz\source\repos\Engraver\Counts\obj\Debug\Counts.exe
+C:\Users\rveloz\source\repos\Engraver\Counts\obj\Debug\Counts.pdb

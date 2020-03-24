@@ -1,0 +1,9 @@
+C:\Users\rveloz\source\repos\Engraver\CellularData\bin\Release\CellularData.exe.config
+C:\Users\rveloz\source\repos\Engraver\CellularData\bin\Release\CellularData.exe
+C:\Users\rveloz\source\repos\Engraver\CellularData\bin\Release\CellularData.pdb
+C:\Users\rveloz\source\repos\Engraver\CellularData\obj\Release\CellularData.Form1.resources
+C:\Users\rveloz\source\repos\Engraver\CellularData\obj\Release\CellularData.Properties.Resources.resources
+C:\Users\rveloz\source\repos\Engraver\CellularData\obj\Release\CellularData.csproj.GenerateResource.cache
+C:\Users\rveloz\source\repos\Engraver\CellularData\obj\Release\CellularData.csproj.CoreCompileInputs.cache
+C:\Users\rveloz\source\repos\Engraver\CellularData\obj\Release\CellularData.exe
+C:\Users\rveloz\source\repos\Engraver\CellularData\obj\Release\CellularData.pdb
