@@ -66,11 +66,16 @@ namespace MasteEngraver
 
         private void btnTAD_Click(object sender, EventArgs e)
         {
-            if(frmTAD is null)
+            if (frmTAD is null)
             {
                 frmTAD = new Engraver.TAD.ADM.HOME();
                 frmTAD.Show();
                 return;
+            }
+            else
+            {
+                frmTAD = new Engraver.TAD.ADM.HOME();
+                frmTAD.Show();
             }
 
             frmTAD.BringToFront();
@@ -84,6 +89,11 @@ namespace MasteEngraver
                 frmHG2020 = new HG2020_XMTR_Engraver.Engraver("Hello World");
                 frmHG2020.Show();
                 return;
+            }
+            else
+            {
+                frmHG2020 = new Engraver.TAD.ADM.HOME();
+                frmHG2020.Show();
             }
 
             frmHG2020.BringToFront();
