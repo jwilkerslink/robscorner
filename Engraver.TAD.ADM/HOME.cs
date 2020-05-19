@@ -304,6 +304,7 @@ namespace Engraver.TAD.ADM
 
         private void BtnStart_Click(object sender, EventArgs e)
         {
+            engraver.SetProgram(PRGM);
             engraver.MarkingStart();
         }
 

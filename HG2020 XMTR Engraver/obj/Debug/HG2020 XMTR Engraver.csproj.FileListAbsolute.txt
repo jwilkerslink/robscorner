@@ -1,0 +1,16 @@
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\HG2020 XMTR Engraver\obj\Debug\HG2020 XMTR Engraver.csprojAssemblyReference.cache
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\HG2020 XMTR Engraver\obj\Debug\HG2020_XMTR_Engraver.Engraver.resources
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\HG2020 XMTR Engraver\obj\Debug\HG2020_XMTR_Engraver.Properties.Resources.resources
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\HG2020 XMTR Engraver\obj\Debug\HG2020 XMTR Engraver.csproj.GenerateResource.cache
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\HG2020 XMTR Engraver\obj\Debug\HG2020 XMTR Engraver.csproj.CoreCompileInputs.cache
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\HG2020 XMTR Engraver\bin\Debug\HG2020 XMTR Engraver.exe.config
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\HG2020 XMTR Engraver\bin\Debug\HG2020 XMTR Engraver.exe.manifest
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\HG2020 XMTR Engraver\bin\Debug\HG2020 XMTR Engraver.application
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\HG2020 XMTR Engraver\bin\Debug\HG2020 XMTR Engraver.exe
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\HG2020 XMTR Engraver\bin\Debug\HG2020 XMTR Engraver.pdb
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\HG2020 XMTR Engraver\bin\Debug\SimpleTCP.dll
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\HG2020 XMTR Engraver\obj\Debug\HG2020 XMTR Engraver.exe.manifest
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\HG2020 XMTR Engraver\obj\Debug\HG2020 XMTR Engraver.application
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\HG2020 XMTR Engraver\obj\Debug\HG2020 XMTR Engraver.csproj.CopyComplete
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\HG2020 XMTR Engraver\obj\Debug\HG2020 XMTR Engraver.exe
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\HG2020 XMTR Engraver\obj\Debug\HG2020 XMTR Engraver.pdb

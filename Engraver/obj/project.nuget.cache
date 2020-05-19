@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "2Hgu/CWdzM9w94jtz3ljFvHmi1X1K8DRncX6H1x8goOYhQf+0+8XSqymNys0UzWeheX5m1hUEXt6p7emsRciqA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\rveloz\\source\\repos\\rveloz9192\\robscorner\\Engraver\\Engraver.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\rveloz\\.nuget\\packages\\simpletcp\\1.0.24\\simpletcp.1.0.24.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,22 @@
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\MasteEngraver\bin\Debug\MasteEngraver.exe.config
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\MasteEngraver\bin\Debug\MasteEngraver.exe
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\MasteEngraver\bin\Debug\MasteEngraver.pdb
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\MasteEngraver\bin\Debug\Engraver.TAD.ADM.exe
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\MasteEngraver\bin\Debug\HG2020 XMTR Engraver.exe
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\MasteEngraver\bin\Debug\SimpleTCP.dll
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\MasteEngraver\bin\Debug\Engraver.TAD.ADM.pdb
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\MasteEngraver\bin\Debug\Engraver.TAD.ADM.exe.config
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\MasteEngraver\bin\Debug\HG2020 XMTR Engraver.pdb
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\MasteEngraver\bin\Debug\HG2020 XMTR Engraver.exe.config
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\MasteEngraver\obj\Debug\MasteEngraver.csprojAssemblyReference.cache
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\MasteEngraver\obj\Debug\MasteEngraver.Menu.resources
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\MasteEngraver\obj\Debug\MasteEngraver.Properties.Resources.resources
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\MasteEngraver\obj\Debug\MasteEngraver.csproj.GenerateResource.cache
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\MasteEngraver\obj\Debug\MasteEngraver.csproj.CoreCompileInputs.cache
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\MasteEngraver\obj\Debug\MasteEngraver.csproj.CopyComplete
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\MasteEngraver\obj\Debug\MasteEngraver.exe
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\MasteEngraver\obj\Debug\MasteEngraver.pdb
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\MasteEngraver\bin\Debug\MasteEngraver.exe.manifest
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\MasteEngraver\bin\Debug\MasteEngraver.application
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\MasteEngraver\obj\Debug\MasteEngraver.exe.manifest
+C:\Users\rveloz\source\repos\rveloz9192\robscorner\MasteEngraver\obj\Debug\MasteEngraver.application
