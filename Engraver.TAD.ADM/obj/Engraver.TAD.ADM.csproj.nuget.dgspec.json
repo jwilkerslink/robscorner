@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\rveloz\\source\\repos\\rveloz9192\\robscorner\\Engraver.TAD.ADM\\Engraver.TAD.ADM.csproj": {}
+    "C:\\Users\\rveloz\\Source\\Repos\\rveloz9192\\robscorner\\Engraver.TAD.ADM\\Engraver.TAD.ADM.csproj": {}
   },
   "projects": {
-    "C:\\Users\\rveloz\\source\\repos\\rveloz9192\\robscorner\\Engraver.TAD.ADM\\Engraver.TAD.ADM.csproj": {
+    "C:\\Users\\rveloz\\Source\\Repos\\rveloz9192\\robscorner\\Engraver.TAD.ADM\\Engraver.TAD.ADM.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\rveloz\\source\\repos\\rveloz9192\\robscorner\\Engraver.TAD.ADM\\Engraver.TAD.ADM.csproj",
+        "projectUniqueName": "C:\\Users\\rveloz\\Source\\Repos\\rveloz9192\\robscorner\\Engraver.TAD.ADM\\Engraver.TAD.ADM.csproj",
         "projectName": "Engraver.TAD.ADM",
-        "projectPath": "C:\\Users\\rveloz\\source\\repos\\rveloz9192\\robscorner\\Engraver.TAD.ADM\\Engraver.TAD.ADM.csproj",
+        "projectPath": "C:\\Users\\rveloz\\Source\\Repos\\rveloz9192\\robscorner\\Engraver.TAD.ADM\\Engraver.TAD.ADM.csproj",
         "packagesPath": "C:\\Users\\rveloz\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\rveloz\\source\\repos\\rveloz9192\\robscorner\\Engraver.TAD.ADM\\obj\\",
+        "outputPath": "C:\\Users\\rveloz\\Source\\Repos\\rveloz9192\\robscorner\\Engraver.TAD.ADM\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "configFilePaths": [
