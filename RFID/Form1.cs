@@ -9,6 +9,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using nsAlienRFID2;
+using Microsoft.VisualBasic;
+using System.Security.AccessControl;
+using Microsoft.VisualBasic.Devices;
+using System.Data.SqlClient;
+
 namespace RFID
 {
     public partial class Form1 : Form
@@ -16,15 +21,17 @@ namespace RFID
 
         clsReaderMonitor Monitor = new clsReaderMonitor();
         clsReader mReader = new clsReader();
-        const string reasonStr = "Reason:";
+        const string reasonStr = "Reason: ";
+        public static string connString = "Data Source=172.21.4.30;Initial Catalog=DEV_MfgTraveler;Persist Security Info=True;User ID=Travelmfg;Password=travelmfg@1";
+        public SqlConnection con = new SqlConnection(connString);
 
-        public delegate void AddRowDelegate(System.Windows.Forms.DataGridView ctrl, string tagID, string evnt, DateTime dateTime);
-        public static void AddRow(System.Windows.Forms.DataGridView ctrl, string tagID, string evnt, DateTime dateTime)
+        public delegate void AddRowDelegate(System.Windows.Forms.DataGridView ctrl, string location, string tagID, string evnt, DateTime dateTime);
+        public static void AddRow(System.Windows.Forms.DataGridView ctrl, string tagID,string location, string evnt, DateTime dateTime)
         {
             if (ctrl.InvokeRequired)
             {
 
-                object[] params_list = new object[] { ctrl, tagID, evnt, dateTime };
+                object[] params_list = new object[] { ctrl, tagID,location, evnt, dateTime };
 
                 ctrl.Invoke(new AddRowDelegate(AddRow), params_list);
 
@@ -33,7 +40,7 @@ namespace RFID
             else
             {
                 char[] p = { ',' };
-                ctrl.Rows.Insert(0, tagID, evnt, dateTime);
+                ctrl.Rows.Insert(0, tagID,location, evnt, dateTime);
                 //ctrl.Rows.Add();
             }
 
@@ -134,7 +141,7 @@ namespace RFID
 
             else
             {
-                ctrl.Text = ctrl.Text + text + "\r\n";
+                ctrl.Text = ctrl.Text + text;
                 ctrl.Select(ctrl.Text.Length, 0);
                 ctrl.ScrollToCaret();
                 //if (text == "Pass")
@@ -152,6 +159,41 @@ namespace RFID
 
         }
 
+
+        private DataTable GetHistory(string tagID)
+        {
+            SqlCommand sqlCommand = new SqlCommand($@"Select 
+                                                        datetime,Substring(event,6,99) + Case When event = 'TAGS ADDED' Then ' To ' Else ' From ' end + location [event]
+                                                    From
+                                                        RFIDTracker
+                                                    Where 
+                                                        TagID = @TID
+                                                    Order By
+                                                        DateTime Desc", con);
+            sqlCommand.Parameters.AddWithValue("@TID", tagID);
+            SqlDataAdapter da = new SqlDataAdapter(sqlCommand);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            return dt;
+
+        }
+
+
+        private void InsertIntoRFIDTracker(string tagID, string location, string evnt, DateTime dateTime)
+        {
+            SqlCommand InsertIntoRFIDTracker = new SqlCommand($@"Insert Into
+                                                                    RFIDTracker
+                                                                Values
+                                                                    (@TID, @loc, @evnt, @DT)", con);
+            InsertIntoRFIDTracker.Parameters.AddWithValue("@TID", tagID);
+            InsertIntoRFIDTracker.Parameters.AddWithValue("@loc", location);
+            InsertIntoRFIDTracker.Parameters.AddWithValue("@evnt", evnt);
+            InsertIntoRFIDTracker.Parameters.AddWithValue("@DT", dateTime);
+            con.Open();
+            InsertIntoRFIDTracker.ExecuteNonQuery();
+            con.Close();
+        }
 
         private void Monitor_ReaderRemovedOnSerial(IReaderInfo data)
         {
@@ -175,6 +217,37 @@ namespace RFID
         private void button1_Click(object sender, EventArgs e)
         {
 
+            dgvUnitHistory.DataSource = GetHistory(txtUnitHistory.Text);
+            dgvUnitHistory.Columns[0].FillWeight = 25;
+            //dgvUnitHistory.Rows.Clear();
+
+            //DataTable dt = new DataTable();
+            //foreach (DataGridViewColumn col in dgvTracker.Columns)
+            //{
+            //    dt.Columns.Add(col.Name);
+            //}
+
+            //foreach (DataGridViewRow row in dgvTracker.Rows)
+            //{
+            //    DataRow dRow = dt.NewRow();
+            //    foreach (DataGridViewCell cell in row.Cells)
+            //    {
+            //        dRow[cell.ColumnIndex] = cell.Value;
+            //    }
+            //    dt.Rows.Add(dRow);
+            //}
+
+            //DataRow[] result = dt.Select($"TagID = '{txtUnitHistory.Text}'","Time Desc");
+
+            //dt = new DataTable();
+
+            //foreach (DataRow row in result)
+            //{
+            //    AddRow(dgvUnitHistory, row[0].ToString(), row[1].ToString(), row[2].ToString(), DateTime.Parse(row[3].ToString()));
+               
+            //}
+
+            //dgvUnitHistory.DataSource = dt;
             //String stemp;
             //mReader.InitOnCom(3);// ‘Initialize reader object on COM1
             //stemp = mReader.Connect();
@@ -183,14 +256,8 @@ namespace RFID
 
         private void button2_Click(object sender, EventArgs e)
         {
-            ITagInfo[] tagInfos;
-            var tl = mReader.TagList;
-            //textBox1.Text = textBox1.Text + tl;
-            //textBox1.Select(textBox1.Text.Length, 0);
-            //textBox1.ScrollToCaret();
-            
 
-            if (mReader.ParseTagList(tl, out tagInfos))
+            if (mReader.ParseTagList(mReader.TagList, out ITagInfo[] tagInfos))
             {
                 foreach (ITagInfo tag in tagInfos)
                 {
@@ -205,23 +272,10 @@ namespace RFID
 
         private void button3_Click(object sender, EventArgs e)
         {
-            string[] temp;
-            int messages;
 
-            //mReader.NotifyMode = "ON";
-            //mReader.AutoMode = "ON";
-
-            //messages = mReader.GetCurrentMessages(out temp);
             
-            //if (messages > 0)
-            //{
-            //    foreach(string data in temp)
-            //    {
-            //        textBox1.Text = textBox1.Text + "\r\n" + data;
-            //        textBox1.Select(textBox1.Text.Length, 0);
-            //        textBox1.ScrollToCaret();
-            //    }
-            //}
+
+            mReader.Send(txtCommand.Text + "\r\n",false);
 
         }
 
@@ -230,45 +284,53 @@ namespace RFID
 
             if (mReader.GetCurrentMessages(out string[] Notifications) > 0)
             {
-                string tl,reason;
+                string tl,reason = "";
                 ITagInfo[] tagInfos;
                 int start,end;
 
+
                 foreach (string notification in Notifications)
                 {
-                    SetText(textBox1, notification);
+                    SetText(textBox1, "\r\n" + notification + "\r\n");
                     start = notification.IndexOf(reasonStr) + reasonStr.Count();
-                    if (start > 0)
+                    if (start > 6)
                     {
-                        end = notification.IndexOf("\r\n",start);
-                        reason = notification.Substring(start,end - start);
-                        SetText(textBox1, reason);
+                        end = notification.IndexOf("\r\n", start);
+                        reason = notification.Substring(start, end - start);                    
 
-                        start = notification.IndexOf("Tag:", start);
-                        if (start > 0)
+                        start = notification.IndexOf("Tag:", 0);
+
+                        if (start > -1)
                         {
 
-                            int ennd = notification.IndexOf("\r\n#End of Notification Message", start);
+                            end = notification.IndexOf("\r\n#End of Notification Message", start);
 
-                            tl = notification.Substring(start, ennd - start);
+                            if (end <= start)
+                            {
+                                tl = notification.Substring(start);
+                            }
+                            else
+                            {
+                                tl = notification.Substring(start, end - start);
+                            }
 
                             if (mReader.ParseTagList(tl, out tagInfos))
                             {
-                                //tagInfos.
                                 foreach (ITagInfo tag in tagInfos)
                                 {
-                                    SetText(textBox1, "Direction: " + tag.Direction + "Antenna: " + tag.Antenna + "TagID: " + tag.TagID + ",Read Count: " + tag.ReadCount + ",Last Seen:" + tag.LastSeenTime + "\r\n");
-                                    AddRow(dgvTracker, tag.TagID, reason.Contains("ADD") ? "Enter" : "Leave", DateTime.Now);
+                                    AddRow(dgvTracker, tag.TagID, mReader.ReaderName, reason, DateTime.Now);
+                                    InsertIntoRFIDTracker(tag.TagID, mReader.ReaderName, reason, DateTime.Now);
                                 }
                             }
-
                         }
-                    }
 
+                    }
                 }
 
             }
+
         }
+
 
         private void bwNotifications_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -278,6 +340,7 @@ namespace RFID
         private void bwConnect_DoWork(object sender, DoWorkEventArgs e)
         {
             mReader.InitOnCom(3);// ‘Initialize reader object on COM1
+            //mReader.InitOnNetwork("192.168.1.100", 23);
             e.Result = mReader.Connect();
 
         }
@@ -302,6 +365,23 @@ namespace RFID
 
         }
 
+        private void txtCommand_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                SetText(textBox1, "\r\n" + System.Security.Principal.WindowsIdentity.GetCurrent().Name + "> " + txtCommand.Text);
+                mReader.Send(txtCommand.Text + "\r\n",false);
+                txtCommand.Text = "";
+            }
+        }
 
+        private void txtUnitHistory_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                dgvUnitHistory.DataSource = GetHistory(txtUnitHistory.Text);
+                dgvUnitHistory.Columns[0].FillWeight = 50;
+            }
+        }
     }
 }

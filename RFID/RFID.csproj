@@ -37,11 +37,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Documents\Alien dotNET SDK 2.3.2 2013-02\AlienRFID2.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
