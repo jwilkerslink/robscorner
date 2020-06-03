@@ -13,10 +13,11 @@ using Microsoft.VisualBasic;
 using System.Security.AccessControl;
 using Microsoft.VisualBasic.Devices;
 using System.Data.SqlClient;
+using RFID.Properties;
 
 namespace RFID
 {
-    public partial class Form1 : Form
+    public partial class frmRFIDMain : Form
     {
 
         clsReaderMonitor Monitor = new clsReaderMonitor();
@@ -47,7 +48,7 @@ namespace RFID
         }
 
 
-        public Form1()
+        public frmRFIDMain()
         {
             InitializeComponent();
         }
@@ -82,48 +83,48 @@ namespace RFID
             bwConnect.RunWorkerAsync();
         }
 
-        //private void MReader_MessageReceived(string data)
-        //{
-        //    string tl;
-        //    ITagInfo[] tagInfos;
-        //    int start = data.IndexOf("#StopTriggerLines:");
-        //    if (start > 0)
-        //    {
+        private void MReader_MessageReceived(string data)
+        {
+            string tl;
+            ITagInfo[] tagInfos;
+            int start = data.IndexOf("#StopTriggerLines:");
+            if (start > 0)
+            {
 
-        //        start = data.IndexOf("Tag:", start);
-        //        int ennd = data.IndexOf("\r\n#End of Notification Message", start);
+                start = data.IndexOf("Tag:", start);
+                int ennd = data.IndexOf("\r\n#End of Notification Message", start);
 
-        //        tl = data.Substring(start, ennd - start);
+                tl = data.Substring(start, ennd - start);
 
-        //        if (mReader.ParseTagList(tl, out tagInfos))
-        //        {
-        //            foreach (ITagInfo tag in tagInfos)
-        //            {
-        //                textBox1.Text = textBox1.Text + "\r\n TagID:" + tag.TagID + "\r\n Read Count:" + tag.ReadCount + "\r\n Last Seen:" + tag.LastSeenTime;
-        //                textBox1.Select(textBox1.Text.Length, 0);
-        //                textBox1.ScrollToCaret();
-        //            }
-        //        }
+                if (mReader.ParseTagList(tl, out tagInfos))
+                {
+                    foreach (ITagInfo tag in tagInfos)
+                    {
+                        textBox1.Text = textBox1.Text + "\r\n TagID:" + tag.TagID + "\r\n Read Count:" + tag.ReadCount + "\r\n Last Seen:" + tag.LastSeenTime;
+                        textBox1.Select(textBox1.Text.Length, 0);
+                        textBox1.ScrollToCaret();
+                    }
+                }
 
-        //    }
+            }
 
-        //    SetText(textBox1, data);
+            SetText(textBox1, data);
 
 
-        //    //ITagInfo[] tagInfos;
-        //    //if (mReader.ParseTagList(data, out tagInfos))
-        //    //{
-        //    //    foreach (ITagInfo tag in tagInfos)
-        //    //    {
-        //    //        SetText(textBox1, data);
-        //    //    }
-        //    //}
+            //ITagInfo[] tagInfos;
+            //if (mReader.ParseTagList(data, out tagInfos))
+            //{
+            //    foreach (ITagInfo tag in tagInfos)
+            //    {
+            //        SetText(textBox1, data);
+            //    }
+            //}
 
-            
-        //    //textBox1.Text = textBox1.Text + "\r\n" + data;
-        //    //textBox1.Select(textBox1.Text.Length, 0);
-        //    //textBox1.ScrollToCaret();
-        //}
+
+            //textBox1.Text = textBox1.Text + "\r\n" + data;
+            //textBox1.Select(textBox1.Text.Length, 0);
+            //textBox1.ScrollToCaret();
+        }
 
         public delegate void SetTextDelegate(System.Windows.Forms.TextBox ctrl, string text);
 
@@ -160,114 +161,118 @@ namespace RFID
         }
 
 
-        private DataTable GetHistory(string tagID)
-        {
-            SqlCommand sqlCommand = new SqlCommand($@"Select 
-                                                        datetime,Substring(event,6,99) + Case When event = 'TAGS ADDED' Then ' To ' Else ' From ' end + location [event]
-                                                    From
-                                                        RFIDTracker
-                                                    Where 
-                                                        TagID = @TID
-                                                    Order By
-                                                        DateTime Desc", con);
-            sqlCommand.Parameters.AddWithValue("@TID", tagID);
-            SqlDataAdapter da = new SqlDataAdapter(sqlCommand);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
+        //private DataTable GetHistory(string tagID)
+        //{
+        //    SqlCommand sqlCommand = new SqlCommand($@"Select 
+        //                                                datetime,Substring(event,6,99) + Case When event = 'TAGS ADDED' Then ' To ' Else ' From ' end + location [event]
+        //                                            From
+        //                                                RFIDTracker
+        //                                            Where 
+        //                                                TagID = @TID
+        //                                            Order By
+        //                                                DateTime Desc", con);
+        //    sqlCommand.Parameters.AddWithValue("@TID", tagID);
+        //    SqlDataAdapter da = new SqlDataAdapter(sqlCommand);
+        //    DataTable dt = new DataTable();
+        //    da.Fill(dt);
 
-            return dt;
+        //    return dt;
 
-        }
+        //}
 
 
         private void InsertIntoRFIDTracker(string tagID, string location, string evnt, DateTime dateTime)
         {
-            SqlCommand InsertIntoRFIDTracker = new SqlCommand($@"Insert Into
-                                                                    RFIDTracker
-                                                                Values
-                                                                    (@TID, @loc, @evnt, @DT)", con);
-            InsertIntoRFIDTracker.Parameters.AddWithValue("@TID", tagID);
-            InsertIntoRFIDTracker.Parameters.AddWithValue("@loc", location);
-            InsertIntoRFIDTracker.Parameters.AddWithValue("@evnt", evnt);
-            InsertIntoRFIDTracker.Parameters.AddWithValue("@DT", dateTime);
-            con.Open();
-            InsertIntoRFIDTracker.ExecuteNonQuery();
-            con.Close();
+        //    SqlCommand InsertIntoRFIDTracker = new SqlCommand($@"Insert Into
+        //                                                            RFIDTracker
+        //                                                        Values
+        //                                                            (@TID, @loc, @evnt, @DT)", con);
+        //    InsertIntoRFIDTracker.Parameters.AddWithValue("@TID", tagID);
+        //    InsertIntoRFIDTracker.Parameters.AddWithValue("@loc", location);
+        //    InsertIntoRFIDTracker.Parameters.AddWithValue("@evnt", evnt);
+        //    InsertIntoRFIDTracker.Parameters.AddWithValue("@DT", dateTime);
+        //    con.Open();
+        //    InsertIntoRFIDTracker.ExecuteNonQuery();
+        //    con.Close();
         }
 
-        private void Monitor_ReaderRemovedOnSerial(IReaderInfo data)
-        {
-            textBox1.Text = textBox1.Text + "\r\n Reader " + data.Name + " has been Removed. IP: " + data.IPAddress;
+        //private void Monitor_ReaderRemovedOnSerial(IReaderInfo data)
+        //{
+        //    textBox1.Text = textBox1.Text + "\r\n Reader " + data.Name + " has been Removed. IP: " + data.IPAddress;
 
-            //throw new NotImplementedException();
-        }
+        //    //throw new NotImplementedException();
+        //}
 
-        private void Monitor_ReaderAddedOnSerial(IReaderInfo data)
-        {
-            textBox1.Text = textBox1.Text + "\r\n Reader " + data.Name + " has been Added. IP: " + data.IPAddress;
+        //private void Monitor_ReaderAddedOnSerial(IReaderInfo data)
+        //{
+        //    textBox1.Text = textBox1.Text + "\r\n Reader " + data.Name + " has been Added. IP: " + data.IPAddress;
 
-            //throw new NotImplementedException();
-        }
+        //    //throw new NotImplementedException();
+        //}
 
-        private void Monitor_ReaderAddedSerial()
-        {
+        //private void Monitor_ReaderAddedSerial()
+        //{
 
-        }
+        //}
 
         private void button1_Click(object sender, EventArgs e)
         {
 
-            dgvUnitHistory.DataSource = GetHistory(txtUnitHistory.Text);
-            dgvUnitHistory.Columns[0].FillWeight = 25;
-            //dgvUnitHistory.Rows.Clear();
+        //    dgvUnitHistory.DataSource = GetHistory(txtUnitHistory.Text);
+        //    dgvUnitHistory.Columns[0].FillWeight = 25;
+        //    dgvUnitHistory.Rows.Clear();
 
-            //DataTable dt = new DataTable();
-            //foreach (DataGridViewColumn col in dgvTracker.Columns)
-            //{
-            //    dt.Columns.Add(col.Name);
-            //}
+        //    DataTable dt = new DataTable();
+        //    foreach (DataGridViewColumn col in dgvTracker.Columns)
+        //    {
+        //        dt.Columns.Add(col.Name);
+        //    }
 
-            //foreach (DataGridViewRow row in dgvTracker.Rows)
-            //{
-            //    DataRow dRow = dt.NewRow();
-            //    foreach (DataGridViewCell cell in row.Cells)
-            //    {
-            //        dRow[cell.ColumnIndex] = cell.Value;
-            //    }
-            //    dt.Rows.Add(dRow);
-            //}
+        //    foreach (DataGridViewRow row in dgvTracker.Rows)
+        //    {
+        //        DataRow dRow = dt.NewRow();
+        //        foreach (DataGridViewCell cell in row.Cells)
+        //        {
+        //            dRow[cell.ColumnIndex] = cell.Value;
+        //        }
+        //        dt.Rows.Add(dRow);
+        //    }
 
-            //DataRow[] result = dt.Select($"TagID = '{txtUnitHistory.Text}'","Time Desc");
+        //    DataRow[] result = dt.Select($"TagID = '{txtUnitHistory.Text}'", "Time Desc");
 
-            //dt = new DataTable();
+        //    dt = new DataTable();
 
-            //foreach (DataRow row in result)
-            //{
-            //    AddRow(dgvUnitHistory, row[0].ToString(), row[1].ToString(), row[2].ToString(), DateTime.Parse(row[3].ToString()));
-               
-            //}
+        //    foreach (DataRow row in result)
+        //    {
+        //        AddRow(dgvUnitHistory, row[0].ToString(), row[1].ToString(), row[2].ToString(), DateTime.Parse(row[3].ToString()));
 
-            //dgvUnitHistory.DataSource = dt;
-            //String stemp;
-            //mReader.InitOnCom(3);// ‘Initialize reader object on COM1
-            //stemp = mReader.Connect();
-            //textBox1.Text = textBox1.Text + "\r\n" + stemp;
+        //    }
+
+        //    dgvUnitHistory.DataSource = dt;
+        //    String stemp;
+        //    mReader.InitOnCom(3);// ‘Initialize reader object on COM1
+        //    stemp = mReader.Connect();
+        //    textBox1.Text = textBox1.Text + "\r\n" + stemp;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-
-            if (mReader.ParseTagList(mReader.TagList, out ITagInfo[] tagInfos))
-            {
-                foreach (ITagInfo tag in tagInfos)
+            //try
+            //{
+                if (mReader.ParseTagList(mReader.TagList, out ITagInfo[] tagInfos))
                 {
-                    textBox1.Text = textBox1.Text + "TagID:" + tag.TagID + "\r\n Read Count:" + tag.ReadCount + "\r\n Last Seen:" + tag.LastSeenTime + "\r\n";
-                    textBox1.Select(textBox1.Text.Length, 0);
-                    textBox1.ScrollToCaret();
+                    foreach (ITagInfo tag in tagInfos)
+                    {
+                        textBox1.Text = textBox1.Text + "TagID:" + tag.TagID + "\r\n Read Count:" + tag.ReadCount + "\r\n Last Seen:" + tag.LastSeenTime + "\r\n";
+                        textBox1.Select(textBox1.Text.Length, 0);
+                        textBox1.ScrollToCaret();
+                    }
                 }
-            }
-                
-
+            //}
+            //catch(System.Exception)
+            //{
+            //    MessageBox.Show("Reader connection error.");
+            //}
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -339,10 +344,9 @@ namespace RFID
 
         private void bwConnect_DoWork(object sender, DoWorkEventArgs e)
         {
-            mReader.InitOnCom(3);// ‘Initialize reader object on COM1
-            //mReader.InitOnNetwork("192.168.1.100", 23);
+            //mReader.InitOnCom();// ‘Initialize reader object on COM1
+            mReader.InitOnNetwork(Settings.Default.ReaderIP, Convert.ToInt32(Settings.Default.TCPPort));
             e.Result = mReader.Connect();
-
         }
 
         private void bwConnect_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -351,9 +355,13 @@ namespace RFID
 
             stemp = e.Result.ToString();
             textBox1.Text = textBox1.Text + "\r\n" + stemp + "\r\n";
+            mReader.Login("alien", "password");
 
             if (stemp == "Connected")
             {
+                if (mReader.DateTime != DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"))
+                { mReader.DateTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"); }
+
                 mReader.NotifyMode = "ON";
                 mReader.AutoMode = "ON";
                 bwNotifications.RunWorkerAsync();
@@ -377,11 +385,17 @@ namespace RFID
 
         private void txtUnitHistory_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                dgvUnitHistory.DataSource = GetHistory(txtUnitHistory.Text);
-                dgvUnitHistory.Columns[0].FillWeight = 50;
-            }
+        //    if (e.KeyCode == Keys.Enter)
+        //    {
+        //        dgvUnitHistory.DataSource = GetHistory(txtUnitHistory.Text);
+        //        dgvUnitHistory.Columns[0].FillWeight = 50;
+        //    }
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            frmSettingsPane currSettings = new frmSettingsPane();
+            currSettings.ShowDialog();
         }
     }
 }

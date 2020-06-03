@@ -1,22 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\rveloz\\Source\\Repos\\rveloz9192\\robscorner\\RSSI\\RSSI.csproj": {}
+    "C:\\Users\\jwilkerson\\source\\repos\\rveloz9192\\robscorner\\RSSI\\RSSI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\rveloz\\Source\\Repos\\rveloz9192\\robscorner\\RSSI\\RSSI.csproj": {
+    "C:\\Users\\jwilkerson\\source\\repos\\rveloz9192\\robscorner\\RSSI\\RSSI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\rveloz\\Source\\Repos\\rveloz9192\\robscorner\\RSSI\\RSSI.csproj",
+        "projectUniqueName": "C:\\Users\\jwilkerson\\source\\repos\\rveloz9192\\robscorner\\RSSI\\RSSI.csproj",
         "projectName": "RSSI",
-        "projectPath": "C:\\Users\\rveloz\\Source\\Repos\\rveloz9192\\robscorner\\RSSI\\RSSI.csproj",
-        "packagesPath": "C:\\Users\\rveloz\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\rveloz\\Source\\Repos\\rveloz9192\\robscorner\\RSSI\\obj\\",
+        "projectPath": "C:\\Users\\jwilkerson\\source\\repos\\rveloz9192\\robscorner\\RSSI\\RSSI.csproj",
+        "packagesPath": "C:\\Users\\jwilkerson\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jwilkerson\\source\\repos\\rveloz9192\\robscorner\\RSSI\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
         "configFilePaths": [
-          "C:\\Users\\rveloz\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\jwilkerson\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net472"

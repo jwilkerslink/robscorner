@@ -11,3 +11,16 @@ C:\Users\rveloz\source\repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.csproj.Co
 C:\Users\rveloz\source\repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.csproj.CopyComplete
 C:\Users\rveloz\source\repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.exe
 C:\Users\rveloz\source\repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.pdb
+C:\Users\jwilkerson\Source\Repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.csprojAssemblyReference.cache
+C:\Users\jwilkerson\Source\Repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.Properties.Resources.resources
+C:\Users\jwilkerson\Source\Repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.csproj.GenerateResource.cache
+C:\Users\jwilkerson\Source\Repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.csproj.CoreCompileInputs.cache
+C:\Users\jwilkerson\Source\Repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.exe
+C:\Users\jwilkerson\Source\Repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.pdb
+C:\Users\jwilkerson\Source\Repos\rveloz9192\robscorner\RFID\bin\Debug\RFID.exe.config
+C:\Users\jwilkerson\Source\Repos\rveloz9192\robscorner\RFID\bin\Debug\RFID.exe
+C:\Users\jwilkerson\Source\Repos\rveloz9192\robscorner\RFID\bin\Debug\RFID.pdb
+C:\Users\jwilkerson\Source\Repos\rveloz9192\robscorner\RFID\bin\Debug\AlienRFID2.xml
+C:\Users\jwilkerson\Source\Repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.csproj.CopyComplete
+C:\Users\jwilkerson\source\repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.frmRFIDMain.resources
+C:\Users\jwilkerson\source\repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.frmSettingsPane.resources
