@@ -71,11 +71,11 @@ namespace RFID
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Monitor.ReaderAdded += Monitor_ReaderAdded;
-            Monitor.ReaderRemoved += Monitor_ReaderRemoved;
-            Monitor.ReaderAddedOnSerial += Monitor_ReaderAddedOnSerial;
-            Monitor.ReaderRemovedOnSerial += Monitor_ReaderRemovedOnSerial;
-            //mReader.MessageReceived += MReader_MessageReceived;
+            //Monitor.ReaderAdded += Monitor_ReaderAdded;
+            //Monitor.ReaderRemoved += Monitor_ReaderRemoved;
+            //Monitor.ReaderAddedOnSerial += Monitor_ReaderAddedOnSerial;
+            //Monitor.ReaderRemovedOnSerial += Monitor_ReaderRemovedOnSerial;
+            mReader.MessageReceived += MReader_MessageReceived;
             Monitor.ComPortsMonitoring = true;
             //mReader.NotifyMode = "ON";
             //mReader.AutoMode = "ON";
@@ -121,9 +121,9 @@ namespace RFID
             //}
 
 
-            textBox1.Text = textBox1.Text + "\r\n" + data;
-            textBox1.Select(textBox1.Text.Length, 0);
-            textBox1.ScrollToCaret();
+            //textBox1.Text = textBox1.Text + "\r\n" + data;
+            //textBox1.Select(textBox1.Text.Length, 0);
+            //textBox1.ScrollToCaret();
         }
 
         public delegate void SetTextDelegate(System.Windows.Forms.TextBox ctrl, string text);
@@ -257,6 +257,16 @@ namespace RFID
 
         private void btnTagList_Click(object sender, EventArgs e)
         {
+            rtrvTagList();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            mReader.Send(txtCommand.Text + "\r\n",false);
+        }
+
+        private void rtrvTagList()
+        {
             if (mReader.ParseTagList(mReader.TagList, out ITagInfo[] tagInfos))
             {
                 int ctr = 0;
@@ -269,11 +279,6 @@ namespace RFID
                 }
                 textBox1.AppendText("Number of tags within list: " + ctr + lineseparator);
             }
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            mReader.Send(txtCommand.Text + "\r\n",false);
         }
 
         private void bwNotifications_DoWork(object sender, DoWorkEventArgs e)

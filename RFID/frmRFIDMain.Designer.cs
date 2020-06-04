@@ -29,7 +29,13 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridView dataGridView1;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.coltagID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colRPS = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDateAdded = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colKown = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.btnTagList = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -48,18 +54,14 @@
             this.tbUnitHistory = new System.Windows.Forms.TabPage();
             this.dgvUnitHistory = new System.Windows.Forms.DataGridView();
             this.txtUnitHistory = new System.Windows.Forms.TextBox();
-            this.btnSettings = new System.Windows.Forms.Button();
             this.tbPrefect = new System.Windows.Forms.TabPage();
-            this.button2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnStartCollection = new System.Windows.Forms.Button();
-            this.coltagID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colRPS = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colDateAdded = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colKown = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnSettings = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             dataGridView1 = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tbNotify.SuspendLayout();
             this.tbTrack.SuspendLayout();
@@ -67,9 +69,68 @@
             this.tbUnitHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUnitHistory)).BeginInit();
             this.tbPrefect.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.AllowUserToDeleteRows = false;
+            dataGridView1.AllowUserToResizeColumns = false;
+            dataGridView1.AllowUserToResizeRows = false;
+            dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.coltagID,
+            this.colCount,
+            this.colRPS,
+            this.colStatus,
+            this.colDateAdded,
+            this.colKown});
+            dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            dataGridView1.Location = new System.Drawing.Point(0, 1);
+            dataGridView1.Name = "dataGridView1";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridView1.RowHeadersVisible = false;
+            dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            dataGridView1.Size = new System.Drawing.Size(885, 339);
+            dataGridView1.TabIndex = 0;
+            // 
+            // coltagID
+            // 
+            this.coltagID.HeaderText = "Tag ID";
+            this.coltagID.Name = "coltagID";
+            // 
+            // colCount
+            // 
+            this.colCount.HeaderText = "Read Count";
+            this.colCount.Name = "colCount";
+            // 
+            // colRPS
+            // 
+            this.colRPS.HeaderText = "RPS";
+            this.colRPS.Name = "colRPS";
+            // 
+            // colStatus
+            // 
+            this.colStatus.HeaderText = "Status";
+            this.colStatus.Name = "colStatus";
+            // 
+            // colDateAdded
+            // 
+            this.colDateAdded.HeaderText = "Added";
+            this.colDateAdded.Name = "colDateAdded";
+            // 
+            // colKown
+            // 
+            this.colKown.HeaderText = "Known?";
+            this.colKown.Name = "colKown";
             // 
             // textBox1
             // 
@@ -263,17 +324,6 @@
             this.txtUnitHistory.TabIndex = 0;
             this.txtUnitHistory.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtUnitHistory_KeyDown);
             // 
-            // btnSettings
-            // 
-            this.btnSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSettings.Location = new System.Drawing.Point(875, 2);
-            this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(18, 26);
-            this.btnSettings.TabIndex = 6;
-            this.btnSettings.Text = "⚙";
-            this.btnSettings.UseVisualStyleBackColor = true;
-            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
-            // 
             // tbPrefect
             // 
             this.tbPrefect.Controls.Add(this.groupBox1);
@@ -285,50 +335,10 @@
             this.tbPrefect.Text = "Prefect";
             this.tbPrefect.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
-            // 
-            dataGridView1.AllowUserToDeleteRows = false;
-            dataGridView1.AllowUserToResizeColumns = false;
-            dataGridView1.AllowUserToResizeRows = false;
-            dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.coltagID,
-            this.colCount,
-            this.colRPS,
-            this.colStatus,
-            this.colDateAdded,
-            this.colKown});
-            dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            dataGridView1.Location = new System.Drawing.Point(0, 1);
-            dataGridView1.Name = "dataGridView1";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridView1.RowHeadersVisible = false;
-            dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            dataGridView1.Size = new System.Drawing.Size(885, 339);
-            dataGridView1.TabIndex = 0;
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(801, 2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(68, 25);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "щ（ﾟДﾟщ）";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.DarkGray;
+            this.groupBox1.Controls.Add(this.button4);
             this.groupBox1.Controls.Add(this.btnStartCollection);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.Navy;
@@ -337,47 +347,49 @@
             this.groupBox1.Size = new System.Drawing.Size(881, 44);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "controls";
+            this.groupBox1.Text = "collection controls";
             // 
             // btnStartCollection
             // 
             this.btnStartCollection.ForeColor = System.Drawing.SystemColors.MenuText;
             this.btnStartCollection.Location = new System.Drawing.Point(6, 15);
             this.btnStartCollection.Name = "btnStartCollection";
-            this.btnStartCollection.Size = new System.Drawing.Size(113, 26);
+            this.btnStartCollection.Size = new System.Drawing.Size(55, 26);
             this.btnStartCollection.TabIndex = 8;
-            this.btnStartCollection.Text = "Start Collection";
+            this.btnStartCollection.Text = "Start";
             this.btnStartCollection.UseVisualStyleBackColor = true;
             // 
-            // coltagID
+            // btnSettings
             // 
-            this.coltagID.HeaderText = "Tag ID";
-            this.coltagID.Name = "coltagID";
+            this.btnSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSettings.Location = new System.Drawing.Point(875, 2);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(18, 26);
+            this.btnSettings.TabIndex = 6;
+            this.btnSettings.Text = "⚙";
+            this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
-            // colCount
+            // button2
             // 
-            this.colCount.HeaderText = "Read Count";
-            this.colCount.Name = "colCount";
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(801, 2);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(68, 28);
+            this.button2.TabIndex = 7;
+            this.button2.Text = "щ（ﾟДﾟщ）";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // colRPS
+            // button4
             // 
-            this.colRPS.HeaderText = "RPS";
-            this.colRPS.Name = "colRPS";
-            // 
-            // colStatus
-            // 
-            this.colStatus.HeaderText = "Status";
-            this.colStatus.Name = "colStatus";
-            // 
-            // colDateAdded
-            // 
-            this.colDateAdded.HeaderText = "Added";
-            this.colDateAdded.Name = "colDateAdded";
-            // 
-            // colKown
-            // 
-            this.colKown.HeaderText = "Known?";
-            this.colKown.Name = "colKown";
+            this.button4.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.button4.Location = new System.Drawing.Point(67, 15);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(53, 26);
+            this.button4.TabIndex = 9;
+            this.button4.Text = "Stop";
+            this.button4.UseVisualStyleBackColor = true;
             // 
             // frmRFIDMain
             // 
@@ -391,6 +403,7 @@
             this.Name = "frmRFIDMain";
             this.Text = "Glix";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(dataGridView1)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tbNotify.ResumeLayout(false);
             this.tbNotify.PerformLayout();
@@ -400,7 +413,6 @@
             this.tbUnitHistory.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUnitHistory)).EndInit();
             this.tbPrefect.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -436,6 +448,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn colDateAdded;
         private System.Windows.Forms.DataGridViewTextBoxColumn colKown;
+        private System.Windows.Forms.Button button4;
     }
 }
 
