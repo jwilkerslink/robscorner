@@ -46,5 +46,29 @@ namespace RFID.Properties {
                 this["TCPPort"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AlienReaderUsername {
+            get {
+                return ((string)(this["AlienReaderUsername"]));
+            }
+            set {
+                this["AlienReaderUsername"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AlienReaderPassword {
+            get {
+                return ((string)(this["AlienReaderPassword"]));
+            }
+            set {
+                this["AlienReaderPassword"] = value;
+            }
+        }
     }
 }
