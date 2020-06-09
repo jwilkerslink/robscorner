@@ -13,12 +13,13 @@ using Microsoft.VisualBasic;
 using System.Security.AccessControl;
 using Microsoft.VisualBasic.Devices;
 using System.Data.SqlClient;
+using RFID.Properties;
 
 namespace RFID
 {
-    public partial class Form1 : Form
+    public partial class frmRFIDMain : Form
     {
-
+        readonly string lineseparator = "\r\n - - - - - - - - - - - -\r\n";
         clsReaderMonitor Monitor = new clsReaderMonitor();
         clsReader mReader = new clsReader();
         const string reasonStr = "Reason: ";
@@ -47,7 +48,7 @@ namespace RFID
         }
 
 
-        public Form1()
+        public frmRFIDMain()
         {
             InitializeComponent();
         }
@@ -74,56 +75,56 @@ namespace RFID
             //Monitor.ReaderRemoved += Monitor_ReaderRemoved;
             //Monitor.ReaderAddedOnSerial += Monitor_ReaderAddedOnSerial;
             //Monitor.ReaderRemovedOnSerial += Monitor_ReaderRemovedOnSerial;
-            ////mReader.MessageReceived += MReader_MessageReceived;
-            //Monitor.ComPortsMonitoring = true;
+            mReader.MessageReceived += MReader_MessageReceived;
+            Monitor.ComPortsMonitoring = true;
             //mReader.NotifyMode = "ON";
             //mReader.AutoMode = "ON";
             //Monitor.CheckComPorts();
             bwConnect.RunWorkerAsync();
         }
 
-        //private void MReader_MessageReceived(string data)
-        //{
-        //    string tl;
-        //    ITagInfo[] tagInfos;
-        //    int start = data.IndexOf("#StopTriggerLines:");
-        //    if (start > 0)
-        //    {
+        private void MReader_MessageReceived(string data)
+        {
+            string tl;
+            ITagInfo[] tagInfos;
+            int start = data.IndexOf("#StopTriggerLines:");
+            if (start > 0)
+            {
 
-        //        start = data.IndexOf("Tag:", start);
-        //        int ennd = data.IndexOf("\r\n#End of Notification Message", start);
+                start = data.IndexOf("Tag:", start);
+                int ennd = data.IndexOf("\r\n#End of Notification Message", start);
 
-        //        tl = data.Substring(start, ennd - start);
+                tl = data.Substring(start, ennd - start);
 
-        //        if (mReader.ParseTagList(tl, out tagInfos))
-        //        {
-        //            foreach (ITagInfo tag in tagInfos)
-        //            {
-        //                textBox1.Text = textBox1.Text + "\r\n TagID:" + tag.TagID + "\r\n Read Count:" + tag.ReadCount + "\r\n Last Seen:" + tag.LastSeenTime;
-        //                textBox1.Select(textBox1.Text.Length, 0);
-        //                textBox1.ScrollToCaret();
-        //            }
-        //        }
+                if (mReader.ParseTagList(tl, out tagInfos))
+                {
+                    foreach (ITagInfo tag in tagInfos)
+                    {
+                        textBox1.Text = textBox1.Text + "\r\n TagID:" + tag.TagID + "\r\n Read Count:" + tag.ReadCount + "\r\n Last Seen:" + tag.LastSeenTime;
+                        textBox1.Select(textBox1.Text.Length, 0);
+                        textBox1.ScrollToCaret();
+                    }
+                }
 
-        //    }
+            }
 
-        //    SetText(textBox1, data);
+            SetText(textBox1, data);
 
 
-        //    //ITagInfo[] tagInfos;
-        //    //if (mReader.ParseTagList(data, out tagInfos))
-        //    //{
-        //    //    foreach (ITagInfo tag in tagInfos)
-        //    //    {
-        //    //        SetText(textBox1, data);
-        //    //    }
-        //    //}
+            //ITagInfo[] tagInfos;
+            //if (mReader.ParseTagList(data, out tagInfos))
+            //{
+            //    foreach (ITagInfo tag in tagInfos)
+            //    {
+            //        SetText(textBox1, data);
+            //    }
+            //}
 
-            
-        //    //textBox1.Text = textBox1.Text + "\r\n" + data;
-        //    //textBox1.Select(textBox1.Text.Length, 0);
-        //    //textBox1.ScrollToCaret();
-        //}
+
+            //textBox1.Text = textBox1.Text + "\r\n" + data;
+            //textBox1.Select(textBox1.Text.Length, 0);
+            //textBox1.ScrollToCaret();
+        }
 
         public delegate void SetTextDelegate(System.Windows.Forms.TextBox ctrl, string text);
 
@@ -219,64 +220,65 @@ namespace RFID
 
             dgvUnitHistory.DataSource = GetHistory(txtUnitHistory.Text);
             dgvUnitHistory.Columns[0].FillWeight = 25;
-            //dgvUnitHistory.Rows.Clear();
+            dgvUnitHistory.Rows.Clear();
 
-            //DataTable dt = new DataTable();
-            //foreach (DataGridViewColumn col in dgvTracker.Columns)
-            //{
-            //    dt.Columns.Add(col.Name);
-            //}
+            DataTable dt = new DataTable();
+            foreach (DataGridViewColumn col in dgvTracker.Columns)
+            {
+                dt.Columns.Add(col.Name);
+            }
 
-            //foreach (DataGridViewRow row in dgvTracker.Rows)
-            //{
-            //    DataRow dRow = dt.NewRow();
-            //    foreach (DataGridViewCell cell in row.Cells)
-            //    {
-            //        dRow[cell.ColumnIndex] = cell.Value;
-            //    }
-            //    dt.Rows.Add(dRow);
-            //}
+            foreach (DataGridViewRow row in dgvTracker.Rows)
+            {
+                DataRow dRow = dt.NewRow();
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    dRow[cell.ColumnIndex] = cell.Value;
+                }
+                dt.Rows.Add(dRow);
+            }
 
-            //DataRow[] result = dt.Select($"TagID = '{txtUnitHistory.Text}'","Time Desc");
+            DataRow[] result = dt.Select($"TagID = '{txtUnitHistory.Text}'", "Time Desc");
 
-            //dt = new DataTable();
+            dt = new DataTable();
 
-            //foreach (DataRow row in result)
-            //{
-            //    AddRow(dgvUnitHistory, row[0].ToString(), row[1].ToString(), row[2].ToString(), DateTime.Parse(row[3].ToString()));
-               
-            //}
+            foreach (DataRow row in result)
+            {
+                AddRow(dgvUnitHistory, row[0].ToString(), row[1].ToString(), row[2].ToString(), DateTime.Parse(row[3].ToString()));
 
-            //dgvUnitHistory.DataSource = dt;
-            //String stemp;
-            //mReader.InitOnCom(3);// ‘Initialize reader object on COM1
-            //stemp = mReader.Connect();
-            //textBox1.Text = textBox1.Text + "\r\n" + stemp;
+            }
+
+            dgvUnitHistory.DataSource = dt;
+            String stemp;
+            mReader.InitOnCom(3);// ‘Initialize reader object on COM1
+            stemp = mReader.Connect();
+            textBox1.Text = textBox1.Text + "\r\n" + stemp;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnTagList_Click(object sender, EventArgs e)
         {
-
-            if (mReader.ParseTagList(mReader.TagList, out ITagInfo[] tagInfos))
-            {
-                foreach (ITagInfo tag in tagInfos)
-                {
-                    textBox1.Text = textBox1.Text + "TagID:" + tag.TagID + "\r\n Read Count:" + tag.ReadCount + "\r\n Last Seen:" + tag.LastSeenTime + "\r\n";
-                    textBox1.Select(textBox1.Text.Length, 0);
-                    textBox1.ScrollToCaret();
-                }
-            }
-                
-
+            rtrvTagList();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-
-            
-
             mReader.Send(txtCommand.Text + "\r\n",false);
+        }
 
+        private void rtrvTagList()
+        {
+            if (mReader.ParseTagList(mReader.TagList, out ITagInfo[] tagInfos))
+            {
+                int ctr = 0;
+                foreach (ITagInfo tag in tagInfos)
+                {
+                    textBox1.AppendText("TagID:" + tag.TagID + "\r\n Read Count:" + tag.ReadCount + "\r\n Last Seen:" + tag.LastSeenTime + lineseparator);
+                    textBox1.Select(textBox1.Text.Length, 0);
+                    textBox1.ScrollToCaret();
+                    ctr++;
+                }
+                textBox1.AppendText("Number of tags within list: " + ctr + lineseparator);
+            }
         }
 
         private void bwNotifications_DoWork(object sender, DoWorkEventArgs e)
@@ -339,10 +341,9 @@ namespace RFID
 
         private void bwConnect_DoWork(object sender, DoWorkEventArgs e)
         {
-            mReader.InitOnCom(3);// ‘Initialize reader object on COM1
-            //mReader.InitOnNetwork("192.168.1.100", 23);
+            mReader.InitOnNetwork(Settings.Default.ReaderIP, Convert.ToInt32(Settings.Default.TCPPort));
             e.Result = mReader.Connect();
-
+            //Initialize network connection to reader using application settings
         }
 
         private void bwConnect_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -351,9 +352,13 @@ namespace RFID
 
             stemp = e.Result.ToString();
             textBox1.Text = textBox1.Text + "\r\n" + stemp + "\r\n";
+            mReader.Login(Settings.Default.AlienReaderUsername, Settings.Default.AlienReaderPassword);
 
             if (stemp == "Connected")
             {
+                if (mReader.DateTime != DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"))
+                { mReader.DateTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"); }
+
                 mReader.NotifyMode = "ON";
                 mReader.AutoMode = "ON";
                 bwNotifications.RunWorkerAsync();
@@ -377,11 +382,22 @@ namespace RFID
 
         private void txtUnitHistory_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                dgvUnitHistory.DataSource = GetHistory(txtUnitHistory.Text);
-                dgvUnitHistory.Columns[0].FillWeight = 50;
-            }
+        //    if (e.KeyCode == Keys.Enter)
+        //    {
+        //        dgvUnitHistory.DataSource = GetHistory(txtUnitHistory.Text);
+        //        dgvUnitHistory.Columns[0].FillWeight = 50;
+        //    }
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            frmSettingsPane currSettings = new frmSettingsPane();
+            currSettings.ShowDialog();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Dear god, WHY?!?!?");
         }
     }
 }
