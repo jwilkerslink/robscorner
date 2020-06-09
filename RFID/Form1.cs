@@ -339,8 +339,8 @@ namespace RFID
 
         private void bwConnect_DoWork(object sender, DoWorkEventArgs e)
         {
-            mReader.InitOnCom(3);// ‘Initialize reader object on COM1
-            //mReader.InitOnNetwork("192.168.1.100", 23);
+            //mReader.InitOnCom(3);// ‘Initialize reader object on COM1
+            mReader.InitOnNetwork("172.27.30.24", 23);
             e.Result = mReader.Connect();
 
         }
@@ -351,6 +351,7 @@ namespace RFID
 
             stemp = e.Result.ToString();
             textBox1.Text = textBox1.Text + "\r\n" + stemp + "\r\n";
+            mReader.Login("alien", "password");
 
             if (stemp == "Connected")
             {
