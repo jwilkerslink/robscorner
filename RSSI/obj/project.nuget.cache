@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "wSBRgkQcUco9jCxGoFIMh0RTVcIaaHqLHS6QpRb3OnuZQpsUP9i6AYG7XE7oI6IEPGsSvwSxzs6tcIpjbSdUPQ==",
+  "dgSpecHash": "rl9ZkdJRGRcZvO/hPhRi7ntlwCepiy9pVmE6Xny3iTUPrBmz3Wk08cSQ3cp/60ejBI79Hd+qaHr0KcLIE3oZnw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\rveloz\\source\\repos\\rveloz9192\\robscorner\\RSSI\\RSSI.csproj",
+  "projectFilePath": "C:\\Users\\jwilkerson\\source\\repos\\rveloz9192\\robscorner\\RSSI\\RSSI.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\rveloz\\.nuget\\packages\\htmlagilitypack\\1.11.12\\htmlagilitypack.1.11.12.nupkg.sha512",
-    "C:\\Users\\rveloz\\.nuget\\packages\\microsoft.office.interop.excel\\15.0.4795.1000\\microsoft.office.interop.excel.15.0.4795.1000.nupkg.sha512"
+    "C:\\Users\\jwilkerson\\.nuget\\packages\\htmlagilitypack\\1.11.12\\htmlagilitypack.1.11.12.nupkg.sha512",
+    "C:\\Users\\jwilkerson\\.nuget\\packages\\microsoft.office.interop.excel\\15.0.4795.1000\\microsoft.office.interop.excel.15.0.4795.1000.nupkg.sha512"
   ],
   "logs": []
 }

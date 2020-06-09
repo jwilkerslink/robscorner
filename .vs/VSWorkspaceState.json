@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Engraver.TAD.ADM"
+    "\\RFID2\\bin",
+    "\\RFID2\\obj",
+    "\\RFID2\\obj\\Debug"
   ],
-  "SelectedNode": "\\Engraver.TAD.ADM\\HOME.cs",
+  "SelectedNode": "\\RFID",
   "PreviewInSolutionExplorer": false
 }
