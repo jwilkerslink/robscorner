@@ -9,10 +9,13 @@ namespace RFID
 {
     public partial class frmSettingsPane : Form
     {
+        private frmRFIDMain _RFIDMain;
+
         rfidSetting settings = new rfidSetting();
-        public frmSettingsPane()
+        public frmSettingsPane(frmRFIDMain RFIDMain)
         {
             InitializeComponent();
+            _RFIDMain = RFIDMain;
         }
         class rfidSetting
         {
@@ -69,6 +72,7 @@ namespace RFID
             using (StreamReader file = new StreamReader(".\\LocalDB\\logs\\currPipe.txt"))
             {
                 lblPipe.Text = file.ReadLine();
+                _RFIDMain.con.changeCon(lblPipe.Text);
             }
         }
     }

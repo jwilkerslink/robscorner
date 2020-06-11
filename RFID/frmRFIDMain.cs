@@ -20,12 +20,35 @@ namespace RFID
 {
     public partial class frmRFIDMain : Form
     {
-        readonly string lineseparator = "\r\n - - - - - - - - - - - -\r\n";
+
+        public Connection con = new Connection();
         clsReaderMonitor Monitor = new clsReaderMonitor();
         clsReader mReader = new clsReader();
+
         const string reasonStr = "Reason: ";
-        public static string connString = "Data Source=172.21.4.30;Initial Catalog=DEV_MfgTraveler;Persist Security Info=True;User ID=Travelmfg;Password=travelmfg@1";
-        public SqlConnection con = new SqlConnection(connString);
+        readonly string lineseparator = "\r\n - - - - - - - - - - - -\r\n";
+
+        //public static string connString = "Data Source=172.21.4.30;Initial Catalog=DEV_MfgTraveler;Persist Security Info=True;User ID=Travelmfg;Password=travelmfg@1";
+
+        public frmRFIDMain()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+            mReader.MessageReceived += MReader_MessageReceived;
+            Monitor.ComPortsMonitoring = true;
+            bwConnect.RunWorkerAsync();
+            //mReader.NotifyMode = "ON";
+            //mReader.AutoMode = "ON";
+            //Monitor.CheckComPorts();
+            //Monitor.ReaderAdded += Monitor_ReaderAdded;
+            //Monitor.ReaderRemoved += Monitor_ReaderRemoved;
+            //Monitor.ReaderAddedOnSerial += Monitor_ReaderAddedOnSerial;
+            //Monitor.ReaderRemovedOnSerial += Monitor_ReaderRemovedOnSerial;
+        }
 
         public delegate void AddRowDelegate(System.Windows.Forms.DataGridView ctrl, string location, string tagID, string evnt, DateTime dateTime);
         public static void AddRow(System.Windows.Forms.DataGridView ctrl, string tagID,string location, string evnt, DateTime dateTime)
@@ -48,12 +71,6 @@ namespace RFID
 
         }
 
-
-        public frmRFIDMain()
-        {
-            InitializeComponent();
-        }
-
         private void Monitor_ReaderRemoved(IReaderInfo data)
         {
             textBox1.Text = textBox1.Text + "\r\n Reader " + data.Name + " has been Removed. IP: " + data.IPAddress;
@@ -68,21 +85,6 @@ namespace RFID
             textBox1.Text = textBox1.Text + "\r\n Reader " + data.Name + " has been Added. IP: " + data.IPAddress;
 
             //throw new NotImplementedException();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-            mReader.MessageReceived += MReader_MessageReceived;
-            Monitor.ComPortsMonitoring = true;
-            bwConnect.RunWorkerAsync();
-            //mReader.NotifyMode = "ON";
-            //mReader.AutoMode = "ON";
-            //Monitor.CheckComPorts();
-            //Monitor.ReaderAdded += Monitor_ReaderAdded;
-            //Monitor.ReaderRemoved += Monitor_ReaderRemoved;
-            //Monitor.ReaderAddedOnSerial += Monitor_ReaderAddedOnSerial;
-            //Monitor.ReaderRemovedOnSerial += Monitor_ReaderRemovedOnSerial;
         }
 
         private void MReader_MessageReceived(string data)
@@ -172,7 +174,7 @@ namespace RFID
                                                     Where 
                                                         TagID = @TID
                                                     Order By
-                                                        DateTime Desc", con);
+                                                        DateTime Desc", con.nection);
             sqlCommand.Parameters.AddWithValue("@TID", tagID);
             SqlDataAdapter da = new SqlDataAdapter(sqlCommand);
             DataTable dt = new DataTable();
@@ -188,14 +190,14 @@ namespace RFID
             SqlCommand InsertIntoRFIDTracker = new SqlCommand($@"Insert Into
                                                                     RFIDTracker
                                                                 Values
-                                                                    (@TID, @loc, @evnt, @DT)", con);
+                                                                    (@TID, @loc, @evnt, @DT)", con.nection);
             InsertIntoRFIDTracker.Parameters.AddWithValue("@TID", tagID);
             InsertIntoRFIDTracker.Parameters.AddWithValue("@loc", location);
             InsertIntoRFIDTracker.Parameters.AddWithValue("@evnt", evnt);
             InsertIntoRFIDTracker.Parameters.AddWithValue("@DT", dateTime);
-            con.Open();
+            con.nection.Open();
             InsertIntoRFIDTracker.ExecuteNonQuery();
-            con.Close();
+            con.nection.Close();
         }
 
         private void Monitor_ReaderRemovedOnSerial(IReaderInfo data)
@@ -393,7 +395,7 @@ namespace RFID
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            frmSettingsPane currSettings = new frmSettingsPane();
+            frmSettingsPane currSettings = new frmSettingsPane(this);
             currSettings.ShowDialog();
         }
 
