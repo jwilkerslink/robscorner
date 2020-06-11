@@ -1,13 +1,9 @@
-﻿using RFID.Properties;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using System.IO;
 using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Diagnostics;
+using RFID.Properties;
 
 namespace RFID
 {
@@ -30,12 +26,13 @@ namespace RFID
             {
                 return init;
             }
-            public void save(string i, decimal p, string u, string c)
+            public void save(string i, decimal p, string u, string c, bool s)
             {
                 Settings.Default.ReaderIP = i;
                 Settings.Default.TCPPort = p;
                 Settings.Default.AlienReaderUsername = u;
                 Settings.Default.AlienReaderPassword = c;
+                Settings.Default.OpenSSMSOnRun = s;
                 Settings.Default.Save();
                 //System.Windows.Forms.Application.ExitThread();
             }
@@ -50,11 +47,29 @@ namespace RFID
             nudPort.Value = Settings.Default.TCPPort;
             txtUser.Text = Settings.Default.AlienReaderUsername;
             txtPass.Text = Settings.Default.AlienReaderPassword;
+            chkRunSSMS.Checked = Settings.Default.OpenSSMSOnRun;
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
-            settings.save(txtIP.Text, nudPort.Value, txtUser.Text, txtPass.Text);
+            settings.save(txtIP.Text, nudPort.Value, txtUser.Text, txtPass.Text, chkRunSSMS.Checked);
             this.Close();
+        }
+        private void btnConnectDB_Click(object sender, EventArgs e)
+        {
+            using (Process currP = new Process())
+            {
+                currP.StartInfo.FileName = ".\\LocalDB\\projLocalDB.exe";
+
+                if (Settings.Default.OpenSSMSOnRun == true)
+                { currP.StartInfo.Arguments = "-s"; }
+
+                currP.Start();
+            }
+
+            using (StreamReader file = new StreamReader(".\\LocalDB\\logs\\currPipe.txt"))
+            {
+                lblPipe.Text = file.ReadLine();
+            }
         }
     }
 }

@@ -1,0 +1,1 @@
+ssms.lnk -E -S

@@ -1,0 +1,336 @@
+
+
+X:\JohnW\publish>sqllocaldb.exe start LocalDB1 
+LocalDB instance "Localdb1" started.
+
+X:\JohnW\publish>sqllocaldb.exe info LocalDB1 
+Name:               Localdb1
+Version:            11.0.7001.0
+Shared name:        
+Owner:              BI\jwilkerson
+Auto-create:        No
+State:              Running
+Last start time:    6/9/2020 7:19:06 PM
+Instance pipe name: np:\\.\pipe\LOCALDB#4A5C91F9\tsql\query
+- - - - - - - - -
+
+
+
+X:\JohnW\publish>sqllocaldb.exe start LocalDB1 
+LocalDB instance "Localdb1" started.
+
+X:\JohnW\publish>sqllocaldb.exe info LocalDB1 
+Name:               Localdb1
+Version:            11.0.7001.0
+Shared name:        
+Owner:              BI\jwilkerson
+Auto-create:        No
+State:              Running
+Last start time:    6/9/2020 7:29:30 PM
+Instance pipe name: np:\\.\pipe\LOCALDB#50E2BF58\tsql\query
+- - - - - - - - -
+
+
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe start LocalDB1 
+LocalDB instance "Localdb1" started.
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe info LocalDB1 
+Name:               Localdb1
+Version:            11.0.7001.0
+Shared name:        
+Owner:              BI\jwilkerson
+Auto-create:        No
+State:              Running
+Last start time:    6/10/2020 11:59:40 AM
+Instance pipe name: np:\\.\pipe\LOCALDB#26A04450\tsql\query
+- - - - - - - - -
+
+
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe start LocalDB1 
+LocalDB instance "Localdb1" started.
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe info LocalDB1 
+Name:               Localdb1
+Version:            11.0.7001.0
+Shared name:        
+Owner:              BI\jwilkerson
+Auto-create:        No
+State:              Running
+Last start time:    6/10/2020 12:50:44 PM
+Instance pipe name: np:\\.\pipe\LOCALDB#9B25E968\tsql\query
+- - - - - - - - -
+
+
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe start LocalDB1 
+LocalDB instance "Localdb1" started.
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe info LocalDB1 
+Name:               Localdb1
+Version:            11.0.7001.0
+Shared name:        
+Owner:              BI\jwilkerson
+Auto-create:        No
+State:              Running
+Last start time:    6/10/2020 1:07:46 PM
+Instance pipe name: np:\\.\pipe\LOCALDB#19009F3F\tsql\query
+- - - - - - - - -
+
+
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe start LocalDB1 
+LocalDB instance "Localdb1" started.
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe info LocalDB1 
+Name:               Localdb1
+Version:            11.0.7001.0
+Shared name:        
+Owner:              BI\jwilkerson
+Auto-create:        No
+State:              Running
+Last start time:    6/10/2020 1:09:35 PM
+Instance pipe name: np:\\.\pipe\LOCALDB#F37D7FFA\tsql\query
+- - - - - - - - -
+
+
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe start LocalDB1 
+LocalDB instance "Localdb1" started.
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe info LocalDB1 
+Name:               Localdb1
+Version:            11.0.7001.0
+Shared name:        
+Owner:              BI\jwilkerson
+Auto-create:        No
+State:              Running
+Last start time:    6/10/2020 1:14:17 PM
+Instance pipe name: np:\\.\pipe\LOCALDB#36C97084\tsql\query
+- - - - - - - - -
+
+
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe start LocalDB1 
+LocalDB instance "Localdb1" started.
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe info LocalDB1 
+Name:               Localdb1
+Version:            11.0.7001.0
+Shared name:        
+Owner:              BI\jwilkerson
+Auto-create:        No
+State:              Running
+Last start time:    6/10/2020 1:17:38 PM
+Instance pipe name: np:\\.\pipe\LOCALDB#1594D477\tsql\query
+- - - - - - - - -
+
+
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe start LocalDB1 
+LocalDB instance "Localdb1" started.
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe info LocalDB1 
+Name:               Localdb1
+Version:            11.0.7001.0
+Shared name:        
+Owner:              BI\jwilkerson
+Auto-create:        No
+State:              Running
+Last start time:    6/10/2020 1:18:38 PM
+Instance pipe name: np:\\.\pipe\LOCALDB#45E3F44C\tsql\query
+- - - - - - - - -
+
+
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe start LocalDB1 
+LocalDB instance "Localdb1" started.
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe info LocalDB1 
+Name:               Localdb1
+Version:            11.0.7001.0
+Shared name:        
+Owner:              BI\jwilkerson
+Auto-create:        No
+State:              Running
+Last start time:    6/10/2020 1:23:14 PM
+Instance pipe name: np:\\.\pipe\LOCALDB#1B18DDCD\tsql\query
+- - - - - - - - -
+
+
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe start LocalDB1 
+LocalDB instance "Localdb1" started.
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe info LocalDB1 
+Name:               Localdb1
+Version:            11.0.7001.0
+Shared name:        
+Owner:              BI\jwilkerson
+Auto-create:        No
+State:              Running
+Last start time:    6/10/2020 1:24:22 PM
+Instance pipe name: np:\\.\pipe\LOCALDB#DAEEDFED\tsql\query
+- - - - - - - - -
+
+
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe start LocalDB1 
+LocalDB instance "Localdb1" started.
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe info LocalDB1 
+Name:               Localdb1
+Version:            11.0.7001.0
+Shared name:        
+Owner:              BI\jwilkerson
+Auto-create:        No
+State:              Running
+Last start time:    6/10/2020 1:29:28 PM
+Instance pipe name: np:\\.\pipe\LOCALDB#ED35E263\tsql\query
+- - - - - - - - -
+
+
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe start LocalDB1 
+LocalDB instance "Localdb1" started.
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe info LocalDB1 
+Name:               Localdb1
+Version:            11.0.7001.0
+Shared name:        
+Owner:              BI\jwilkerson
+Auto-create:        No
+State:              Running
+Last start time:    6/10/2020 2:24:49 PM
+Instance pipe name: np:\\.\pipe\LOCALDB#BD5264F8\tsql\query
+- - - - - - - - -
+
+
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe start LocalDB1 
+LocalDB instance "Localdb1" started.
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe info LocalDB1 
+Name:               Localdb1
+Version:            11.0.7001.0
+Shared name:        
+Owner:              BI\jwilkerson
+Auto-create:        No
+State:              Running
+Last start time:    6/10/2020 3:23:59 PM
+Instance pipe name: np:\\.\pipe\LOCALDB#F3E10F0E\tsql\query
+- - - - - - - - -
+
+
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe start LocalDB1 
+LocalDB instance "Localdb1" started.
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe info LocalDB1 
+Name:               Localdb1
+Version:            11.0.7001.0
+Shared name:        
+Owner:              BI\jwilkerson
+Auto-create:        No
+State:              Running
+Last start time:    6/10/2020 3:23:59 PM
+Instance pipe name: np:\\.\pipe\LOCALDB#F3E10F0E\tsql\query
+- - - - - - - - -
+
+
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe start LocalDB1 
+LocalDB instance "Localdb1" started.
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe info LocalDB1 
+Name:               Localdb1
+Version:            11.0.7001.0
+Shared name:        
+Owner:              BI\jwilkerson
+Auto-create:        No
+State:              Running
+Last start time:    6/10/2020 3:26:23 PM
+Instance pipe name: np:\\.\pipe\LOCALDB#BF28421F\tsql\query
+- - - - - - - - -
+
+
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe start LocalDB1 
+LocalDB instance "Localdb1" started.
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe info LocalDB1 
+Name:               Localdb1
+Version:            11.0.7001.0
+Shared name:        
+Owner:              BI\jwilkerson
+Auto-create:        No
+State:              Running
+Last start time:    6/10/2020 3:26:58 PM
+Instance pipe name: np:\\.\pipe\LOCALDB#5838EC87\tsql\query
+- - - - - - - - -
+
+
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe start LocalDB1 
+LocalDB instance "Localdb1" started.
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe info LocalDB1 
+Name:               Localdb1
+Version:            11.0.7001.0
+Shared name:        
+Owner:              BI\jwilkerson
+Auto-create:        No
+State:              Running
+Last start time:    6/10/2020 5:21:33 PM
+Instance pipe name: np:\\.\pipe\LOCALDB#13E75024\tsql\query
+- - - - - - - - -
+
+
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe start LocalDB1 
+LocalDB instance "Localdb1" started.
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe info LocalDB1 
+Name:               Localdb1
+Version:            11.0.7001.0
+Shared name:        
+Owner:              BI\jwilkerson
+Auto-create:        No
+State:              Running
+Last start time:    6/10/2020 5:24:23 PM
+Instance pipe name: np:\\.\pipe\LOCALDB#F455738B\tsql\query
+- - - - - - - - -
+
+
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe start LocalDB1 
+LocalDB instance "Localdb1" started.
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe info LocalDB1 
+Name:               Localdb1
+Version:            11.0.7001.0
+Shared name:        
+Owner:              BI\jwilkerson
+Auto-create:        No
+State:              Running
+Last start time:    6/10/2020 5:28:30 PM
+Instance pipe name: np:\\.\pipe\LOCALDB#BAEA9CCC\tsql\query
+- - - - - - - - -
+
+
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe start LocalDB1 
+LocalDB instance "Localdb1" started.
+
+X:\JohnW\publish\LocalDB>sqllocaldb.exe info LocalDB1 
+Name:               Localdb1
+Version:            11.0.7001.0
+Shared name:        
+Owner:              BI\jwilkerson
+Auto-create:        No
+State:              Running
+Last start time:    6/10/2020 5:28:30 PM
+Instance pipe name: np:\\.\pipe\LOCALDB#BAEA9CCC\tsql\query
+- - - - - - - - -
+

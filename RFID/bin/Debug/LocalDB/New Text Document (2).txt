@@ -1,0 +1,6 @@
+
+
+"C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\ssms.exe" -E -S np:\\.\pipe\LOCALDB#1005163F\tsql\query
+
+
+in receiving, reason codes when the program SRO

@@ -37,11 +37,17 @@
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtUser = new System.Windows.Forms.TextBox();
             this.txtPass = new System.Windows.Forms.TextBox();
+            this.txtUser = new System.Windows.Forms.TextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.chkRunSSMS = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lblPipe = new System.Windows.Forms.Label();
+            this.btnConnectDB = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudPort)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtIP
@@ -71,7 +77,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(13, 140);
+            this.btnSave.Location = new System.Drawing.Point(12, 203);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(201, 20);
             this.btnSave.TabIndex = 5;
@@ -130,13 +136,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Reader Credentials";
             // 
-            // txtUser
-            // 
-            this.txtUser.Location = new System.Drawing.Point(81, 13);
-            this.txtUser.Name = "txtUser";
-            this.txtUser.Size = new System.Drawing.Size(110, 20);
-            this.txtUser.TabIndex = 11;
-            // 
             // txtPass
             // 
             this.txtPass.Location = new System.Drawing.Point(81, 37);
@@ -144,11 +143,70 @@
             this.txtPass.Size = new System.Drawing.Size(110, 20);
             this.txtPass.TabIndex = 12;
             // 
+            // txtUser
+            // 
+            this.txtUser.Location = new System.Drawing.Point(81, 13);
+            this.txtUser.Name = "txtUser";
+            this.txtUser.Size = new System.Drawing.Size(110, 20);
+            this.txtUser.TabIndex = 11;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.chkRunSSMS);
+            this.groupBox3.Controls.Add(this.label6);
+            this.groupBox3.Controls.Add(this.lblPipe);
+            this.groupBox3.Controls.Add(this.btnConnectDB);
+            this.groupBox3.Location = new System.Drawing.Point(16, 138);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(197, 59);
+            this.groupBox3.TabIndex = 11;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "LocalDB";
+            // 
+            // chkRunSSMS
+            // 
+            this.chkRunSSMS.AutoSize = true;
+            this.chkRunSSMS.Location = new System.Drawing.Point(89, 39);
+            this.chkRunSSMS.Name = "chkRunSSMS";
+            this.chkRunSSMS.Size = new System.Drawing.Size(74, 17);
+            this.chkRunSSMS.TabIndex = 3;
+            this.chkRunSSMS.Text = "run SSMS";
+            this.chkRunSSMS.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(86, 19);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(30, 13);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "pipe:";
+            // 
+            // lblPipe
+            // 
+            this.lblPipe.AutoSize = true;
+            this.lblPipe.Location = new System.Drawing.Point(116, 19);
+            this.lblPipe.Name = "lblPipe";
+            this.lblPipe.Size = new System.Drawing.Size(39, 13);
+            this.lblPipe.TabIndex = 1;
+            this.lblPipe.Text = "not set";
+            // 
+            // btnConnectDB
+            // 
+            this.btnConnectDB.Location = new System.Drawing.Point(6, 19);
+            this.btnConnectDB.Name = "btnConnectDB";
+            this.btnConnectDB.Size = new System.Drawing.Size(63, 34);
+            this.btnConnectDB.TabIndex = 0;
+            this.btnConnectDB.Text = "Connect";
+            this.btnConnectDB.UseVisualStyleBackColor = true;
+            this.btnConnectDB.Click += new System.EventHandler(this.btnConnectDB_Click);
+            // 
             // frmSettingsPane
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(223, 165);
+            this.ClientSize = new System.Drawing.Size(223, 235);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnSave);
@@ -162,6 +220,8 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -179,5 +239,10 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox txtPass;
         private System.Windows.Forms.TextBox txtUser;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.CheckBox chkRunSSMS;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblPipe;
+        private System.Windows.Forms.Button btnConnectDB;
     }
 }

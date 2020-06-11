@@ -14,6 +14,7 @@ using System.Security.AccessControl;
 using Microsoft.VisualBasic.Devices;
 using System.Data.SqlClient;
 using RFID.Properties;
+using System.Diagnostics;
 
 namespace RFID
 {
@@ -71,16 +72,17 @@ namespace RFID
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
+            mReader.MessageReceived += MReader_MessageReceived;
+            Monitor.ComPortsMonitoring = true;
+            bwConnect.RunWorkerAsync();
+            //mReader.NotifyMode = "ON";
+            //mReader.AutoMode = "ON";
+            //Monitor.CheckComPorts();
             //Monitor.ReaderAdded += Monitor_ReaderAdded;
             //Monitor.ReaderRemoved += Monitor_ReaderRemoved;
             //Monitor.ReaderAddedOnSerial += Monitor_ReaderAddedOnSerial;
             //Monitor.ReaderRemovedOnSerial += Monitor_ReaderRemovedOnSerial;
-            mReader.MessageReceived += MReader_MessageReceived;
-            Monitor.ComPortsMonitoring = true;
-            //mReader.NotifyMode = "ON";
-            //mReader.AutoMode = "ON";
-            //Monitor.CheckComPorts();
-            bwConnect.RunWorkerAsync();
         }
 
         private void MReader_MessageReceived(string data)
