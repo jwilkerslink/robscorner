@@ -61,12 +61,13 @@ namespace RFID
         {
             using (Process currP = new Process())
             {
-                currP.StartInfo.FileName = ".\\LocalDB\\projLocalDB.exe";
+                currP.StartInfo.FileName = ".\\LocalDB\\setupDB.exe";
 
                 if (Settings.Default.OpenSSMSOnRun == true)
                 { currP.StartInfo.Arguments = "-s"; }
 
                 currP.Start();
+                currP.WaitForExit();
             }
 
             using (StreamReader file = new StreamReader(".\\LocalDB\\logs\\currPipe.txt"))
