@@ -334,3 +334,19 @@ Last start time:    6/10/2020 5:28:30 PM
 Instance pipe name: np:\\.\pipe\LOCALDB#BAEA9CCC\tsql\query
 - - - - - - - - -
 
+
+
+C:\Users\jwilkerson\source\repos\rveloz9192\robscorner\RFID\bin\Debug>sqllocaldb.exe start LocalDB1 
+LocalDB instance "Localdb1" started.
+
+C:\Users\jwilkerson\source\repos\rveloz9192\robscorner\RFID\bin\Debug>sqllocaldb.exe info LocalDB1 
+Name:               Localdb1
+Version:            11.0.7001.0
+Shared name:        
+Owner:              BI\jwilkerson
+Auto-create:        No
+State:              Running
+Last start time:    6/10/2020 7:39:20 PM
+Instance pipe name: np:\\.\pipe\LOCALDB#4AC1D833\tsql\query
+- - - - - - - - -
+
