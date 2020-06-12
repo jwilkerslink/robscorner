@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridView dataGridView1;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.coltagID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colRPS = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,10 +56,11 @@
             this.txtUnitHistory = new System.Windows.Forms.TextBox();
             this.tbPrefect = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
             this.btnStartCollection = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.bwListen = new System.ComponentModel.BackgroundWorker();
             dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -89,14 +90,14 @@
             dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             dataGridView1.Location = new System.Drawing.Point(0, 1);
             dataGridView1.Name = "dataGridView1";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             dataGridView1.Size = new System.Drawing.Size(885, 339);
@@ -349,6 +350,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "collection controls";
             // 
+            // button4
+            // 
+            this.button4.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.button4.Location = new System.Drawing.Point(67, 15);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(53, 26);
+            this.button4.TabIndex = 9;
+            this.button4.Text = "Stop";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
             // btnStartCollection
             // 
             this.btnStartCollection.ForeColor = System.Drawing.SystemColors.MenuText;
@@ -364,7 +375,7 @@
             this.btnSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSettings.Location = new System.Drawing.Point(875, 2);
             this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(18, 26);
+            this.btnSettings.Size = new System.Drawing.Size(18, 28);
             this.btnSettings.TabIndex = 6;
             this.btnSettings.Text = "⚙";
             this.btnSettings.UseVisualStyleBackColor = true;
@@ -381,15 +392,10 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button4
+            // bwListen
             // 
-            this.button4.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.button4.Location = new System.Drawing.Point(67, 15);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(53, 26);
-            this.button4.TabIndex = 9;
-            this.button4.Text = "Stop";
-            this.button4.UseVisualStyleBackColor = true;
+            this.bwListen.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwListen_DoWork);
+            this.bwListen.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwListen_RunWorkerCompleted);
             // 
             // frmRFIDMain
             // 
@@ -449,6 +455,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colDateAdded;
         private System.Windows.Forms.DataGridViewTextBoxColumn colKown;
         private System.Windows.Forms.Button button4;
+        private System.ComponentModel.BackgroundWorker bwListen;
     }
 }
 

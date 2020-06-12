@@ -15,6 +15,8 @@ using Microsoft.VisualBasic.Devices;
 using System.Data.SqlClient;
 using RFID.Properties;
 using System.Diagnostics;
+using System.Net.Sockets;
+using System.Net;
 
 namespace RFID
 {
@@ -30,6 +32,11 @@ namespace RFID
 
         //public static string connString = "Data Source=172.21.4.30;Initial Catalog=DEV_MfgTraveler;Persist Security Info=True;User ID=Travelmfg;Password=travelmfg@1";
 
+        //IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
+        //IPAddress ipAddress;
+        //IPEndPoint localEndPoint;
+        //Socket listener;
+
         public frmRFIDMain()
         {
             InitializeComponent();
@@ -37,10 +44,23 @@ namespace RFID
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
             mReader.MessageReceived += MReader_MessageReceived;
             Monitor.ComPortsMonitoring = true;
             bwConnect.RunWorkerAsync();
+
+            //IPAddress ipAddress = ipHostInfo.AddressList[0];
+
+            //MessageBox.Show(Dns.GetHostName());
+
+            //IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
+
+            //Socket listener = new Socket(ipAddress.AddressFamily,
+            //SocketType.Stream, ProtocolType.Tcp);
+
+            //listener.Bind(localEndPoint);
+            //listener.Listen(1);
+
+
             //mReader.NotifyMode = "ON";
             //mReader.AutoMode = "ON";
             //Monitor.CheckComPorts();
@@ -365,13 +385,15 @@ namespace RFID
 
                 mReader.NotifyMode = "ON";
                 mReader.AutoMode = "ON";
-                bwNotifications.RunWorkerAsync();
+                mReader.NotifyAddress = Dns.GetHostName().ToString() + ":11000";
+
+
+                bwListen.RunWorkerAsync();
             }
             else
             {
                 bwConnect.RunWorkerAsync();
             }
-
         }
 
         private void txtCommand_KeyDown(object sender, KeyEventArgs e)
@@ -402,6 +424,15 @@ namespace RFID
         private void button2_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Dear god, WHY?!?!?");
+        }
+
+        private void bwListen_DoWork(object sender, DoWorkEventArgs e)
+        {
+            AsynchronousSocketListener.StartListening();
+        }
+
+        private void bwListen_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
         }
     }
 }

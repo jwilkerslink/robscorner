@@ -92,6 +92,7 @@
     <Compile Include="frmSettingsPane.Designer.cs">
       <DependentUpon>frmSettingsPane.cs</DependentUpon>
     </Compile>
+    <Compile Include="Listener.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmRFIDMain.resx">
