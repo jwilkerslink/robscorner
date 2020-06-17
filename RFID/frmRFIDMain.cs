@@ -20,6 +20,23 @@ using System.Net;
 
 namespace RFID
 {
+    enum parseType
+    { 
+        displayAll,
+        displayTerse,
+        displayTrigger,
+        consume
+        //what should the remote do with the data?
+    };
+
+    class packet
+    {
+        parseType result;
+        string data;
+        //other packet data goes here. this is so that
+        //we can send all notification messages to remote handler.
+    }
+
     public partial class frmRFIDMain : Form
     {
 
@@ -28,6 +45,7 @@ namespace RFID
         clsReader mReader = new clsReader();
 
         const string reasonStr = "Reason: ";
+        const int TCPPort = 11000;
         readonly string lineseparator = "\r\n - - - - - - - - - - - -\r\n";
 
         //public static string connString = "Data Source=172.21.4.30;Initial Catalog=DEV_MfgTraveler;Persist Security Info=True;User ID=Travelmfg;Password=travelmfg@1";
@@ -42,32 +60,29 @@ namespace RFID
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void frmRFIDMain_Load(object sender, EventArgs e)
         {
             mReader.MessageReceived += MReader_MessageReceived;
-            Monitor.ComPortsMonitoring = true;
+
+            AsynchronousSocketListener.PassMessage.MessageReceived += (s, v) => SetText(textBox1, v.Message.ToString());
+
+            Monitor.NetworkMonitoring = true;
             bwConnect.RunWorkerAsync();
-
-            //IPAddress ipAddress = ipHostInfo.AddressList[0];
-
-            //MessageBox.Show(Dns.GetHostName());
-
-            //IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
-
-            //Socket listener = new Socket(ipAddress.AddressFamily,
-            //SocketType.Stream, ProtocolType.Tcp);
-
-            //listener.Bind(localEndPoint);
-            //listener.Listen(1);
-
 
             //mReader.NotifyMode = "ON";
             //mReader.AutoMode = "ON";
+
             //Monitor.CheckComPorts();
+
             //Monitor.ReaderAdded += Monitor_ReaderAdded;
             //Monitor.ReaderRemoved += Monitor_ReaderRemoved;
             //Monitor.ReaderAddedOnSerial += Monitor_ReaderAddedOnSerial;
             //Monitor.ReaderRemovedOnSerial += Monitor_ReaderRemovedOnSerial;
+        }
+        public string data
+        {
+            get { return textBox1.Text; }
+            set { textBox1.Text = value; }
         }
 
         public delegate void AddRowDelegate(System.Windows.Forms.DataGridView ctrl, string location, string tagID, string evnt, DateTime dateTime);
@@ -109,32 +124,34 @@ namespace RFID
 
         private void MReader_MessageReceived(string data)
         {
-            string tl;
-            ITagInfo[] tagInfos;
-            int start = data.IndexOf("#StopTriggerLines:");
-            if (start > 0)
-            {
-
-                start = data.IndexOf("Tag:", start);
-                int ennd = data.IndexOf("\r\n#End of Notification Message", start);
-
-                tl = data.Substring(start, ennd - start);
-
-                if (mReader.ParseTagList(tl, out tagInfos))
-                {
-                    foreach (ITagInfo tag in tagInfos)
-                    {
-                        textBox1.Text = textBox1.Text + "\r\n TagID:" + tag.TagID + "\r\n Read Count:" + tag.ReadCount + "\r\n Last Seen:" + tag.LastSeenTime;
-                        textBox1.Select(textBox1.Text.Length, 0);
-                        textBox1.ScrollToCaret();
-                    }
-                }
-
-            }
-
+            Console.WriteLine("message received.");
+            Console.WriteLine("data: " + data);
             SetText(textBox1, data);
+            //string tl;
+            //ITagInfo[] tagInfos;
+            //Console.WriteLine(" number of tags in this message: " + tagInfos.Count());
+            //int start = data.IndexOf("#StopTriggerLines:");
+            //if (start > 0)
+            //{
 
+            //    start = data.IndexOf("Tag:", start);
+            //    int ennd = data.IndexOf("\r\n#End of Notification Message", start);
 
+            //    tl = data.Substring(start, ennd - start);
+
+            //    if (mReader.ParseTagList(tl, out tagInfos))
+            //    {
+            //        foreach (ITagInfo tag in tagInfos)
+            //        {
+            //            textBox1.Text = textBox1.Text + "\r\n TagID:" + tag.TagID + "\r\n Read Count:" + tag.ReadCount + "\r\n Last Seen:" + tag.LastSeenTime;
+            //            textBox1.Select(textBox1.Text.Length, 0);
+            //            textBox1.ScrollToCaret();
+            //        }
+            //    }
+
+            //}
+            //else
+            //{ Console.WriteLine("empty message"); }
             //ITagInfo[] tagInfos;
             //if (mReader.ParseTagList(data, out tagInfos))
             //{
@@ -181,7 +198,13 @@ namespace RFID
                 //  ctrl.ScrollToCaret();
 
             }
+        }
 
+        public void SetText(string text)
+        {
+                textBox1.Text = textBox1.Text + text;
+                textBox1.Select(textBox1.Text.Length, 0);
+                textBox1.ScrollToCaret();
         }
 
 
@@ -207,17 +230,17 @@ namespace RFID
 
         private void InsertIntoRFIDTracker(string tagID, string location, string evnt, DateTime dateTime)
         {
-            SqlCommand InsertIntoRFIDTracker = new SqlCommand($@"Insert Into
-                                                                    RFIDTracker
-                                                                Values
-                                                                    (@TID, @loc, @evnt, @DT)", con.nection);
-            InsertIntoRFIDTracker.Parameters.AddWithValue("@TID", tagID);
-            InsertIntoRFIDTracker.Parameters.AddWithValue("@loc", location);
-            InsertIntoRFIDTracker.Parameters.AddWithValue("@evnt", evnt);
-            InsertIntoRFIDTracker.Parameters.AddWithValue("@DT", dateTime);
-            con.nection.Open();
-            InsertIntoRFIDTracker.ExecuteNonQuery();
-            con.nection.Close();
+            //SqlCommand InsertIntoRFIDTracker = new SqlCommand($@"Insert Into
+            //                                                        RFIDTracker
+            //                                                    Values
+            //                                                        (@TID, @loc, @evnt, @DT)", con.nection);
+            //InsertIntoRFIDTracker.Parameters.AddWithValue("@TID", tagID);
+            //InsertIntoRFIDTracker.Parameters.AddWithValue("@loc", location);
+            //InsertIntoRFIDTracker.Parameters.AddWithValue("@evnt", evnt);
+            //InsertIntoRFIDTracker.Parameters.AddWithValue("@DT", dateTime);
+            //con.nection.Open();
+            //InsertIntoRFIDTracker.ExecuteNonQuery();
+            //con.nection.Close();
         }
 
         private void Monitor_ReaderRemovedOnSerial(IReaderInfo data)
@@ -366,27 +389,32 @@ namespace RFID
         private void bwConnect_DoWork(object sender, DoWorkEventArgs e)
         {
             mReader.InitOnNetwork(Settings.Default.ReaderIP, Convert.ToInt32(Settings.Default.TCPPort));
-            e.Result = mReader.Connect();
+
+            if ((e.Result = mReader.Connect()) == "Connected")
+            { mReader.Login(Settings.Default.AlienReaderUsername, Settings.Default.AlienReaderPassword); }
+            else
+            { Console.WriteLine("Retrying connection"); }
             //Initialize network connection to reader using application settings
         }
 
         private void bwConnect_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            string stemp;
+            string stemp = e.Result.ToString();
 
-            stemp = e.Result.ToString();
-            textBox1.Text = textBox1.Text + "\r\n" + stemp + "\r\n";
-            mReader.Login(Settings.Default.AlienReaderUsername, Settings.Default.AlienReaderPassword);
+            Console.WriteLine("logged in.");
 
             if (stemp == "Connected")
             {
+                textBox1.Text = textBox1.Text + "\r\n" + stemp + "\r\n";
                 if (mReader.DateTime != DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"))
                 { mReader.DateTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"); }
 
                 mReader.NotifyMode = "ON";
                 mReader.AutoMode = "ON";
-                mReader.NotifyAddress = Dns.GetHostName().ToString() + ":11000";
 
+                mReader.NotifyAddress = Dns.GetHostName().ToString() + ":" + TCPPort;
+                //mReader.NotifyAddress = "CO2500L01:11000";
+                //find a way to make this dynamic
 
                 bwListen.RunWorkerAsync();
             }
@@ -422,17 +450,14 @@ namespace RFID
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Dear god, WHY?!?!?");
-        }
+        { MessageBox.Show("Dear god, WHY?!?!?"); }
 
         private void bwListen_DoWork(object sender, DoWorkEventArgs e)
-        {
-            AsynchronousSocketListener.StartListening();
-        }
+        { AsynchronousSocketListener.StartListening(); }
 
         private void bwListen_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+
         }
     }
 }

@@ -11,7 +11,6 @@ C:\Users\rveloz\source\repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.csproj.Co
 C:\Users\rveloz\source\repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.csproj.CopyComplete
 C:\Users\rveloz\source\repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.exe
 C:\Users\rveloz\source\repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.pdb
-C:\Users\jwilkerson\Source\Repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.csprojAssemblyReference.cache
 C:\Users\jwilkerson\Source\Repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.Properties.Resources.resources
 C:\Users\jwilkerson\Source\Repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.csproj.GenerateResource.cache
 C:\Users\jwilkerson\Source\Repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.csproj.CoreCompileInputs.cache
@@ -21,7 +20,6 @@ C:\Users\jwilkerson\Source\Repos\rveloz9192\robscorner\RFID\bin\Debug\RFID.exe.c
 C:\Users\jwilkerson\Source\Repos\rveloz9192\robscorner\RFID\bin\Debug\RFID.exe
 C:\Users\jwilkerson\Source\Repos\rveloz9192\robscorner\RFID\bin\Debug\RFID.pdb
 C:\Users\jwilkerson\Source\Repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.csproj.CopyComplete
-C:\Users\jwilkerson\source\repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.frmRFIDMain.resources
 C:\Users\jwilkerson\source\repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.frmSettingsPane.resources
 C:\Users\jwilkerson\source\repos\rveloz9192\robscorner\RFID\bin\Debug\RFID.exe.manifest
 C:\Users\jwilkerson\source\repos\rveloz9192\robscorner\RFID\bin\Debug\RFID.application
@@ -42,3 +40,5 @@ C:\Users\jwilkerson\Source\Repos\robscorner\RFID\obj\Debug\RFID.application
 C:\Users\jwilkerson\Source\Repos\robscorner\RFID\obj\Debug\RFID.csproj.CopyComplete
 C:\Users\jwilkerson\Source\Repos\robscorner\RFID\obj\Debug\RFID.exe
 C:\Users\jwilkerson\Source\Repos\robscorner\RFID\obj\Debug\RFID.pdb
+C:\Users\jwilkerson\source\repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.csprojAssemblyReference.cache
+C:\Users\jwilkerson\source\repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.packet.resources

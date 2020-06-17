@@ -80,9 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Connection.cs" />
-    <Compile Include="frmRFIDMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="frmRFIDMain.cs" />
     <Compile Include="frmRFIDMain.Designer.cs">
       <DependentUpon>frmRFIDMain.cs</DependentUpon>
     </Compile>
