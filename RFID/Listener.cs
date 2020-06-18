@@ -91,7 +91,6 @@ namespace RFID
 
                     // Wait until a connection is made before continuing.  
                     allDone.WaitOne();
-                    Console.WriteLine("Connection not found or terminated.");
                 }
 
             }
@@ -142,13 +141,14 @@ namespace RFID
                 // Check for end-of-file tag. If it is not there, read
                 // more data.  
                 content = state.sb.ToString();
-                if (content.IndexOf("#End of Notification Message") > -1)
+                if (content.IndexOf("</Alien-RFID-Reader-Auto-Notification>") > -1)
                 {
                     // All the data has been read from the
                     // client. Display it on the console.  
                     Console.WriteLine("Read {0} bytes from socket. \n Data : {1}",
                         content.Length, content);
 
+                    Console.WriteLine("Message passed from Reader to Host and is now being processed.");
                     PassMessage.IncomingMessage(content);
                     //this raises the event and passes the data over to RFIDMain
 

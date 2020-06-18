@@ -238,16 +238,16 @@ namespace RFID
             {
                 case parseType.consume:
 
-                    if (mReader.NotifyFormat != "XML")
-                    { break; }
-                    else
-                    {
+                    //if (mReader.NotifyFormat != "XML")
+                    //{ break; }
+                    //else
+                    //{
                         int a, z;
 
                             a = p.data.IndexOf("<Reason>");
                             z = p.data.IndexOf("</Reason>");
 
-                        string tagID, location, evnt;
+                        string evnt;
                         evnt = p.data.Substring(a, (z - a));
 
 
@@ -258,7 +258,10 @@ namespace RFID
                         dateTime = Convert.ToDateTime(p.data.Substring(a, (z - a)));
 
 
-                        int sT, eT = 0;
+                    //< Time > 2020 / 06 / 17 20:15:28.044 </ Time >
+
+
+                               int sT, eT = 0;
                         int sL, eL = 0;
 
                             string tagKeyS = "<TagID>";
@@ -268,6 +271,7 @@ namespace RFID
                             string locKeyE = "</Antenna>";
 
                         int i = Regex.Matches(p.data, tagKeyS).Count;
+                        string tagID, location;
 
                         for (int x = 0; x < i; x++)
                         {
@@ -287,7 +291,7 @@ namespace RFID
                         SetText(textBox1, p.data);
 
                         break;
-                    }
+                    //}
                     //add all of the other parsetypes
             }
         }
@@ -500,11 +504,15 @@ namespace RFID
                 mReader.AutoMode = "ON";
                 mReader.NotifyTime = "0";
 
-                mReader.NotifyAddress = Dns.GetHostName().ToString() + ":" + TCPPort;
+                //mReader.NotifyAddress = Dns.GetHostName().ToString() + ":" + TCPPort;
                 //mReader.NotifyAddress = "CO2500L01:11000";
+
+                IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
+                mReader.NotifyAddress = ipHostInfo.AddressList[1] + ":" + TCPPort;
+
                 //find a way to make this dynamic
-                bwNotifications.RunWorkerAsync();
-                //bwListen.RunWorkerAsync();
+                //bwNotifications.RunWorkerAsync();
+                bwListen.RunWorkerAsync();
             }
             else
             {
