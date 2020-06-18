@@ -17,32 +17,17 @@ using RFID.Properties;
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Net;
+using System.Text.RegularExpressions;
 
 namespace RFID
 {
-    enum parseType
-    { 
-        displayAll,
-        displayTerse,
-        displayTrigger,
-        consume
-        //what should the remote do with the data?
-    };
-
-    class packet
-    {
-        parseType result;
-        string data;
-        //other packet data goes here. this is so that
-        //we can send all notification messages to remote handler.
-    }
-
     public partial class frmRFIDMain : Form
     {
 
         public Connection con = new Connection();
         clsReaderMonitor Monitor = new clsReaderMonitor();
         clsReader mReader = new clsReader();
+
 
         const string reasonStr = "Reason: ";
         const int TCPPort = 11000;
@@ -64,7 +49,11 @@ namespace RFID
         {
             mReader.MessageReceived += MReader_MessageReceived;
 
-            AsynchronousSocketListener.PassMessage.MessageReceived += (s, v) => SetText(textBox1, v.Message.ToString());
+            AsynchronousSocketListener.PassMessage.MessageReceived +=
+                                    (s, v) =>
+                HandlePacket(new packet(v.Message.ToString(), parseType.consume));
+
+            // the event that brings data received by TCP socket
 
             Monitor.NetworkMonitoring = true;
             bwConnect.RunWorkerAsync();
@@ -79,19 +68,14 @@ namespace RFID
             //Monitor.ReaderAddedOnSerial += Monitor_ReaderAddedOnSerial;
             //Monitor.ReaderRemovedOnSerial += Monitor_ReaderRemovedOnSerial;
         }
-        public string data
-        {
-            get { return textBox1.Text; }
-            set { textBox1.Text = value; }
-        }
 
         public delegate void AddRowDelegate(System.Windows.Forms.DataGridView ctrl, string location, string tagID, string evnt, DateTime dateTime);
-        public static void AddRow(System.Windows.Forms.DataGridView ctrl, string tagID,string location, string evnt, DateTime dateTime)
+        public static void AddRow(System.Windows.Forms.DataGridView ctrl, string tagID, string location, string evnt, DateTime dateTime)
         {
             if (ctrl.InvokeRequired)
             {
 
-                object[] params_list = new object[] { ctrl, tagID,location, evnt, dateTime };
+                object[] params_list = new object[] { ctrl, tagID, location, evnt, dateTime };
 
                 ctrl.Invoke(new AddRowDelegate(AddRow), params_list);
 
@@ -100,7 +84,7 @@ namespace RFID
             else
             {
                 char[] p = { ',' };
-                ctrl.Rows.Insert(0, tagID,location, evnt, dateTime);
+                ctrl.Rows.Insert(0, tagID, location, evnt, dateTime);
                 //ctrl.Rows.Add();
             }
 
@@ -202,18 +186,135 @@ namespace RFID
 
         public void SetText(string text)
         {
-                textBox1.Text = textBox1.Text + text;
-                textBox1.Select(textBox1.Text.Length, 0);
-                textBox1.ScrollToCaret();
+            textBox1.Text = textBox1.Text + text;
+            textBox1.Select(textBox1.Text.Length, 0);
+            textBox1.ScrollToCaret();
         }
 
+
+        public enum parseType
+        {
+            displayAll,
+            displayTerse,
+            displayTrigger,
+            consume
+            //what should the remote do with the data?
+        };
+
+        class packet
+        {
+            DateTime time;
+            public parseType result;
+            public string data;
+            //other packet data goes here. this is so that
+            //we can send all notification messages to remote handler.
+
+            public packet(string input, parseType action)
+            {
+                data = input;
+                result = action;
+            }
+        }
+
+        //class tagByte
+        //{
+        //    string tagID;
+        //    string location;
+        //    string evnt;
+        //    DateTime dateTime;
+        //    tagByte(string t, string l, string e, DateTime d)
+        //    {
+        //        tagID = t;
+        //        location = l;
+        //        evnt = e;
+        //        dateTime = d;
+        //    }
+        //}
+
+            // the wat
+        private void HandlePacket(packet p)
+        {
+            switch (p.result)
+            {
+                case parseType.consume:
+
+                    if (mReader.NotifyFormat != "XML")
+                    { break; }
+                    else
+                    {
+                        int a, z;
+
+                            a = p.data.IndexOf("<Reason>");
+                            z = p.data.IndexOf("</Reason>");
+
+                        string tagID, location, evnt;
+                        evnt = p.data.Substring(a, (z - a));
+
+
+                            a = p.data.IndexOf("<Time>");
+                            z = p.data.IndexOf("</Time>");
+
+                        DateTime dateTime;
+                        dateTime = Convert.ToDateTime(p.data.Substring(a, (z - a)));
+
+
+                        int sT, eT = 0;
+                        int sL, eL = 0;
+
+                            string tagKeyS = "<TagID>";
+                            string tagKeyE = "</TagID>";
+
+                            string locKeyS = "<Antenna>";
+                            string locKeyE = "</Antenna>";
+
+                        int i = Regex.Matches(p.data, tagKeyS).Count;
+
+                        for (int x = 0; x < i; x++)
+                        {
+                                sT = p.data.IndexOf(tagKeyS, eT);
+                                eT = p.data.IndexOf(tagKeyE, sT);
+
+                            tagID = p.data.Substring((sT + tagKeyS.Length), ((eT - sT) - tagKeyS.Length));
+
+                                sL = p.data.IndexOf(locKeyS, eL);
+                                eL = p.data.IndexOf(locKeyE, sL);
+
+                            location = p.data.Substring((sL + locKeyS.Length), ((eL - sL) - locKeyS.Length));
+
+                            InsertIntoRFIDTracker(tagID, location, evnt, dateTime);
+                        }
+
+                        SetText(textBox1, p.data);
+
+                        break;
+                    }
+                    //add all of the other parsetypes
+            }
+        }
+
+        private void InsertIntoRFIDTracker(string tagID, string location, string evnt, DateTime dateTime)
+        {
+            Console.WriteLine("Inserting into table.");
+
+            SqlCommand InsertIntoRFIDTracker = new SqlCommand($@"Insert Into
+                                                                    RFIDTracker
+                                                                Values
+                                                                    (@TID, @loc, @evnt, @DT)", con.nection);
+            InsertIntoRFIDTracker.Parameters.AddWithValue("@TID", tagID);
+            InsertIntoRFIDTracker.Parameters.AddWithValue("@loc", location);
+            InsertIntoRFIDTracker.Parameters.AddWithValue("@evnt", evnt);
+            InsertIntoRFIDTracker.Parameters.AddWithValue("@DT", dateTime);
+            con.nection.Open();
+            InsertIntoRFIDTracker.ExecuteNonQuery();
+            con.nection.Close();
+        }
 
         private DataTable GetHistory(string tagID)
         {
             SqlCommand sqlCommand = new SqlCommand($@"Select 
                                                         datetime,Substring(event,6,99) + Case When event = 'TAGS ADDED' Then ' To ' Else ' From ' end + location [event]
                                                     From
-                                                        RFIDTracker
+                                                        RFIDTracker 
                                                     Where 
                                                         TagID = @TID
                                                     Order By
@@ -225,22 +326,6 @@ namespace RFID
 
             return dt;
 
-        }
-
-
-        private void InsertIntoRFIDTracker(string tagID, string location, string evnt, DateTime dateTime)
-        {
-            //SqlCommand InsertIntoRFIDTracker = new SqlCommand($@"Insert Into
-            //                                                        RFIDTracker
-            //                                                    Values
-            //                                                        (@TID, @loc, @evnt, @DT)", con.nection);
-            //InsertIntoRFIDTracker.Parameters.AddWithValue("@TID", tagID);
-            //InsertIntoRFIDTracker.Parameters.AddWithValue("@loc", location);
-            //InsertIntoRFIDTracker.Parameters.AddWithValue("@evnt", evnt);
-            //InsertIntoRFIDTracker.Parameters.AddWithValue("@DT", dateTime);
-            //con.nection.Open();
-            //InsertIntoRFIDTracker.ExecuteNonQuery();
-            //con.nection.Close();
         }
 
         private void Monitor_ReaderRemovedOnSerial(IReaderInfo data)
@@ -330,9 +415,11 @@ namespace RFID
 
         private void bwNotifications_DoWork(object sender, DoWorkEventArgs e)
         {
+            //Console.WriteLine("Notifications service running");
 
             if (mReader.GetCurrentMessages(out string[] Notifications) > 0)
             {
+                Console.WriteLine("passed condition.");
                 string tl,reason = "";
                 ITagInfo[] tagInfos;
                 int start,end;
@@ -411,12 +498,13 @@ namespace RFID
 
                 mReader.NotifyMode = "ON";
                 mReader.AutoMode = "ON";
+                mReader.NotifyTime = "0";
 
                 mReader.NotifyAddress = Dns.GetHostName().ToString() + ":" + TCPPort;
                 //mReader.NotifyAddress = "CO2500L01:11000";
                 //find a way to make this dynamic
-
-                bwListen.RunWorkerAsync();
+                bwNotifications.RunWorkerAsync();
+                //bwListen.RunWorkerAsync();
             }
             else
             {
