@@ -141,7 +141,8 @@ namespace RFID
                 // Check for end-of-file tag. If it is not there, read
                 // more data.  
                 content = state.sb.ToString();
-                if (content.IndexOf("</Alien-RFID-Reader-Auto-Notification>") > -1)
+                //if (content.IndexOf("#Alien") > -1)
+                if (content.Length > 0)
                 {
                     // All the data has been read from the
                     // client. Display it on the console.  

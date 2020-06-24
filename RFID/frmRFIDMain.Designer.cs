@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridView dataGridView1;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.coltagID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colRPS = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,6 +57,7 @@
             this.btnSettings = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.bwListen = new System.ComponentModel.BackgroundWorker();
+            this.txtStream = new System.Windows.Forms.TextBox();
             dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -86,14 +87,14 @@
             dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             dataGridView1.Location = new System.Drawing.Point(0, 1);
             dataGridView1.Name = "dataGridView1";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             dataGridView1.Size = new System.Drawing.Size(885, 339);
@@ -139,13 +140,13 @@
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(881, 350);
+            this.textBox1.Size = new System.Drawing.Size(441, 350);
             this.textBox1.TabIndex = 1;
             // 
             // btnTagList
             // 
             this.btnTagList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTagList.Location = new System.Drawing.Point(820, 354);
+            this.btnTagList.Location = new System.Drawing.Point(820, 355);
             this.btnTagList.Margin = new System.Windows.Forms.Padding(2);
             this.btnTagList.Name = "btnTagList";
             this.btnTagList.Size = new System.Drawing.Size(56, 23);
@@ -205,6 +206,7 @@
             // 
             // tbNotify
             // 
+            this.tbNotify.Controls.Add(this.txtStream);
             this.tbNotify.Controls.Add(this.txtCommand);
             this.tbNotify.Controls.Add(this.button3);
             this.tbNotify.Controls.Add(this.btnTagList);
@@ -364,6 +366,19 @@
             this.bwListen.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwListen_DoWork);
             this.bwListen.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwListen_RunWorkerCompleted);
             // 
+            // txtStream
+            // 
+            this.txtStream.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtStream.Location = new System.Drawing.Point(436, 0);
+            this.txtStream.Margin = new System.Windows.Forms.Padding(2);
+            this.txtStream.Multiline = true;
+            this.txtStream.Name = "txtStream";
+            this.txtStream.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtStream.Size = new System.Drawing.Size(449, 350);
+            this.txtStream.TabIndex = 5;
+            // 
             // frmRFIDMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -419,6 +434,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colKown;
         private System.Windows.Forms.Button button4;
         private System.ComponentModel.BackgroundWorker bwListen;
+        private System.Windows.Forms.TextBox txtStream;
     }
 }
 

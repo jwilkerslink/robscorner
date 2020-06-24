@@ -53,7 +53,6 @@ namespace RFID
             txtPass.Text = Settings.Default.AlienReaderPassword;
             chkRunSSMS.Checked = Settings.Default.OpenSSMSOnRun;
             txtPipe.Text = Settings.Default.Pipe;
-            _RFIDMain.con.changeCon(txtPipe.Text);
         }
         private void btnSave_Click(object sender, EventArgs e)
         {

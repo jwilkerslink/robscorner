@@ -47,13 +47,18 @@ namespace RFID
 
             mReader.MessageReceived += MReader_MessageReceived;
 
+            //AsynchronousSocketListener.PassMessage.MessageReceived +=
+            //                        (s, v) =>
+            //    HandlePacket(new packet(v.Message.ToString(), parseType.consume));
+
             AsynchronousSocketListener.PassMessage.MessageReceived +=
-                                    (s, v) =>
-                HandlePacket(new packet(v.Message.ToString(), parseType.consume));
+                        (s, v) =>
+                HandlePacket(new packet(v.Message.ToString(), parseType.displayTerse));
 
             // the event that brings data received by TCP socket
 
             Monitor.NetworkMonitoring = true;
+            con.changeCon(Settings.Default.Pipe);
             bwConnect.RunWorkerAsync();
         }
 
@@ -322,6 +327,12 @@ namespace RFID
         {
             switch (p.result)
             {
+                case parseType.displayTerse:
+
+                    SetText(txtStream, p.data);
+
+                    break;
+
                 case parseType.consume:
 
                     if (mReader.NotifyFormat != "XML")
@@ -501,6 +512,8 @@ namespace RFID
                 }
                 textBox1.AppendText("Number of tags within list: " + ctr + lineseparator);
             }
+            else
+            { Console.WriteLine("taglist triggered but is empty"); textBox1.AppendText(lineseparator + "Taglist triggered but is empty.");}
         }
 
         private void bwNotifications_DoWork(object sender, DoWorkEventArgs e)
@@ -587,7 +600,7 @@ namespace RFID
                 { mReader.DateTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"); }
 
                 mReader.NotifyMode = "ON";
-                mReader.AutoMode = "OFF";
+                mReader.AutoMode = "ON";
                 mReader.NotifyTime = "0";
                 mReader.NotifyFormat = "XML";
 
