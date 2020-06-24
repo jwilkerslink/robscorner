@@ -41,9 +41,8 @@
             this.txtUser = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.chkRunSSMS = new System.Windows.Forms.CheckBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.lblPipe = new System.Windows.Forms.Label();
             this.btnConnectDB = new System.Windows.Forms.Button();
+            this.txtPipe = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudPort)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -152,9 +151,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.txtPipe);
             this.groupBox3.Controls.Add(this.chkRunSSMS);
-            this.groupBox3.Controls.Add(this.label6);
-            this.groupBox3.Controls.Add(this.lblPipe);
             this.groupBox3.Controls.Add(this.btnConnectDB);
             this.groupBox3.Location = new System.Drawing.Point(16, 138);
             this.groupBox3.Name = "groupBox3";
@@ -173,24 +171,6 @@
             this.chkRunSSMS.Text = "run SSMS";
             this.chkRunSSMS.UseVisualStyleBackColor = true;
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(86, 19);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(30, 13);
-            this.label6.TabIndex = 2;
-            this.label6.Text = "pipe:";
-            // 
-            // lblPipe
-            // 
-            this.lblPipe.AutoSize = true;
-            this.lblPipe.Location = new System.Drawing.Point(116, 19);
-            this.lblPipe.Name = "lblPipe";
-            this.lblPipe.Size = new System.Drawing.Size(39, 13);
-            this.lblPipe.TabIndex = 1;
-            this.lblPipe.Text = "not set";
-            // 
             // btnConnectDB
             // 
             this.btnConnectDB.Location = new System.Drawing.Point(6, 19);
@@ -200,6 +180,13 @@
             this.btnConnectDB.Text = "Connect";
             this.btnConnectDB.UseVisualStyleBackColor = true;
             this.btnConnectDB.Click += new System.EventHandler(this.btnConnectDB_Click);
+            // 
+            // txtPipe
+            // 
+            this.txtPipe.Location = new System.Drawing.Point(78, 13);
+            this.txtPipe.Name = "txtPipe";
+            this.txtPipe.Size = new System.Drawing.Size(110, 20);
+            this.txtPipe.TabIndex = 4;
             // 
             // frmSettingsPane
             // 
@@ -241,8 +228,7 @@
         private System.Windows.Forms.TextBox txtUser;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.CheckBox chkRunSSMS;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label lblPipe;
         private System.Windows.Forms.Button btnConnectDB;
+        private System.Windows.Forms.TextBox txtPipe;
     }
 }

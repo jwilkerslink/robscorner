@@ -82,5 +82,17 @@ namespace RFID.Properties {
                 this["OpenSSMSOnRun"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Pipe {
+            get {
+                return ((string)(this["Pipe"]));
+            }
+            set {
+                this["Pipe"] = value;
+            }
+        }
     }
 }

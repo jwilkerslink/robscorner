@@ -54,24 +54,24 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="RFID.exe" size="37296">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="RFID.exe" size="38320">
       <assemblyIdentity name="RFID" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>mj07yT+9/RwnqyzuURbd08GofQOHDzJuvOlzCf3TLNU=</dsig:DigestValue>
+        <dsig:DigestValue>ikAbv8HfW62RxPr3GlXuF8cVVSn/tIGhOupW/cghMrg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="RFID.exe.config" size="1788">
+  <file name="RFID.exe.config" size="1895">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>SVb8hXeBUpS1sCI5AIpM88U7EZt+9BTn0i+cxgla99M=</dsig:DigestValue>
+      <dsig:DigestValue>mu9wiSiO+GqtJ/CL4x3jvq+32Afhik7ihyeOc6V+gr8=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridView dataGridView1;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.coltagID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colRPS = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,10 +47,6 @@
             this.txtCommand = new System.Windows.Forms.TextBox();
             this.tbTrack = new System.Windows.Forms.TabPage();
             this.dgvTracker = new System.Windows.Forms.DataGridView();
-            this.TagID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Location = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Event = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbUnitHistory = new System.Windows.Forms.TabPage();
             this.dgvUnitHistory = new System.Windows.Forms.DataGridView();
             this.txtUnitHistory = new System.Windows.Forms.TextBox();
@@ -90,14 +86,14 @@
             dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             dataGridView1.Location = new System.Drawing.Point(0, 1);
             dataGridView1.Name = "dataGridView1";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             dataGridView1.Size = new System.Drawing.Size(885, 339);
@@ -249,11 +245,6 @@
             // 
             this.dgvTracker.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvTracker.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTracker.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.TagID,
-            this.Location,
-            this.Event,
-            this.Time});
             this.dgvTracker.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvTracker.Location = new System.Drawing.Point(2, 2);
             this.dgvTracker.Margin = new System.Windows.Forms.Padding(2);
@@ -262,30 +253,6 @@
             this.dgvTracker.RowTemplate.Height = 28;
             this.dgvTracker.Size = new System.Drawing.Size(877, 378);
             this.dgvTracker.TabIndex = 0;
-            // 
-            // TagID
-            // 
-            this.TagID.HeaderText = "TagID";
-            this.TagID.MinimumWidth = 8;
-            this.TagID.Name = "TagID";
-            // 
-            // Location
-            // 
-            this.Location.HeaderText = "Location";
-            this.Location.MinimumWidth = 8;
-            this.Location.Name = "Location";
-            // 
-            // Event
-            // 
-            this.Event.HeaderText = "Event";
-            this.Event.MinimumWidth = 8;
-            this.Event.Name = "Event";
-            // 
-            // Time
-            // 
-            this.Time.HeaderText = "Time";
-            this.Time.MinimumWidth = 8;
-            this.Time.Name = "Time";
             // 
             // tbUnitHistory
             // 
@@ -436,10 +403,6 @@
         private System.Windows.Forms.TabPage tbTrack;
         private System.Windows.Forms.DataGridView dgvTracker;
         private System.Windows.Forms.TabPage tbUnitHistory;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TagID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Location;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Event;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Time;
         private System.Windows.Forms.TextBox txtUnitHistory;
         private System.Windows.Forms.DataGridView dgvUnitHistory;
         private System.Windows.Forms.TextBox txtCommand;

@@ -27,7 +27,9 @@ namespace RFID
         public Connection con = new Connection();
         clsReaderMonitor Monitor = new clsReaderMonitor();
         clsReader mReader = new clsReader();
+        BindingSource bs = new BindingSource();
 
+        DataTable dtTracker = new DataTable();
 
         const string reasonStr = "Reason: ";
         const int TCPPort = 11000;
@@ -40,6 +42,9 @@ namespace RFID
 
         private void frmRFIDMain_Load(object sender, EventArgs e)
         {
+            bs.DataSource = dtTracker;
+            dgvTracker.DataSource = bs;
+
             mReader.MessageReceived += MReader_MessageReceived;
 
             AsynchronousSocketListener.PassMessage.MessageReceived +=
@@ -50,6 +55,23 @@ namespace RFID
 
             Monitor.NetworkMonitoring = true;
             bwConnect.RunWorkerAsync();
+        }
+
+        public delegate void RefreshDelegate(BindingSource b, DataGridView ctrl);
+        public static void Refresh(BindingSource b, DataGridView ctrl)
+        {
+            if (ctrl.InvokeRequired)
+            {
+
+                object[] params_list = new object[] { b, ctrl };
+
+                ctrl.Invoke(new RefreshDelegate(Refresh), params_list);
+
+            }
+            else
+            {
+                b.ResetBindings(false);
+            }
         }
 
         public delegate void AddRowDelegate(System.Windows.Forms.DataGridView ctrl, string location, string tagID, string evnt, DateTime dateTime);
@@ -245,18 +267,54 @@ namespace RFID
 
         private void InitializeDGV()
         {
+            dtTracker.Columns.Add("tagID");
+            dtTracker.Columns.Add("antenna");
+            dtTracker.Columns.Add("added by");
+            dtTracker.Columns.Add("discovery time");
+
             if (mReader.ParseTagList(mReader.TagList, out ITagInfo[] tagInfos))
             {
                 foreach (ITagInfo tag in tagInfos)
                 {
-                    dgvTracker.Rows.Add(tag.TagID, tag.Antenna, "TAG ADDED", tag.DiscoveryTime);
+                    dtTracker.Rows.Add(tag.TagID, tag.Antenna, "Startup Process", tag.DiscoveryTime);
                 }
             }
+
         }
 
         private void UpdateDGV(tagByte tag)
         {
+            string id = "'" + tag.tagID + "'";
 
+            DataRow[] result = dtTracker.Select("tagID = " + id);
+
+            switch (tag.evnt)
+            {
+                case "TAGS ADDED":
+
+                    //DataRow[] tmp = dtTracker.Select(tag.tagID);
+
+                    if (result.Count() < 1)
+                    { dtTracker.Rows.Add(tag.tagID, tag.location, "Message from reader", tag.dateTime); Console.WriteLine("added to DGV:" + tag.tagID); }
+
+                    break;
+
+                case "TAGS REMOVED":
+                    if (result.Count() > 0)
+                    {
+                        Console.WriteLine("Attempting to remove tag");
+                        foreach (DataRow row in result)
+                        { dtTracker.Rows.Remove(row); Console.WriteLine("removed from DGV:" + tag.tagID); }
+                    }
+
+                    break;
+
+                case "TEST MESSAGE":
+                    break;
+
+            }
+            //dgvTracker.DataSource = dtTracker;
+            Refresh(bs, dgvTracker);
         }
 
         // the wat
@@ -276,13 +334,13 @@ namespace RFID
                         z = p.data.IndexOf("</Reason>");
 
                         string evnt;
-                        evnt = p.data.Substring(a, (z - a));
+                        evnt = p.data.Substring(a + 8, (z - (a + 8)));
 
                         a = p.data.IndexOf("<Time>");
                         z = p.data.IndexOf("</Time>");
 
                         DateTime dateTime;
-                        dateTime = Convert.ToDateTime(p.data.Substring(a, (z - a)));
+                        dateTime = Convert.ToDateTime(p.data.Substring(a + 6, (z - (a + 6))));
 
                         int sT, eT = 0;
                         int sL, eL = 0;
@@ -529,15 +587,18 @@ namespace RFID
                 { mReader.DateTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"); }
 
                 mReader.NotifyMode = "ON";
-                mReader.AutoMode = "ON";
+                mReader.AutoMode = "OFF";
                 mReader.NotifyTime = "0";
+                mReader.NotifyFormat = "XML";
 
                 mReader.NotifyAddress = Dns.GetHostName().ToString() + ":" + TCPPort;
                 //mReader.NotifyAddress = "CO2500L01:11000";
                 //find a way to make this dynamic
                 InitializeDGV();
 
-                bwNotifications.RunWorkerAsync();
+                bwListen.RunWorkerAsync();
+
+                //bwNotifications.RunWorkerAsync();
                 //bwListen.RunWorkerAsync();
             }
             else
@@ -579,7 +640,7 @@ namespace RFID
 
         private void bwListen_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-
+            Console.WriteLine("listen completed.");
         }
     }
 }

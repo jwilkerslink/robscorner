@@ -29,13 +29,14 @@ namespace RFID
             {
                 return init;
             }
-            public void save(string i, decimal p, string u, string c, bool s)
+            public void save(string i, decimal p, string u, string c, bool s, string e)
             {
                 Settings.Default.ReaderIP = i;
                 Settings.Default.TCPPort = p;
                 Settings.Default.AlienReaderUsername = u;
                 Settings.Default.AlienReaderPassword = c;
                 Settings.Default.OpenSSMSOnRun = s;
+                Settings.Default.Pipe = e;
                 Settings.Default.Save();
                 //System.Windows.Forms.Application.ExitThread();
             }
@@ -51,10 +52,12 @@ namespace RFID
             txtUser.Text = Settings.Default.AlienReaderUsername;
             txtPass.Text = Settings.Default.AlienReaderPassword;
             chkRunSSMS.Checked = Settings.Default.OpenSSMSOnRun;
+            txtPipe.Text = Settings.Default.Pipe;
+            _RFIDMain.con.changeCon(txtPipe.Text);
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
-            settings.save(txtIP.Text, nudPort.Value, txtUser.Text, txtPass.Text, chkRunSSMS.Checked);
+            settings.save(txtIP.Text, nudPort.Value, txtUser.Text, txtPass.Text, chkRunSSMS.Checked, txtPipe.Text);
             this.Close();
         }
         private void btnConnectDB_Click(object sender, EventArgs e)
@@ -72,8 +75,8 @@ namespace RFID
 
             using (StreamReader file = new StreamReader(".\\LocalDB\\logs\\currPipe.txt"))
             {
-                lblPipe.Text = file.ReadLine();
-                _RFIDMain.con.changeCon(lblPipe.Text);
+                txtPipe.Text = file.ReadLine();
+                _RFIDMain.con.changeCon(txtPipe.Text);
             }
         }
     }

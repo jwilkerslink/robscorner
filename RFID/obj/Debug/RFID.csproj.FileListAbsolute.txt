@@ -42,3 +42,4 @@ C:\Users\jwilkerson\Source\Repos\robscorner\RFID\obj\Debug\RFID.pdb
 C:\Users\jwilkerson\source\repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.csprojAssemblyReference.cache
 C:\Users\jwilkerson\source\repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.packet.resources
 C:\Users\jwilkerson\source\repos\robscorner\RFID\obj\Debug\RFID.frmRFIDMain.resources
+C:\Users\jwilkerson\source\repos\robscorner\RFID\bin\Debug\AlienRFID2.xml
