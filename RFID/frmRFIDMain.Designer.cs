@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridView dataGridView1;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.coltagID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colRPS = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -58,6 +58,8 @@
             this.btnSettings = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.bwListen = new System.ComponentModel.BackgroundWorker();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblTagCount = new System.Windows.Forms.Label();
             dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -87,14 +89,14 @@
             dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             dataGridView1.Location = new System.Drawing.Point(0, 1);
             dataGridView1.Name = "dataGridView1";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             dataGridView1.Size = new System.Drawing.Size(885, 339);
@@ -140,13 +142,13 @@
             this.txtConsole.Multiline = true;
             this.txtConsole.Name = "txtConsole";
             this.txtConsole.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtConsole.Size = new System.Drawing.Size(441, 350);
+            this.txtConsole.Size = new System.Drawing.Size(446, 350);
             this.txtConsole.TabIndex = 1;
             // 
             // btnTagList
             // 
             this.btnTagList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTagList.Location = new System.Drawing.Point(820, 355);
+            this.btnTagList.Location = new System.Drawing.Point(825, 355);
             this.btnTagList.Margin = new System.Windows.Forms.Padding(2);
             this.btnTagList.Name = "btnTagList";
             this.btnTagList.Size = new System.Drawing.Size(56, 23);
@@ -158,7 +160,7 @@
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(760, 355);
+            this.button3.Location = new System.Drawing.Point(765, 355);
             this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(56, 23);
@@ -201,7 +203,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(889, 408);
+            this.tabControl1.Size = new System.Drawing.Size(894, 408);
             this.tabControl1.TabIndex = 5;
             // 
             // tbNotify
@@ -215,7 +217,7 @@
             this.tbNotify.Margin = new System.Windows.Forms.Padding(2);
             this.tbNotify.Name = "tbNotify";
             this.tbNotify.Padding = new System.Windows.Forms.Padding(2);
-            this.tbNotify.Size = new System.Drawing.Size(881, 382);
+            this.tbNotify.Size = new System.Drawing.Size(886, 382);
             this.tbNotify.TabIndex = 0;
             this.tbNotify.Text = "Notifications";
             this.tbNotify.UseVisualStyleBackColor = true;
@@ -230,7 +232,7 @@
             this.txtStream.Multiline = true;
             this.txtStream.Name = "txtStream";
             this.txtStream.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtStream.Size = new System.Drawing.Size(449, 350);
+            this.txtStream.Size = new System.Drawing.Size(454, 350);
             this.txtStream.TabIndex = 5;
             // 
             // txtCommand
@@ -240,33 +242,38 @@
             this.txtCommand.Location = new System.Drawing.Point(4, 356);
             this.txtCommand.Margin = new System.Windows.Forms.Padding(2);
             this.txtCommand.Name = "txtCommand";
-            this.txtCommand.Size = new System.Drawing.Size(752, 20);
+            this.txtCommand.Size = new System.Drawing.Size(757, 20);
             this.txtCommand.TabIndex = 2;
             this.txtCommand.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCommand_KeyDown);
             // 
             // tbTrack
             // 
+            this.tbTrack.Controls.Add(this.lblTagCount);
+            this.tbTrack.Controls.Add(this.label1);
             this.tbTrack.Controls.Add(this.dgvTracker);
             this.tbTrack.Location = new System.Drawing.Point(4, 22);
             this.tbTrack.Margin = new System.Windows.Forms.Padding(2);
             this.tbTrack.Name = "tbTrack";
             this.tbTrack.Padding = new System.Windows.Forms.Padding(2);
-            this.tbTrack.Size = new System.Drawing.Size(881, 382);
+            this.tbTrack.Size = new System.Drawing.Size(886, 382);
             this.tbTrack.TabIndex = 1;
             this.tbTrack.Text = "Tracker";
             this.tbTrack.UseVisualStyleBackColor = true;
             // 
             // dgvTracker
             // 
+            this.dgvTracker.AllowUserToAddRows = false;
+            this.dgvTracker.AllowUserToDeleteRows = false;
+            this.dgvTracker.AllowUserToResizeColumns = false;
+            this.dgvTracker.AllowUserToResizeRows = false;
             this.dgvTracker.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvTracker.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTracker.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvTracker.Location = new System.Drawing.Point(2, 2);
             this.dgvTracker.Margin = new System.Windows.Forms.Padding(2);
             this.dgvTracker.Name = "dgvTracker";
             this.dgvTracker.RowHeadersWidth = 62;
             this.dgvTracker.RowTemplate.Height = 28;
-            this.dgvTracker.Size = new System.Drawing.Size(877, 378);
+            this.dgvTracker.Size = new System.Drawing.Size(882, 361);
             this.dgvTracker.TabIndex = 0;
             // 
             // tbUnitHistory
@@ -378,6 +385,25 @@
             // 
             this.bwListen.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwListen_DoWork);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(5, 365);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(56, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "tags in list:";
+            // 
+            // lblTagCount
+            // 
+            this.lblTagCount.AutoSize = true;
+            this.lblTagCount.Location = new System.Drawing.Point(67, 365);
+            this.lblTagCount.Name = "lblTagCount";
+            this.lblTagCount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lblTagCount.Size = new System.Drawing.Size(13, 13);
+            this.lblTagCount.TabIndex = 2;
+            this.lblTagCount.Text = "0";
+            // 
             // frmRFIDMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -395,6 +421,7 @@
             this.tbNotify.ResumeLayout(false);
             this.tbNotify.PerformLayout();
             this.tbTrack.ResumeLayout(false);
+            this.tbTrack.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTracker)).EndInit();
             this.tbUnitHistory.ResumeLayout(false);
             this.tbUnitHistory.PerformLayout();
@@ -434,6 +461,8 @@
         private System.Windows.Forms.Button button4;
         private System.ComponentModel.BackgroundWorker bwListen;
         private System.Windows.Forms.TextBox txtStream;
+        private System.Windows.Forms.Label lblTagCount;
+        private System.Windows.Forms.Label label1;
     }
 }
 

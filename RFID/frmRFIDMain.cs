@@ -85,7 +85,7 @@ namespace RFID
                 for (int j = 0; j < list.Count(); j++)
                 {
                     ConsumeTag(list[j]);
-                    SetText(txtStream, data);
+                    SetText(txtStream, data + lineseparator);
                     //move this
                 }
 
@@ -152,6 +152,23 @@ namespace RFID
             }
 
             Refresh(bs, dgvTracker);
+            //SetCount(lblTagCount, (dgvTracker.Rows.Count - 1).ToString());
+            SetCount(lblTagCount, dgvTracker.Rows.Count.ToString());
+        }
+
+        public delegate void SetCountDelegate(System.Windows.Forms.Label ctrl, string text);
+        public static void SetCount(System.Windows.Forms.Label ctrl, string text)
+        {
+            if (ctrl.InvokeRequired)
+            {
+                object[] params_list = new object[] { ctrl, text };
+
+                ctrl.Invoke(new SetCountDelegate(SetCount), params_list);
+            }
+            else
+            {
+                ctrl.Text = text;
+            }
         }
 
         public delegate void SetTextDelegate(System.Windows.Forms.TextBox ctrl, string text);
@@ -223,7 +240,7 @@ namespace RFID
         {
             Console.WriteLine("message received.");
             Console.WriteLine("data: " + data);
-            SetText(txtConsole, data);
+            SetText(txtConsole, data + "\r\n");
         }
 
         private DataTable GetHistory(string tagID)
@@ -348,7 +365,7 @@ namespace RFID
 
             if ("Connected" == (e.Result = mReader.Connect()))
             {
-                SetText(txtConsole, e.Result.ToString());
+                SetText(txtConsole, e.Result.ToString() + "\r\n");
                 mReader.Login(Settings.Default.AlienReaderUsername, Settings.Default.AlienReaderPassword);
             }
             else
