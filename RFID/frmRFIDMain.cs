@@ -353,7 +353,6 @@ namespace RFID
         {
         }
 
-
         private void bwNotifications_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             bwNotifications.RunWorkerAsync();
