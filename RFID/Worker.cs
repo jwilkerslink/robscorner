@@ -61,7 +61,7 @@ namespace RFID
         static readonly string RSSIKeyS = "<RSSI>";
         static readonly string RSSIKeyE = "</RSSI>";
 
-        // the wat
+        // the wat??
         public List<tagByte> ParsePacket(packet p)
         {
 
@@ -111,6 +111,7 @@ namespace RFID
 
                     return retval;
                 default:
+                    Console.WriteLine("");
                     break;
             }
             return new List<tagByte>();

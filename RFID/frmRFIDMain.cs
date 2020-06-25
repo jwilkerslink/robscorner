@@ -124,10 +124,12 @@ namespace RFID
         private void InitializeDGV()
         {
             dtTracker.Columns.Add("tagID");
-            dtTracker.Columns.Add("antenna");
+            dtTracker.Columns.Add("discovered at antenna");
             dtTracker.Columns.Add("RSSI");
-            dtTracker.Columns.Add("added by process:");
-            dtTracker.Columns.Add("DateTime");
+            dtTracker.Columns.Add("read count");
+            dtTracker.Columns.Add("added by process");
+            dtTracker.Columns.Add("discovery time");
+            dtTracker.Columns.Add("last read");
         }
 
         private void UpdateDGV(tagByte tag)
@@ -137,13 +139,15 @@ namespace RFID
             DataRow[] result = dtTracker.Select("tagID = " + id);
 
             if (result.Count() < 1)
-            { dtTracker.Rows.Add(tag.tagID, tag.location, tag.RSSI, tag.evnt, tag.dateTime); Console.WriteLine("added to DGV:" + tag.tagID); }
+            { dtTracker.Rows.Add(tag.tagID, tag.location, tag.RSSI, 1, tag.evnt, tag.dateTime, tag.dateTime); Console.WriteLine("added to DGV:" + tag.tagID); }
 
             else if (result.Count() > 0)
             {
                 foreach(DataRow row in result)
                 {
                     dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["RSSI"] = tag.RSSI;
+                    dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["last read"] = tag.dateTime;
+                    dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["read count"] = Convert.ToInt32(dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["read count"]) + 1;
                 }
 
                 //    Console.WriteLine("Attempting to remove tag");

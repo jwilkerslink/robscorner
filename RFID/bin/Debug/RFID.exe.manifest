@@ -54,14 +54,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="RFID.exe" size="39344">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="RFID.exe" size="39856">
       <assemblyIdentity name="RFID" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>bbcMYK/Vq30sjmlNFHJyb1l7Xd4JXKKn06KabAdGrcc=</dsig:DigestValue>
+        <dsig:DigestValue>GTWePFQ3qKxWt4EFy7Q1BQEougYXh+eed0kXhr8n4gA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

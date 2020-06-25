@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridView dataGridView1;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.coltagID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colRPS = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -89,14 +89,14 @@
             dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             dataGridView1.Location = new System.Drawing.Point(0, 1);
             dataGridView1.Name = "dataGridView1";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             dataGridView1.Size = new System.Drawing.Size(885, 339);
@@ -203,7 +203,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(894, 408);
+            this.tabControl1.Size = new System.Drawing.Size(1151, 408);
             this.tabControl1.TabIndex = 5;
             // 
             // tbNotify
@@ -255,7 +255,7 @@
             this.tbTrack.Margin = new System.Windows.Forms.Padding(2);
             this.tbTrack.Name = "tbTrack";
             this.tbTrack.Padding = new System.Windows.Forms.Padding(2);
-            this.tbTrack.Size = new System.Drawing.Size(886, 382);
+            this.tbTrack.Size = new System.Drawing.Size(1143, 382);
             this.tbTrack.TabIndex = 1;
             this.tbTrack.Text = "Tracker";
             this.tbTrack.UseVisualStyleBackColor = true;
@@ -273,7 +273,7 @@
             this.dgvTracker.Name = "dgvTracker";
             this.dgvTracker.RowHeadersWidth = 62;
             this.dgvTracker.RowTemplate.Height = 28;
-            this.dgvTracker.Size = new System.Drawing.Size(882, 361);
+            this.dgvTracker.Size = new System.Drawing.Size(1137, 361);
             this.dgvTracker.TabIndex = 0;
             // 
             // tbUnitHistory
@@ -362,7 +362,7 @@
             // btnSettings
             // 
             this.btnSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSettings.Location = new System.Drawing.Point(875, 2);
+            this.btnSettings.Location = new System.Drawing.Point(1142, 0);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(18, 28);
             this.btnSettings.TabIndex = 6;
@@ -373,7 +373,7 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(801, 2);
+            this.button2.Location = new System.Drawing.Point(1068, 0);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(68, 28);
             this.button2.TabIndex = 7;
@@ -408,7 +408,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(905, 427);
+            this.ClientSize = new System.Drawing.Size(1162, 427);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.tabControl1);
