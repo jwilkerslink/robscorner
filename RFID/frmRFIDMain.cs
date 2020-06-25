@@ -17,7 +17,6 @@ using RFID.Properties;
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Net;
-using System.Text.RegularExpressions;
 
 namespace RFID
 {
@@ -25,15 +24,17 @@ namespace RFID
     {
 
         public Connection con = new Connection();
-        clsReaderMonitor Monitor = new clsReaderMonitor();
         clsReader mReader = new clsReader();
         BindingSource bs = new BindingSource();
+        Worker w = new Worker();
 
         DataTable dtTracker = new DataTable();
 
-        const string reasonStr = "Reason: ";
         const int TCPPort = 11000;
+        readonly string format = "<TagID>%k</TagID><Antenna>%A</Antenna><Time>${DATE2} ${TIME2}</Time><RSSI>%m</RSSI>";
         readonly string lineseparator = "\r\n - - - - - - - - - - - -\r\n";
+        string msgBuffer;
+        bool flagBuffer = false;
 
         public frmRFIDMain()
         {
@@ -44,205 +45,55 @@ namespace RFID
         {
             bs.DataSource = dtTracker;
             dgvTracker.DataSource = bs;
+            // bind data source for dgvTracker
 
             mReader.MessageReceived += MReader_MessageReceived;
 
-            //AsynchronousSocketListener.PassMessage.MessageReceived +=
-            //                        (s, v) =>
-            //    HandlePacket(new packet(v.Message.ToString(), parseType.consume));
+            // subscribe to event that allows us to receive response from the Reader
 
             AsynchronousSocketListener.PassMessage.MessageReceived +=
                         (s, v) =>
-                HandlePacket(new packet(v.Message.ToString(), parseType.displayTerse));
+                HandleData(v.Message.ToString());
 
-            // the event that brings data received by TCP socket
+            // subscribe to event that brings data received by TCP socket from static Listener class file
 
-            Monitor.NetworkMonitoring = true;
             con.changeCon(Settings.Default.Pipe);
+
+            // sets up the connection string for interaction with LocalDB
+
             bwConnect.RunWorkerAsync();
+
+            // attempt to connect to the Reader for cmd interaction
         }
 
-        public delegate void RefreshDelegate(BindingSource b, DataGridView ctrl);
-        public static void Refresh(BindingSource b, DataGridView ctrl)
+        private void ConsumeTag(tagByte tag)
         {
-            if (ctrl.InvokeRequired)
+            UpdateDGV(tag);
+        }
+
+        private void HandleData(string data)
+        {
+            if (System.Text.ASCIIEncoding.ASCII.GetByteCount(data) >= 1024)
             {
-
-                object[] params_list = new object[] { b, ctrl };
-
-                ctrl.Invoke(new RefreshDelegate(Refresh), params_list);
-
+                msgBuffer += data;
+                flagBuffer = true;
             }
             else
             {
-                b.ResetBindings(false);
-            }
-        }
+                List<tagByte> list = w.ParsePacket(new packet(msgBuffer + data, parseType.parseTag, DateTime.Now));
 
-        public delegate void AddRowDelegate(System.Windows.Forms.DataGridView ctrl, string location, string tagID, string evnt, DateTime dateTime);
-        public static void AddRow(System.Windows.Forms.DataGridView ctrl, string tagID, string location, string evnt, DateTime dateTime)
-        {
-            if (ctrl.InvokeRequired)
-            {
+                for (int j = 0; j < list.Count(); j++)
+                {
+                    ConsumeTag(list[j]);
+                    SetText(txtStream, data);
+                    //move this
+                }
 
-                object[] params_list = new object[] { ctrl, tagID, location, evnt, dateTime };
-
-                ctrl.Invoke(new AddRowDelegate(AddRow), params_list);
-
-            }
-
-            else
-            {
-                char[] p = { ',' };
-                ctrl.Rows.Insert(0, tagID, location, evnt, dateTime);
-                //ctrl.Rows.Add();
-            }
-
-        }
-
-        private void Monitor_ReaderRemoved(IReaderInfo data)
-        {
-            textBox1.Text = textBox1.Text + "\r\n Reader " + data.Name + " has been Removed. IP: " + data.IPAddress;
-
-
-            //throw new NotImplementedException();
-        }
-
-        private void Monitor_ReaderAdded(IReaderInfo data)
-        {
-
-            textBox1.Text = textBox1.Text + "\r\n Reader " + data.Name + " has been Added. IP: " + data.IPAddress;
-
-            //throw new NotImplementedException();
-        }
-
-        private void MReader_MessageReceived(string data)
-        {
-            Console.WriteLine("message received.");
-            Console.WriteLine("data: " + data);
-            SetText(textBox1, data);
-            //string tl;
-            //ITagInfo[] tagInfos;
-            //Console.WriteLine(" number of tags in this message: " + tagInfos.Count());
-            //int start = data.IndexOf("#StopTriggerLines:");
-            //if (start > 0)
-            //{
-
-            //    start = data.IndexOf("Tag:", start);
-            //    int ennd = data.IndexOf("\r\n#End of Notification Message", start);
-
-            //    tl = data.Substring(start, ennd - start);
-
-            //    if (mReader.ParseTagList(tl, out tagInfos))
-            //    {
-            //        foreach (ITagInfo tag in tagInfos)
-            //        {
-            //            textBox1.Text = textBox1.Text + "\r\n TagID:" + tag.TagID + "\r\n Read Count:" + tag.ReadCount + "\r\n Last Seen:" + tag.LastSeenTime;
-            //            textBox1.Select(textBox1.Text.Length, 0);
-            //            textBox1.ScrollToCaret();
-            //        }
-            //    }
-
-            //}
-            //else
-            //{ Console.WriteLine("empty message"); }
-            //ITagInfo[] tagInfos;
-            //if (mReader.ParseTagList(data, out tagInfos))
-            //{
-            //    foreach (ITagInfo tag in tagInfos)
-            //    {
-            //        SetText(textBox1, data);
-            //    }
-            //}
-
-
-            //textBox1.Text = textBox1.Text + "\r\n" + data;
-            //textBox1.Select(textBox1.Text.Length, 0);
-            //textBox1.ScrollToCaret();
-        }
-
-        public delegate void SetTextDelegate(System.Windows.Forms.TextBox ctrl, string text);
-
-        public static void SetText(System.Windows.Forms.TextBox ctrl, string text)
-        {
-
-            if (ctrl.InvokeRequired)
-            {
-
-                object[] params_list = new object[] { ctrl, text };
-
-                ctrl.Invoke(new SetTextDelegate(SetText), params_list);
-
-            }
-
-            else
-            {
-                ctrl.Text = ctrl.Text + text;
-                ctrl.Select(ctrl.Text.Length, 0);
-                ctrl.ScrollToCaret();
-                //if (text == "Pass")
-                //{
-                //    ctrl.BackColor = Color.LightGreen;
-                //}
-                //else if (text == "???")
-                //    ctrl.BackColor = Color.LightGray;
-                //else if (text == "Fail")
-                //    ctrl.BackColor = Color.Red;
-                // ctrl.SelectionStart = ctrl.Text.Length;
-                //  ctrl.ScrollToCaret();
-
-            }
-        }
-
-        public void SetText(string text)
-        {
-            textBox1.Text = textBox1.Text + text;
-            textBox1.Select(textBox1.Text.Length, 0);
-            textBox1.ScrollToCaret();
-        }
-
-
-
-
-
-
-
-        public enum parseType
-        {
-            displayAll,
-            displayTerse,
-            displayTrigger,
-            consume
-            //what should the remote do with the data?
-        };
-
-        class packet
-        {
-            DateTime time;
-            public parseType result;
-            public string data;
-            //other packet data goes here. this is so that
-            //we can send all notification messages to remote handler.
-
-            public packet(string input, parseType action)
-            {
-                data = input;
-                result = action;
-            }
-        }
-
-        class tagByte
-        {
-            public string tagID;
-            public string location;
-            public string evnt;
-            public DateTime dateTime;
-            public tagByte(string t, string l, string e, DateTime d)
-            {
-                tagID = t;
-                location = l;
-                evnt = e;
-                dateTime = d;
+                if (flagBuffer == true)
+                {
+                    msgBuffer = "";
+                    flagBuffer = false;
+                }
             }
         }
 
@@ -274,17 +125,9 @@ namespace RFID
         {
             dtTracker.Columns.Add("tagID");
             dtTracker.Columns.Add("antenna");
-            dtTracker.Columns.Add("added by");
-            dtTracker.Columns.Add("discovery time");
-
-            if (mReader.ParseTagList(mReader.TagList, out ITagInfo[] tagInfos))
-            {
-                foreach (ITagInfo tag in tagInfos)
-                {
-                    dtTracker.Rows.Add(tag.TagID, tag.Antenna, "Startup Process", tag.DiscoveryTime);
-                }
-            }
-
+            dtTracker.Columns.Add("RSSI");
+            dtTracker.Columns.Add("added by process:");
+            dtTracker.Columns.Add("DateTime");
         }
 
         private void UpdateDGV(tagByte tag)
@@ -293,121 +136,94 @@ namespace RFID
 
             DataRow[] result = dtTracker.Select("tagID = " + id);
 
-            switch (tag.evnt)
+            if (result.Count() < 1)
+            { dtTracker.Rows.Add(tag.tagID, tag.location, tag.RSSI, tag.evnt, tag.dateTime); Console.WriteLine("added to DGV:" + tag.tagID); }
+
+            else if (result.Count() > 0)
             {
-                case "TAGS ADDED":
+                foreach(DataRow row in result)
+                {
+                    dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["RSSI"] = tag.RSSI;
+                }
 
-                    //DataRow[] tmp = dtTracker.Select(tag.tagID);
-
-                    if (result.Count() < 1)
-                    { dtTracker.Rows.Add(tag.tagID, tag.location, "Message from reader", tag.dateTime); Console.WriteLine("added to DGV:" + tag.tagID); }
-
-                    break;
-
-                case "TAGS REMOVED":
-                    if (result.Count() > 0)
-                    {
-                        Console.WriteLine("Attempting to remove tag");
-                        foreach (DataRow row in result)
-                        { dtTracker.Rows.Remove(row); Console.WriteLine("removed from DGV:" + tag.tagID); }
-                    }
-
-                    break;
-
-                case "TEST MESSAGE":
-                    break;
-
+                //    Console.WriteLine("Attempting to remove tag");
+                //    foreach (DataRow row in result)
+                //    { dtTracker.Rows.Remove(row); Console.WriteLine("removed from DGV:" + tag.tagID); }
             }
-            //dgvTracker.DataSource = dtTracker;
+
             Refresh(bs, dgvTracker);
         }
 
-        // the wat
-        private void HandlePacket(packet p)
+        public delegate void SetTextDelegate(System.Windows.Forms.TextBox ctrl, string text);
+        public static void SetText(System.Windows.Forms.TextBox ctrl, string text)
         {
-            switch (p.result)
+            if (ctrl.InvokeRequired)
             {
-                case parseType.displayTerse:
+                object[] params_list = new object[] { ctrl, text };
 
-                    SetText(txtStream, p.data);
-
-                    break;
-
-                case parseType.consume:
-
-                    if (mReader.NotifyFormat != "XML")
-                    { break; }
-                    else
-                    {
-                        int a, z;
-
-                        a = p.data.IndexOf("<Reason>");
-                        z = p.data.IndexOf("</Reason>");
-
-                        string evnt;
-                        evnt = p.data.Substring(a + 8, (z - (a + 8)));
-
-                        a = p.data.IndexOf("<Time>");
-                        z = p.data.IndexOf("</Time>");
-
-                        DateTime dateTime;
-                        dateTime = Convert.ToDateTime(p.data.Substring(a + 6, (z - (a + 6))));
-
-                        int sT, eT = 0;
-                        int sL, eL = 0;
-
-                        string tagKeyS = "<TagID>";
-                        string tagKeyE = "</TagID>";
-
-                        string locKeyS = "<Antenna>";
-                        string locKeyE = "</Antenna>";
-
-                        int i = Regex.Matches(p.data, tagKeyS).Count;
-
-                        string location, tagID;
-
-                        for (int x = 0; x < i; x++)
-                        {
-                            sT = p.data.IndexOf(tagKeyS, eT);
-                            eT = p.data.IndexOf(tagKeyE, sT);
-
-                            tagID = p.data.Substring((sT + tagKeyS.Length), ((eT - sT) - tagKeyS.Length));
-
-                            sL = p.data.IndexOf(locKeyS, eL);
-                            eL = p.data.IndexOf(locKeyE, sL);
-
-                            location = p.data.Substring((sL + locKeyS.Length), ((eL - sL) - locKeyS.Length));
-
-                            tagByte tag = new tagByte(tagID, location, evnt, dateTime);
-
-                            InsertIntoRFIDTracker(tag);
-                            UpdateDGV(tag);
-                            //UpdateHandler(tagID, location, evnt, dateTime);
-                        }
-
-                        SetText(textBox1, p.data);
-
-                        break;
-                    }
-                    //add all of the other parsetypes
+                ctrl.Invoke(new SetTextDelegate(SetText), params_list);
+            }
+            else
+            {
+                ctrl.Text = ctrl.Text + text;
+                ctrl.Select(ctrl.Text.Length, 0);
+                ctrl.ScrollToCaret();
             }
         }
 
-        private void InsertIntoRFIDTracker(tagByte tag)
+        public delegate void RefreshDelegate(BindingSource b, DataGridView ctrl);
+        public static void Refresh(BindingSource b, DataGridView ctrl)
         {
-            Console.WriteLine("Inserting into table.");
+            if (ctrl.InvokeRequired)
+            {
+                object[] params_list = new object[] { b, ctrl };
 
-            SqlCommand InsertIntoRFIDTracker = new SqlCommand($@"Insert Into
-                                                                    RFIDTracker
-                                                                Values
-                                                                    (@TID, @loc, @evnt, @DT)", con.nection);
-            InsertIntoRFIDTracker.Parameters.AddWithValue("@TID", tag.tagID);
-            InsertIntoRFIDTracker.Parameters.AddWithValue("@loc", tag.location);
-            InsertIntoRFIDTracker.Parameters.AddWithValue("@evnt", tag.evnt);
-            InsertIntoRFIDTracker.Parameters.AddWithValue("@DT", tag.dateTime);
-            con.nection.Open();
-            InsertIntoRFIDTracker.ExecuteNonQuery();
-            con.nection.Close();
+                ctrl.Invoke(new RefreshDelegate(Refresh), params_list);
+            }
+            else
+            { b.ResetBindings(false); }
+        }
+
+        public delegate void AddRowDelegate(System.Windows.Forms.DataGridView ctrl, string location, string tagID, string evnt, DateTime dateTime);
+        public static void AddRow(System.Windows.Forms.DataGridView ctrl, string tagID, string location, string evnt, DateTime dateTime)
+        {
+            if (ctrl.InvokeRequired)
+            {
+                object[] params_list = new object[] { ctrl, tagID, location, evnt, dateTime };
+
+                ctrl.Invoke(new AddRowDelegate(AddRow), params_list);
+            }
+
+            else
+            {
+                char[] p = { ',' };
+                ctrl.Rows.Insert(0, tagID, location, evnt, dateTime);
+                //ctrl.Rows.Add();
+            }
+
+        }
+
+        private void Monitor_ReaderRemoved(IReaderInfo data)
+        {
+            txtConsole.Text = txtConsole.Text + "\r\n Reader " + data.Name + " has been Removed. IP: " + data.IPAddress;
+
+
+            //throw new NotImplementedException();
+        }
+
+        private void Monitor_ReaderAdded(IReaderInfo data)
+        {
+
+            txtConsole.Text = txtConsole.Text + "\r\n Reader " + data.Name + " has been Added. IP: " + data.IPAddress;
+
+            //throw new NotImplementedException();
+        }
+
+        private void MReader_MessageReceived(string data)
+        {
+            Console.WriteLine("message received.");
+            Console.WriteLine("data: " + data);
+            SetText(txtConsole, data);
         }
 
         private DataTable GetHistory(string tagID)
@@ -431,14 +247,14 @@ namespace RFID
 
         private void Monitor_ReaderRemovedOnSerial(IReaderInfo data)
         {
-            textBox1.Text = textBox1.Text + "\r\n Reader " + data.Name + " has been Removed. IP: " + data.IPAddress;
+            txtConsole.Text = txtConsole.Text + "\r\n Reader " + data.Name + " has been Removed. IP: " + data.IPAddress;
 
             //throw new NotImplementedException();
         }
 
         private void Monitor_ReaderAddedOnSerial(IReaderInfo data)
         {
-            textBox1.Text = textBox1.Text + "\r\n Reader " + data.Name + " has been Added. IP: " + data.IPAddress;
+            txtConsole.Text = txtConsole.Text + "\r\n Reader " + data.Name + " has been Added. IP: " + data.IPAddress;
 
             //throw new NotImplementedException();
         }
@@ -485,7 +301,7 @@ namespace RFID
             String stemp;
             mReader.InitOnCom(3);// ‘Initialize reader object on COM1
             stemp = mReader.Connect();
-            textBox1.Text = textBox1.Text + "\r\n" + stemp;
+            txtConsole.Text = txtConsole.Text + "\r\n" + stemp;
         }
 
         private void btnTagList_Click(object sender, EventArgs e)
@@ -505,69 +321,19 @@ namespace RFID
                 int ctr = 0;
                 foreach (ITagInfo tag in tagInfos)
                 {
-                    textBox1.AppendText("TagID:" + tag.TagID + "\r\n Read Count:" + tag.ReadCount + "\r\n Last Seen:" + tag.LastSeenTime + lineseparator);
-                    textBox1.Select(textBox1.Text.Length, 0);
-                    textBox1.ScrollToCaret();
+                    txtConsole.AppendText("TagID:" + tag.TagID + "\r\n Read Count:" + tag.ReadCount + "\r\n Last Seen:" + tag.LastSeenTime + lineseparator);
+                    txtConsole.Select(txtConsole.Text.Length, 0);
+                    txtConsole.ScrollToCaret();
                     ctr++;
                 }
-                textBox1.AppendText("Number of tags within list: " + ctr + lineseparator);
+                txtConsole.AppendText("Number of tags within list: " + ctr + lineseparator);
             }
             else
-            { Console.WriteLine("taglist triggered but is empty"); textBox1.AppendText(lineseparator + "Taglist triggered but is empty.");}
+            { Console.WriteLine("taglist triggered but is empty"); txtConsole.AppendText(lineseparator + "Taglist triggered but is empty."); }
         }
 
         private void bwNotifications_DoWork(object sender, DoWorkEventArgs e)
         {
-            ////Console.WriteLine("Notifications service running");
-
-            //if (mReader.GetCurrentMessages(out string[] Notifications) > 0)
-            //{
-            //    Console.WriteLine("passed condition.");
-            //    string tl,reason = "";
-            //    ITagInfo[] tagInfos;
-            //    int start,end;
-
-
-            //    foreach (string notification in Notifications)
-            //    {
-            //        SetText(textBox1, "\r\n" + notification + "\r\n");
-            //        start = notification.IndexOf(reasonStr) + reasonStr.Count();
-            //        if (start > 6)
-            //        {
-            //            end = notification.IndexOf("\r\n", start);
-            //            reason = notification.Substring(start, end - start);                    
-
-            //            start = notification.IndexOf("Tag:", 0);
-
-            //            if (start > -1)
-            //            {
-
-            //                end = notification.IndexOf("\r\n#End of Notification Message", start);
-
-            //                if (end <= start)
-            //                {
-            //                    tl = notification.Substring(start);
-            //                }
-            //                else
-            //                {
-            //                    tl = notification.Substring(start, end - start);
-            //                }
-
-            //                if (mReader.ParseTagList(tl, out tagInfos))
-            //                {
-            //                    foreach (ITagInfo tag in tagInfos)
-            //                    {
-            //                        AddRow(dgvTracker, tag.TagID, mReader.ReaderName, reason, DateTime.Now);
-            //                        InsertIntoRFIDTracker(tag.TagID, mReader.ReaderName, reason, DateTime.Now);
-            //                    }
-            //                }
-            //            }
-
-            //        }
-            //    }
-
-            //}
-
         }
 
 
@@ -580,8 +346,11 @@ namespace RFID
         {
             mReader.InitOnNetwork(Settings.Default.ReaderIP, Convert.ToInt32(Settings.Default.TCPPort));
 
-            if ((e.Result = mReader.Connect()) == "Connected")
-            { mReader.Login(Settings.Default.AlienReaderUsername, Settings.Default.AlienReaderPassword); }
+            if ("Connected" == (e.Result = mReader.Connect()))
+            {
+                SetText(txtConsole, e.Result.ToString());
+                mReader.Login(Settings.Default.AlienReaderUsername, Settings.Default.AlienReaderPassword);
+            }
             else
             { Console.WriteLine("Retrying connection"); }
             //Initialize network connection to reader using application settings
@@ -591,28 +360,22 @@ namespace RFID
         {
             string stemp = e.Result.ToString();
 
-            Console.WriteLine("logged in.");
+            SetText(txtConsole, "Logged in.");
 
             if (stemp == "Connected")
             {
-                textBox1.Text = textBox1.Text + "\r\n" + stemp + "\r\n";
                 if (mReader.DateTime != DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"))
                 { mReader.DateTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"); }
 
-                mReader.NotifyMode = "ON";
-                mReader.AutoMode = "ON";
-                mReader.NotifyTime = "0";
-                mReader.NotifyFormat = "XML";
-
-                mReader.NotifyAddress = Dns.GetHostName().ToString() + ":" + TCPPort;
-                //mReader.NotifyAddress = "CO2500L01:11000";
                 //find a way to make this dynamic
                 InitializeDGV();
 
                 bwListen.RunWorkerAsync();
 
-                //bwNotifications.RunWorkerAsync();
-                //bwListen.RunWorkerAsync();
+                mReader.TagStreamAddress = Dns.GetHostName().ToString() + ":" + TCPPort;
+                mReader.NotifyMode = "OFF";
+                mReader.TagStreamCustomFormat = format;
+                mReader.TagStreamMode = "ON";
             }
             else
             {
@@ -624,7 +387,7 @@ namespace RFID
         {
             if (e.KeyCode == Keys.Enter)
             {
-                SetText(textBox1, "\r\n" + System.Security.Principal.WindowsIdentity.GetCurrent().Name + "> " + txtCommand.Text);
+                SetText(txtConsole, "\r\n" + System.Security.Principal.WindowsIdentity.GetCurrent().Name + "> " + txtCommand.Text);
                 mReader.Send(txtCommand.Text + "\r\n", false);
                 txtCommand.Text = "";
             }
@@ -632,11 +395,6 @@ namespace RFID
 
         private void txtUnitHistory_KeyDown(object sender, KeyEventArgs e)
         {
-            //    if (e.KeyCode == Keys.Enter)
-            //    {
-            //        dgvUnitHistory.DataSource = GetHistory(txtUnitHistory.Text);
-            //        dgvUnitHistory.Columns[0].FillWeight = 50;
-            //    }
         }
 
         private void btnSettings_Click(object sender, EventArgs e)
@@ -651,9 +409,21 @@ namespace RFID
         private void bwListen_DoWork(object sender, DoWorkEventArgs e)
         { AsynchronousSocketListener.StartListening(); }
 
-        private void bwListen_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void InsertIntoRFIDTracker(tagByte tag)
         {
-            Console.WriteLine("listen completed.");
+            Console.WriteLine("Inserting into table.");
+
+            SqlCommand InsertIntoRFIDTracker = new SqlCommand($@"Insert Into
+                                                                    RFIDTracker
+                                                                Values
+                                                                    (@TID, @loc, @evnt, @DT)", con.nection);
+            InsertIntoRFIDTracker.Parameters.AddWithValue("@TID", tag.tagID);
+            InsertIntoRFIDTracker.Parameters.AddWithValue("@loc", tag.location);
+            InsertIntoRFIDTracker.Parameters.AddWithValue("@evnt", tag.evnt);
+            InsertIntoRFIDTracker.Parameters.AddWithValue("@DT", tag.dateTime);
+            con.nection.Open();
+            InsertIntoRFIDTracker.ExecuteNonQuery();
+            con.nection.Close();
         }
     }
 }

@@ -36,7 +36,7 @@
             this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colDateAdded = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colKown = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtConsole = new System.Windows.Forms.TextBox();
             this.btnTagList = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.bwNotifications = new System.ComponentModel.BackgroundWorker();
@@ -44,6 +44,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tbNotify = new System.Windows.Forms.TabPage();
+            this.txtStream = new System.Windows.Forms.TextBox();
             this.txtCommand = new System.Windows.Forms.TextBox();
             this.tbTrack = new System.Windows.Forms.TabPage();
             this.dgvTracker = new System.Windows.Forms.DataGridView();
@@ -57,7 +58,6 @@
             this.btnSettings = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.bwListen = new System.ComponentModel.BackgroundWorker();
-            this.txtStream = new System.Windows.Forms.TextBox();
             dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -130,18 +130,18 @@
             this.colKown.HeaderText = "Known?";
             this.colKown.Name = "colKown";
             // 
-            // textBox1
+            // txtConsole
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.txtConsole.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(-1, 0);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(441, 350);
-            this.textBox1.TabIndex = 1;
+            this.txtConsole.Location = new System.Drawing.Point(-1, 0);
+            this.txtConsole.Margin = new System.Windows.Forms.Padding(2);
+            this.txtConsole.Multiline = true;
+            this.txtConsole.Name = "txtConsole";
+            this.txtConsole.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtConsole.Size = new System.Drawing.Size(441, 350);
+            this.txtConsole.TabIndex = 1;
             // 
             // btnTagList
             // 
@@ -210,7 +210,7 @@
             this.tbNotify.Controls.Add(this.txtCommand);
             this.tbNotify.Controls.Add(this.button3);
             this.tbNotify.Controls.Add(this.btnTagList);
-            this.tbNotify.Controls.Add(this.textBox1);
+            this.tbNotify.Controls.Add(this.txtConsole);
             this.tbNotify.Location = new System.Drawing.Point(4, 22);
             this.tbNotify.Margin = new System.Windows.Forms.Padding(2);
             this.tbNotify.Name = "tbNotify";
@@ -219,6 +219,19 @@
             this.tbNotify.TabIndex = 0;
             this.tbNotify.Text = "Notifications";
             this.tbNotify.UseVisualStyleBackColor = true;
+            // 
+            // txtStream
+            // 
+            this.txtStream.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtStream.Location = new System.Drawing.Point(436, 0);
+            this.txtStream.Margin = new System.Windows.Forms.Padding(2);
+            this.txtStream.Multiline = true;
+            this.txtStream.Name = "txtStream";
+            this.txtStream.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtStream.Size = new System.Drawing.Size(449, 350);
+            this.txtStream.TabIndex = 5;
             // 
             // txtCommand
             // 
@@ -364,20 +377,6 @@
             // bwListen
             // 
             this.bwListen.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwListen_DoWork);
-            this.bwListen.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwListen_RunWorkerCompleted);
-            // 
-            // txtStream
-            // 
-            this.txtStream.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtStream.Location = new System.Drawing.Point(436, 0);
-            this.txtStream.Margin = new System.Windows.Forms.Padding(2);
-            this.txtStream.Multiline = true;
-            this.txtStream.Name = "txtStream";
-            this.txtStream.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtStream.Size = new System.Drawing.Size(449, 350);
-            this.txtStream.TabIndex = 5;
             // 
             // frmRFIDMain
             // 
@@ -407,7 +406,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtConsole;
         private System.Windows.Forms.Button btnTagList;
         private System.Windows.Forms.Button button3;
         private System.ComponentModel.BackgroundWorker bwNotifications;
