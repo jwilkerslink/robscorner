@@ -40,9 +40,9 @@
             this.txtPass = new System.Windows.Forms.TextBox();
             this.txtUser = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtPipe = new System.Windows.Forms.TextBox();
             this.chkRunSSMS = new System.Windows.Forms.CheckBox();
             this.btnConnectDB = new System.Windows.Forms.Button();
-            this.txtPipe = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudPort)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -161,6 +161,13 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "LocalDB";
             // 
+            // txtPipe
+            // 
+            this.txtPipe.Location = new System.Drawing.Point(78, 13);
+            this.txtPipe.Name = "txtPipe";
+            this.txtPipe.Size = new System.Drawing.Size(110, 20);
+            this.txtPipe.TabIndex = 4;
+            // 
             // chkRunSSMS
             // 
             this.chkRunSSMS.AutoSize = true;
@@ -181,13 +188,6 @@
             this.btnConnectDB.UseVisualStyleBackColor = true;
             this.btnConnectDB.Click += new System.EventHandler(this.btnConnectDB_Click);
             // 
-            // txtPipe
-            // 
-            this.txtPipe.Location = new System.Drawing.Point(78, 13);
-            this.txtPipe.Name = "txtPipe";
-            this.txtPipe.Size = new System.Drawing.Size(110, 20);
-            this.txtPipe.TabIndex = 4;
-            // 
             // frmSettingsPane
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -199,7 +199,7 @@
             this.Controls.Add(this.btnSave);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "frmSettingsPane";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Reader Settings";
             this.Load += new System.EventHandler(this.frmSettingsPane_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudPort)).EndInit();

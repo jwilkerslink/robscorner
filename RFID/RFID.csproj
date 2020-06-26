@@ -80,6 +80,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Connection.cs" />
+    <Compile Include="frmAliasPane.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAliasPane.Designer.cs">
+      <DependentUpon>frmAliasPane.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmRFIDMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +102,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Worker.cs" />
+    <EmbeddedResource Include="frmAliasPane.resx">
+      <DependentUpon>frmAliasPane.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmRFIDMain.resx">
       <DependentUpon>frmRFIDMain.cs</DependentUpon>
     </EmbeddedResource>

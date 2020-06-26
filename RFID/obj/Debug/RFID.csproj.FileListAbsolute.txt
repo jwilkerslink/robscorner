@@ -44,3 +44,4 @@ C:\Users\jwilkerson\source\repos\robscorner\RFID\obj\Debug\RFID.frmRFIDMain.reso
 C:\Users\jwilkerson\source\repos\robscorner\RFID\bin\Debug\AlienRFID2.xml
 C:\Users\jwilkerson\source\repos\rveloz9192\robscorner\RFID\bin\Debug\AlienRFID2.xml
 C:\Users\jwilkerson\source\repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.frmRFIDMain.resources
+C:\Users\jwilkerson\source\repos\rveloz9192\robscorner\RFID\obj\Debug\RFID.frmAliasPane.resources
