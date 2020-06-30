@@ -7,6 +7,8 @@ using System.Net.Sockets;
 using System.Net;
 using System.Threading;
 using System.Security.Principal;
+using System.Windows.Forms;
+using System.Security.Cryptography;
 
 namespace RFID
 {
@@ -49,8 +51,8 @@ namespace RFID
             //{ throw new NotImplementedException(); }
         }
 
-    // Thread signal.  
-    public static ManualResetEvent allDone = new ManualResetEvent(false);
+        // Thread signal.  
+        public static ManualResetEvent allDone = new ManualResetEvent(false);
 
         public static void StartListening()
         {
@@ -84,7 +86,7 @@ namespace RFID
                     allDone.Reset();
 
                     // Start an asynchronous socket to listen for connections.  
-                    Console.WriteLine("Waiting for a connection...");
+                    //Console.WriteLine("Waiting for a connection...");
                     listener.BeginAccept(
                         new AsyncCallback(AcceptCallback),
                         listener);
@@ -146,10 +148,10 @@ namespace RFID
                 {
                     // All the data has been read from the
                     // client. Display it on the console.  
-                    Console.WriteLine("Read {0} bytes from socket. \n Data : {1}",
-                        content.Length, content);
+                    //Console.WriteLine("Read {0} bytes from socket. \n Data : {1}",
+                        //content.Length, content);
 
-                    Console.WriteLine("Message passed from Reader to Host and is now being processed.");
+                    //Console.WriteLine("Message passed from Reader to Host and is now being processed.");
                     PassMessage.IncomingMessage(content);
                     //this raises the event and passes the data over to RFIDMain
 
@@ -184,7 +186,7 @@ namespace RFID
 
                 // Complete sending the data to the remote device.  
                 int bytesSent = handler.EndSend(ar);
-                Console.WriteLine("Sent {0} bytes to client.", bytesSent);
+                //Console.WriteLine("Sent {0} bytes to client.", bytesSent);
 
                 handler.Shutdown(SocketShutdown.Both);
                 handler.Close();

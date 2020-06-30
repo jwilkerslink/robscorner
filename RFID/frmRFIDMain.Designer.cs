@@ -166,6 +166,8 @@
             this.dgvTracker.Size = new System.Drawing.Size(1137, 361);
             this.dgvTracker.TabIndex = 0;
             this.dgvTracker.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTracker_CellContentDoubleClick);
+            this.dgvTracker.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgvTracker_RowsAdded);
+            this.dgvTracker.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgvTracker_RowsRemoved);
             // 
             // tbCommand
             // 

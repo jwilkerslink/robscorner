@@ -25,17 +25,6 @@ namespace RFID
         clsReader mReader = new clsReader();
         Worker w = new Worker();
 
-        DataTable dtTracker = new DataTable();
-        BindingSource bsTracker = new BindingSource();
-        DataTable dtMaster = new DataTable();
-        BindingSource bsMaster = new BindingSource();
-        DataTable dtAlias = new DataTable();
-
-
-        public Connection con = new Connection();
-
-        const int persist = 20;
-        const int readFloor = 20;
         const int TCPPort = 11000;
         const string format = "<TagID>%k</TagID><Antenna>%A</Antenna><Time>${DATE2} ${TIME2}</Time><RSSI>%m</RSSI>";
         const string lineseparator = "\r\n - - - - - - - - - - - -\r\n";
@@ -43,30 +32,36 @@ namespace RFID
         string msgBuffer;
         bool flagBuffer = false;
 
+        public Connection con = new Connection();
+
+
         public frmRFIDMain()
         {
             InitializeComponent();
-            InitializeDTAlias();
-            InitializeDGVTracker();
-            InitializeDGVMaster();
+            DataTables.InitDTs();
+            TagTimer.InitTimer();
         }
 
         private void frmRFIDMain_Load(object sender, EventArgs e)
         {
-            bsTracker.DataSource = dtTracker;
-            dgvTracker.DataSource = bsTracker;
-
-            bsMaster.DataSource = dtMaster;
-            dgvMaster.DataSource = bsMaster;
-            // bind data source for dgvTracker and Master and Alias
+            dgvTracker.DataSource = DataTables.bsTracker;
+            dgvMaster.DataSource = DataTables.bsMaster;
+            // bind data source for dgvTracker and Master
 
             mReader.MessageReceived += MReader_MessageReceived;
             // subscribe to event that allows us to receive response from the Reader
 
-            AsynchronousSocketListener.PassMessage.MessageReceived +=
-                        (s, v) =>
+            AsynchronousSocketListener.PassMessage.MessageReceived += (s, v) =>
                 HandleData(v.Message.ToString());
             // subscribe to event that brings data received by TCP socket from static Listener class file
+
+            TagTimer.RemoveSignal.SignalReceived += (s, v) =>
+                DataTables.RemoveFromMaster(v.Tag);
+            // subscribe to event that tells us when to remove a tag from our list
+
+            DataTables.RefreshSignal.SignalReceived += (s, v) =>
+                Refresh(v.B);
+            //subscribe to event that tells us when to refresh DGVs
 
             con.changeCon(Settings.Default.Pipe);
             // sets up the connection string for interaction with LocalDB
@@ -76,13 +71,11 @@ namespace RFID
         }
 
         private void ConsumeTag(tagByte tag)
-        {
-            UpdateDGVTracker(tag);
-        }
+        { DataTables.UpdateDTs(tag); }
 
         private void HandleData(string data)
         {
-            if (System.Text.ASCIIEncoding.ASCII.GetByteCount(data) >= 1024)
+            if (Encoding.ASCII.GetByteCount(data) >= 1024)
             {
                 msgBuffer += data;
                 flagBuffer = true;
@@ -105,113 +98,29 @@ namespace RFID
             }
         }
 
-        private int ClientCheck()
-        {
-            return 0;
-        }
+        //private int ClientCheck()
+        //{
+        //    return 0;
+        //}
 
-        private void SendUpdate(tagByte tag)
-        {
-            //this will replace update dgvmaster when we have clients to send updates to
-        }
+        //private void SendUpdate(tagByte tag)
+        //{
+        //    //this will replace update dgvmaster when we have clients to send updates to
+        //}
 
-        private void UpdateHandler(tagByte tag)
-        {
-            int clients;
-            if (0 < (clients = ClientCheck()))
-            {
-                for (int i = 0; i < clients; i++)
-                {
-                    SendUpdate(tag);
-                }
-            }
-            else
-            { return; }
-        }
-
-        private void InitializeDGVTracker()
-        {
-            dtTracker.Columns.Add("tagID");
-            dtTracker.Columns.Add("discovered at antenna");
-            dtTracker.Columns.Add("RSSI");
-            dtTracker.Columns.Add("read count");
-            dtTracker.Columns.Add("added by process");
-            dtTracker.Columns.Add("discovery time");
-            dtTracker.Columns.Add("last read");
-            dtTracker.Columns.Add("in master");
-        }
-
-        private void InitializeDGVMaster()
-        {
-            dtMaster.Columns.Add("alias");
-            dtMaster.Columns.Add("discovered at location");
-            dtMaster.Columns.Add("current location");
-            dtMaster.Columns.Add("added time");
-            dtMaster.Columns.Add("last read time");
-            dtMaster.Columns.Add("RSSI");
-        }
-        private void InitializeDTAlias()
-        {
-            dtAlias.Columns.Add("tagID");
-            dtAlias.Columns.Add("alias");
-        }
-        private void UpdateDGVTracker(tagByte tag)
-        {
-            string id = "'" + tag.tagID + "'";
-
-            DataRow[] resultT = dtTracker.Select("tagID = " + id);
-
-            if (resultT.Count() < 1 ) // if tag is not in Tracker,
-            {
-                dtTracker.Rows.Add(tag.tagID, tag.location, tag.RSSI, 1, tag.evnt, tag.dateTime, tag.dateTime, "false"); Console.WriteLine("added to DGV:" + tag.tagID);
-                //add it to Tracker
-            }
-            else if (resultT.Count() > 0) // if it is, check if it's in Master,
-            {
-                DataRow[] resultM = dtMaster.Select("alias = " + id);
-
-                if (resultM.Count() > 0) // if it's in Master, Update RSSI, current location, and last read time
-                {
-                    foreach (DataRow row in resultM)
-                    {
-                        dtMaster.Rows[dtMaster.Rows.IndexOf(row)]["RSSI"] = tag.RSSI;
-                        dtMaster.Rows[dtMaster.Rows.IndexOf(row)]["last read time"] = tag.dateTime;
-                        dtMaster.Rows[dtMaster.Rows.IndexOf(row)]["current location"] = tag.location;
-                    }
-                }
-                else//if it's not, check its readcount. if readcount hits threshhold, add it to master.
-                {
-                    foreach (DataRow row in resultT)
-                    {
-                        if (Convert.ToInt32(dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["read count"]) >= readFloor && dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["in master"] == "false")
-                        {
-                            dtMaster.Rows.Add(tag.tagID,
-                                                dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["discovered at antenna"],
-                                                dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["discovered at antenna"],
-                                                DateTime.Now,
-                                                DateTime.Now,
-                                                tag.RSSI
-                                              );
-
-                            dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["in master"] = "true";
-                            dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["RSSI"] = "# # # # #";
-                            dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["last read"] = "# # # # #";
-                            dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["read count"] = "0";
-                        }
-                        else//if it hasn't hit its readcount yet, keep updating it on tracker
-                        {
-                            dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["RSSI"] = tag.RSSI;
-                            dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["last read"] = tag.dateTime;
-                            dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["read count"] = Convert.ToInt32(dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["read count"]) + 1;
-                        }
-                    }
-                }
-            }
-            Refresh(bsTracker, dgvTracker);
-            Refresh(bsMaster, dgvMaster);
-            //SetCount(lblTagCount, (dgvTracker.Rows.Count - 1).ToString());
-            SetCount(lblTagCount, dgvTracker.Rows.Count.ToString());
-        }
+        //private void UpdateHandler(tagByte tag)
+        //{
+        //    int clients;
+        //    if (0 < (clients = ClientCheck()))
+        //    {
+        //        for (int i = 0; i < clients; i++)
+        //        {
+        //            SendUpdate(tag);
+        //        }
+        //    }
+        //    else
+        //    { return; }
+        //}
 
         public delegate void SetCountDelegate(System.Windows.Forms.Label ctrl, string text);
         public static void SetCount(System.Windows.Forms.Label ctrl, string text)
@@ -245,12 +154,19 @@ namespace RFID
             }
         }
 
-        public delegate void RefreshDelegate(BindingSource b, DataGridView ctrl);
-        public static void Refresh(BindingSource b, DataGridView ctrl)
+        public delegate void RefreshDelegate(BindingSource b);
+        public void Refresh(BindingSource b)
         {
+            DataGridView ctrl = new DataGridView();
+            if (b == DataTables.bsMaster)
+            { ctrl = dgvTracker; }
+            else if (b == DataTables.bsTracker)
+            { ctrl = dgvTracker; }
+
+
             if (ctrl.InvokeRequired)
             {
-                object[] params_list = new object[] { b, ctrl };
+                object[] params_list = new object[] { b};
 
                 ctrl.Invoke(new RefreshDelegate(Refresh), params_list);
             }
@@ -276,6 +192,7 @@ namespace RFID
             }
 
         }
+
 
         private void Monitor_ReaderRemoved(IReaderInfo data)
         {
@@ -499,24 +416,29 @@ namespace RFID
 
         private void dgvTracker_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataRow[] search = dtAlias.Select("tagID = " + "'" + dtTracker.Rows[e.RowIndex][0].ToString() + "'");
+            //DataRow[] search = dtAlias.Select("tagID = " + "'" + dtTracker.Rows[e.RowIndex][0].ToString() + "'");
 
-            if (search.Count() == 0)
-            {
-                if (MessageBox.Show("No alias found. Assign one?", "Alias", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    using (var pane = new frmAliasPane())
-                    {
-                        pane.ShowDialog();
-                        if (pane.Alias != "")
-                        {
-                            dtAlias.Rows.Add(dtTracker.Rows[e.RowIndex][0].ToString(), pane.Alias);
-                        }
-                    }
-                }
-            }
-            else if (search.Count() >= 1)
-            { MessageBox.Show("Alias already exists."); }
+            //if (search.Count() == 0)
+            //{
+            //    if (MessageBox.Show("No alias found. Assign one?", "Alias", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            //    {
+            //        using (var pane = new frmAliasPane())
+            //        {
+            //            pane.ShowDialog();
+            //            if (pane.Alias != "")
+            //            {
+            //                dtAlias.Rows.Add(dtTracker.Rows[e.RowIndex][0].ToString(), pane.Alias);
+            //            }
+            //        }
+            //    }
+            //}
+            //else if (search.Count() >= 1)
+            //{ MessageBox.Show("Alias already exists."); }
         }
+
+        private void dgvTracker_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        { lblTagCount.Text = dgvTracker.Rows.Count.ToString(); }
+        private void dgvTracker_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        { lblTagCount.Text = dgvTracker.Rows.Count.ToString(); }
     }
 }
