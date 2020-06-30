@@ -12,12 +12,19 @@ namespace RFID
         public RefreshEventArgs(BindingSource b)
         { this.b = b; }
     }
+    class InsertEventArgs : EventArgs
+    {
+        readonly tagByte t;
+        public tagByte T { get { return t; } }
+        public InsertEventArgs(tagByte t)
+        { this.t = t; }
+    }
 
     class DataTables
     {
-        const int readFloor = 5;
+        const int readFloor = 20;
 
-               static DataTable dtTracker = new DataTable();
+        static DataTable dtTracker = new DataTable();
         public static BindingSource bsTracker = new BindingSource();
                static DataTable dtMaster = new DataTable();
         public static BindingSource bsMaster = new BindingSource();
@@ -75,6 +82,9 @@ namespace RFID
 
                             TagTimer.AddSubject(tag.tagID, tag.dateTime);
 
+                            tag.evnt = "ADDED";
+                            InsertSignal.IncomingSignal(tag);
+
                             dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["in master"] = "true";
                             dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["RSSI"] = "# # # # #";
                             dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["last read"] = "# # # # #";
@@ -120,6 +130,17 @@ namespace RFID
 
             static public void IncomingSignal(BindingSource b)
             { OnSignalReceived(new RefreshEventArgs(b)); }
+        }
+
+        public static class InsertSignal
+        {
+            static public event EventHandler<InsertEventArgs> SignalReceived = delegate { };
+
+            static public void OnSignalReceived(InsertEventArgs v)
+            { SignalReceived?.Invoke(null, v); }
+
+            static public void IncomingSignal(tagByte t)
+            { OnSignalReceived(new InsertEventArgs(t)); }
         }
 
         private static void InitializeDTTracker()

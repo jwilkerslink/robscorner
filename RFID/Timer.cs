@@ -19,7 +19,7 @@ namespace RFID
     class TagTimer
     {
         const int checkInterval = 1000; //how often in MS that our timer checks the tags in Master list for removal
-        const int persistFloor = 2; //how long in seconds does a tag remain in Master without reads
+        const int persistFloor = 5; //how long in seconds does a tag remain in Master without reads
 
         private static System.Timers.Timer time;
         private static DataTable subjects;
@@ -84,7 +84,10 @@ namespace RFID
             Console.WriteLine("Subject removed.");
 
             foreach (DataRow row in l)
-            { subjects.Rows.Remove(row); }
+            {
+                subjects.Rows.Remove(row);
+                DataTables.InsertSignal.IncomingSignal(new tagByte(row["tag"].ToString(), "- - -", "REMOVED", Convert.ToDateTime(row["time"])));
+            }
 
             if (subjects.Rows.Count == 0)
             { time.Enabled = false; Console.WriteLine("Timer stopped."); }

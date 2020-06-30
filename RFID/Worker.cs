@@ -42,6 +42,13 @@ namespace RFID
             location = l;
             dateTime = d;
         }
+        public tagByte(string t, string e, string l, DateTime d)
+        {
+            tagID = t;
+            evnt = e;
+            location = l;
+            dateTime = d;
+        }
     }
 
     public class Worker

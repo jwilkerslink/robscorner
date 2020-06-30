@@ -25,14 +25,14 @@ namespace RFID
         clsReader mReader = new clsReader();
         Worker w = new Worker();
 
+        public Connection con = new Connection();
+
         const int TCPPort = 11000;
         const string format = "<TagID>%k</TagID><Antenna>%A</Antenna><Time>${DATE2} ${TIME2}</Time><RSSI>%m</RSSI>";
         const string lineseparator = "\r\n - - - - - - - - - - - -\r\n";
 
         string msgBuffer;
         bool flagBuffer = false;
-
-        public Connection con = new Connection();
 
 
         public frmRFIDMain()
@@ -62,6 +62,9 @@ namespace RFID
             DataTables.RefreshSignal.SignalReceived += (s, v) =>
                 Refresh(v.B);
             //subscribe to event that tells us when to refresh DGVs
+
+            DataTables.InsertSignal.SignalReceived += (s, v) =>
+                InsertIntoRFIDTracker(v.T);
 
             con.changeCon(Settings.Default.Pipe);
             // sets up the connection string for interaction with LocalDB
