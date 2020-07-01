@@ -44,8 +44,8 @@ namespace RFID
 
         private void frmRFIDMain_Load(object sender, EventArgs e)
         {
-            dgvTracker.DataSource = DataTables.bsTracker;
-            dgvMaster.DataSource = DataTables.bsMaster;
+            //dgvTracker.DataSource = DataTables.bsTracker;
+            //dgvMaster.DataSource = DataTables.bsMaster;
             // bind data source for dgvTracker and Master
 
             mReader.MessageReceived += MReader_MessageReceived;
@@ -56,7 +56,7 @@ namespace RFID
             // subscribe to event that brings data received by TCP socket from static Listener class file
 
             TagTimer.RemoveSignal.SignalReceived += (s, v) =>
-                DataTables.RemoveFromMaster(v.Tag);
+                DataTables.TagRemoved(v.Tag);
             // subscribe to event that tells us when to remove a tag from our list
 
             DataTables.RefreshSignal.SignalReceived += (s, v) =>
@@ -160,21 +160,21 @@ namespace RFID
         public delegate void RefreshDelegate(BindingSource b);
         public void Refresh(BindingSource b)
         {
-            DataGridView ctrl = new DataGridView();
-            if (b == DataTables.bsMaster)
-            { ctrl = dgvTracker; }
-            else if (b == DataTables.bsTracker)
-            { ctrl = dgvTracker; }
+            //DataGridView ctrl = new DataGridView();
+            //if (b == DataTables.bsMaster)
+            //{ ctrl = dgvTracker; }
+            //else if (b == DataTables.bsTracker)
+            //{ ctrl = dgvTracker; }
 
 
-            if (ctrl.InvokeRequired)
-            {
-                object[] params_list = new object[] { b};
+            //if (ctrl.InvokeRequired)
+            //{
+            //    object[] params_list = new object[] { b};
 
-                ctrl.Invoke(new RefreshDelegate(Refresh), params_list);
-            }
-            else
-            { b.ResetBindings(false); }
+            //    ctrl.Invoke(new RefreshDelegate(Refresh), params_list);
+            //}
+            //else
+            //{ b.ResetBindings(false); }
         }
 
         public delegate void AddRowDelegate(System.Windows.Forms.DataGridView ctrl, string location, string tagID, string evnt, DateTime dateTime);
@@ -290,15 +290,18 @@ namespace RFID
 
         private void bwConnect_DoWork(object sender, DoWorkEventArgs e)
         {
+            SetText(txtConsole, "Attempting connection. . .\r\n");
             mReader.InitOnNetwork(Settings.Default.ReaderIP, Convert.ToInt32(Settings.Default.TCPPort));
 
             if ("Connected" == (e.Result = mReader.Connect()))
             {
-                SetText(txtConsole, e.Result.ToString() + "\r\n");
-                mReader.Login(Settings.Default.AlienReaderUsername, Settings.Default.AlienReaderPassword);
+                SetText(txtConsole, e.Result.ToString() + ".\r\n");
+
+                if (mReader.Login(Settings.Default.AlienReaderUsername, Settings.Default.AlienReaderPassword))
+                { SetText(txtConsole, "Logged in.\r\n"); }
             }
             else
-            { Console.WriteLine("Retrying connection"); }
+            { SetText(txtConsole, "Retrying connection.\r\n"); Thread.Sleep(2000); }
             //Initialize network connection to reader using application settings
         }
 
@@ -306,7 +309,6 @@ namespace RFID
         {
             string stemp = e.Result.ToString();
 
-            SetText(txtConsole, "Logged in.");
 
             if (stemp == "Connected")
             {
@@ -440,8 +442,12 @@ namespace RFID
         }
 
         private void dgvTracker_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
-        { lblTagCount.Text = dgvTracker.Rows.Count.ToString(); }
+        { 
+            //lblTagCount.Text = dgvTracker.Rows.Count.ToString(); 
+        }
         private void dgvTracker_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
-        { lblTagCount.Text = dgvTracker.Rows.Count.ToString(); }
+        { 
+            //lblTagCount.Text = dgvTracker.Rows.Count.ToString(); 
+        }
     }
 }

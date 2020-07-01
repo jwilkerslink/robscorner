@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28922.388
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RFID", "RFID\RFID.csproj", "{C3054DEA-F86E-403D-8F08-F0940F1ECD3C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		32|Any CPU = 32|Any CPU
+		32|x86 = 32|x86
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C3054DEA-F86E-403D-8F08-F0940F1ECD3C}.32|Any CPU.ActiveCfg = Release|Any CPU
+		{C3054DEA-F86E-403D-8F08-F0940F1ECD3C}.32|Any CPU.Build.0 = Release|Any CPU
+		{C3054DEA-F86E-403D-8F08-F0940F1ECD3C}.32|x86.ActiveCfg = Release|Any CPU
+		{C3054DEA-F86E-403D-8F08-F0940F1ECD3C}.32|x86.Build.0 = Release|Any CPU
+		{C3054DEA-F86E-403D-8F08-F0940F1ECD3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3054DEA-F86E-403D-8F08-F0940F1ECD3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3054DEA-F86E-403D-8F08-F0940F1ECD3C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C3054DEA-F86E-403D-8F08-F0940F1ECD3C}.Debug|x86.Build.0 = Debug|Any CPU
+		{C3054DEA-F86E-403D-8F08-F0940F1ECD3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3054DEA-F86E-403D-8F08-F0940F1ECD3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3054DEA-F86E-403D-8F08-F0940F1ECD3C}.Release|x86.ActiveCfg = Release|Any CPU
+		{C3054DEA-F86E-403D-8F08-F0940F1ECD3C}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5B3252E2-13DB-4B93-BCBB-35D31A59E170}
+	EndGlobalSection
+EndGlobal

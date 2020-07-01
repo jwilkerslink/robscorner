@@ -45,8 +45,8 @@ namespace RFID
         public tagByte(string t, string e, string l, DateTime d)
         {
             tagID = t;
-            evnt = e;
             location = l;
+            evnt = e;
             dateTime = d;
         }
     }
@@ -94,20 +94,20 @@ namespace RFID
 
                     for (int x = 0; x < i; x++)
                     {
-                            sR = p.data.IndexOf(RSSIKeyS, eR);
-                            eR = p.data.IndexOf(RSSIKeyE, sR);
+                        sR = p.data.IndexOf(RSSIKeyS, eR);
+                        eR = p.data.IndexOf(RSSIKeyE, sR);
 
-                        RSSI =p.data.Substring(sR + RSSIKeyS.Length, (eR - (sR + RSSIKeyS.Length)));
+                        RSSI = p.data.Substring(sR + RSSIKeyS.Length, (eR - (sR + RSSIKeyS.Length)));
 
                         // Convert.ToInt32(
 
-                            sT = p.data.IndexOf(tagKeyS, eT);
-                            eT = p.data.IndexOf(tagKeyE, sT);
+                        sT = p.data.IndexOf(tagKeyS, eT);
+                        eT = p.data.IndexOf(tagKeyE, sT);
 
                         tagID = p.data.Substring((sT + tagKeyS.Length), ((eT - sT) - tagKeyS.Length));
 
-                            sL = p.data.IndexOf(locKeyS, eL);
-                            eL = p.data.IndexOf(locKeyE, sL);
+                        sL = p.data.IndexOf(locKeyS, eL);
+                        eL = p.data.IndexOf(locKeyE, sL);
 
                         location = p.data.Substring((sL + locKeyS.Length), ((eL - sL) - locKeyS.Length));
 

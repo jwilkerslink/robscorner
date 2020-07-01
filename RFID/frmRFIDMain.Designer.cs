@@ -33,12 +33,6 @@
             this.btnSettings = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.bwListen = new System.ComponentModel.BackgroundWorker();
-            this.tbMaster = new System.Windows.Forms.TabPage();
-            this.dgvMaster = new System.Windows.Forms.DataGridView();
-            this.tbTrack = new System.Windows.Forms.TabPage();
-            this.lblTagCount = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.dgvTracker = new System.Windows.Forms.DataGridView();
             this.tbCommand = new System.Windows.Forms.TabPage();
             this.txtStream = new System.Windows.Forms.TextBox();
             this.txtCommand = new System.Windows.Forms.TextBox();
@@ -46,10 +40,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.btnTagList = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tbMaster.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMaster)).BeginInit();
-            this.tbTrack.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTracker)).BeginInit();
             this.tbCommand.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
@@ -90,85 +80,6 @@
             // 
             this.bwListen.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwListen_DoWork);
             // 
-            // tbMaster
-            // 
-            this.tbMaster.Controls.Add(this.dgvMaster);
-            this.tbMaster.Location = new System.Drawing.Point(4, 22);
-            this.tbMaster.Name = "tbMaster";
-            this.tbMaster.Size = new System.Drawing.Size(1143, 382);
-            this.tbMaster.TabIndex = 3;
-            this.tbMaster.Text = "Master List";
-            this.tbMaster.UseVisualStyleBackColor = true;
-            // 
-            // dgvMaster
-            // 
-            this.dgvMaster.AllowUserToAddRows = false;
-            this.dgvMaster.AllowUserToDeleteRows = false;
-            this.dgvMaster.AllowUserToResizeColumns = false;
-            this.dgvMaster.AllowUserToResizeRows = false;
-            this.dgvMaster.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvMaster.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMaster.Location = new System.Drawing.Point(2, 2);
-            this.dgvMaster.Margin = new System.Windows.Forms.Padding(2);
-            this.dgvMaster.Name = "dgvMaster";
-            this.dgvMaster.RowHeadersWidth = 62;
-            this.dgvMaster.RowTemplate.Height = 28;
-            this.dgvMaster.Size = new System.Drawing.Size(1137, 378);
-            this.dgvMaster.TabIndex = 1;
-            // 
-            // tbTrack
-            // 
-            this.tbTrack.Controls.Add(this.lblTagCount);
-            this.tbTrack.Controls.Add(this.label1);
-            this.tbTrack.Controls.Add(this.dgvTracker);
-            this.tbTrack.Location = new System.Drawing.Point(4, 22);
-            this.tbTrack.Margin = new System.Windows.Forms.Padding(2);
-            this.tbTrack.Name = "tbTrack";
-            this.tbTrack.Padding = new System.Windows.Forms.Padding(2);
-            this.tbTrack.Size = new System.Drawing.Size(1143, 382);
-            this.tbTrack.TabIndex = 1;
-            this.tbTrack.Text = "Tracker";
-            this.tbTrack.UseVisualStyleBackColor = true;
-            // 
-            // lblTagCount
-            // 
-            this.lblTagCount.AutoSize = true;
-            this.lblTagCount.Location = new System.Drawing.Point(67, 365);
-            this.lblTagCount.Name = "lblTagCount";
-            this.lblTagCount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.lblTagCount.Size = new System.Drawing.Size(13, 13);
-            this.lblTagCount.TabIndex = 2;
-            this.lblTagCount.Text = "0";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 365);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "tags in list:";
-            // 
-            // dgvTracker
-            // 
-            this.dgvTracker.AllowUserToAddRows = false;
-            this.dgvTracker.AllowUserToDeleteRows = false;
-            this.dgvTracker.AllowUserToResizeColumns = false;
-            this.dgvTracker.AllowUserToResizeRows = false;
-            this.dgvTracker.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvTracker.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTracker.Location = new System.Drawing.Point(2, 2);
-            this.dgvTracker.Margin = new System.Windows.Forms.Padding(2);
-            this.dgvTracker.Name = "dgvTracker";
-            this.dgvTracker.ReadOnly = true;
-            this.dgvTracker.RowHeadersWidth = 62;
-            this.dgvTracker.RowTemplate.Height = 28;
-            this.dgvTracker.Size = new System.Drawing.Size(1137, 361);
-            this.dgvTracker.TabIndex = 0;
-            this.dgvTracker.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTracker_CellContentDoubleClick);
-            this.dgvTracker.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgvTracker_RowsAdded);
-            this.dgvTracker.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgvTracker_RowsRemoved);
-            // 
             // tbCommand
             // 
             this.tbCommand.Controls.Add(this.txtStream);
@@ -187,8 +98,8 @@
             // 
             // txtStream
             // 
-            this.txtStream.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtStream.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtStream.Location = new System.Drawing.Point(436, 0);
             this.txtStream.Margin = new System.Windows.Forms.Padding(2);
@@ -200,7 +111,7 @@
             // 
             // txtCommand
             // 
-            this.txtCommand.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtCommand.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCommand.Location = new System.Drawing.Point(4, 356);
             this.txtCommand.Margin = new System.Windows.Forms.Padding(2);
@@ -211,8 +122,8 @@
             // 
             // txtConsole
             // 
-            this.txtConsole.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtConsole.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtConsole.Location = new System.Drawing.Point(-1, 0);
             this.txtConsole.Margin = new System.Windows.Forms.Padding(2);
@@ -248,12 +159,10 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tbCommand);
-            this.tabControl1.Controls.Add(this.tbTrack);
-            this.tabControl1.Controls.Add(this.tbMaster);
             this.tabControl1.Location = new System.Drawing.Point(8, 11);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
@@ -273,11 +182,6 @@
             this.Name = "frmRFIDMain";
             this.Text = "Glix";
             this.Load += new System.EventHandler(this.frmRFIDMain_Load);
-            this.tbMaster.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMaster)).EndInit();
-            this.tbTrack.ResumeLayout(false);
-            this.tbTrack.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTracker)).EndInit();
             this.tbCommand.ResumeLayout(false);
             this.tbCommand.PerformLayout();
             this.tabControl1.ResumeLayout(false);
@@ -291,11 +195,6 @@
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Button button2;
         private System.ComponentModel.BackgroundWorker bwListen;
-        private System.Windows.Forms.TabPage tbMaster;
-        private System.Windows.Forms.TabPage tbTrack;
-        private System.Windows.Forms.Label lblTagCount;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dgvTracker;
         private System.Windows.Forms.TabPage tbCommand;
         private System.Windows.Forms.TextBox txtStream;
         private System.Windows.Forms.TextBox txtCommand;
@@ -303,7 +202,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button btnTagList;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.DataGridView dgvMaster;
     }
 }
 

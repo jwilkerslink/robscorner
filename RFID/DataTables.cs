@@ -5,13 +5,6 @@ using System.Windows.Forms;
 
 namespace RFID
 {
-    class RefreshEventArgs : EventArgs
-    {
-        readonly BindingSource b;
-        public BindingSource B { get { return b; } }
-        public RefreshEventArgs(BindingSource b)
-        { this.b = b; }
-    }
     class InsertEventArgs : EventArgs
     {
         readonly tagByte t;
@@ -25,15 +18,15 @@ namespace RFID
         const int readFloor = 20;
 
         static DataTable dtTracker = new DataTable();
-        public static BindingSource bsTracker = new BindingSource();
-               static DataTable dtMaster = new DataTable();
-        public static BindingSource bsMaster = new BindingSource();
-               static DataTable dtAlias = new DataTable();
+        //public static BindingSource bsTracker = new BindingSource();
+        static DataTable dtMaster = new DataTable();
+        //public static BindingSource bsMaster = new BindingSource();
+        static DataTable dtAlias = new DataTable();
 
         public static void InitDTs()
         {
-            bsTracker.DataSource = dtTracker;
-            bsMaster.DataSource = dtMaster;
+            //bsTracker.DataSource = dtTracker;
+            //bsMaster.DataSource = dtMaster;
 
             InitializeDTTracker();
             InitializeDTMaster();
@@ -42,6 +35,10 @@ namespace RFID
 
         public static void UpdateDTs(tagByte tag)
         {
+            // -
+            //this update function does way too much and needs to be modularized after removal of DGVs
+            // -
+
             string id = "'" + tag.tagID + "'";
 
             DataRow[] resultT = dtTracker.Select("tagID = " + id);
@@ -66,7 +63,7 @@ namespace RFID
                         TagTimer.UpdateSubject(tag.tagID, tag.dateTime);
                     }
                 }
-                else//if it's not, check its readcount. if readcount hits threshhold, add it to master.
+                else//if it's not, check its readFloor. if readcount hits threshhold, add it to master.
                 {
                     foreach (DataRow row in resultT)
                     {
@@ -80,17 +77,17 @@ namespace RFID
                                                 tag.RSSI
                                               );
 
-                            TagTimer.AddSubject(tag.tagID, tag.dateTime);
-
-                            tag.evnt = "ADDED";
-                            InsertSignal.IncomingSignal(tag);
-
                             dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["in master"] = "true";
                             dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["RSSI"] = "# # # # #";
                             dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["last read"] = "# # # # #";
                             dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["read count"] = "0";
+
+                            tag.evnt = "ADDED";
+                            TagTimer.AddSubject(tag.tagID, tag.dateTime);
+                            InsertSignal.IncomingSignal(tag);
+                            // this is where the 'ADDED event' is inserted into the DB
                         }
-                        else//if it hasn't hit its readcount yet, keep updating it on tracker
+                        else//if it hasn't hit its readFloor yet, keep updating it on tracker
                         {
                             if (dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["in master"] != "false")
                             { dtTracker.Rows[dtTracker.Rows.IndexOf(row)]["in master"] = "false"; }
@@ -101,35 +98,24 @@ namespace RFID
                     }
                 }
             }
-            RefreshSignal.IncomingSignal(bsTracker);
-            RefreshSignal.IncomingSignal(bsMaster);
+            //RefreshSignal.IncomingSignal(bsTracker);
+            //RefreshSignal.IncomingSignal(bsMaster);
 
             //Refresh(bsTracker, dgvTracker);
             //Refresh(bsMaster, dgvMaster);
             ////SetCount(lblTagCount, (dgvTracker.Rows.Count - 1).ToString());
             //SetCount(lblTagCount, dgvTracker.Rows.Count.ToString());
         }
-        public static void RemoveFromMaster(string key)
+        public static void TagRemoved(string key)
         {
             Console.WriteLine("Tag removed from master: " + key);
             DataRow[] result = dtMaster.Select("alias = " + "'" + key + "'");
 
             foreach (DataRow row in result)
-            {
-                dtMaster.Rows.Remove(row);
-            }
+            { dtMaster.Rows.Remove(row); }
 
-            RefreshSignal.IncomingSignal(bsMaster);
-        }
-        public static class RefreshSignal
-        {
-            static public event EventHandler<RefreshEventArgs> SignalReceived = delegate { };
-
-            static public void OnSignalReceived(RefreshEventArgs v)
-            { SignalReceived?.Invoke(null, v); }
-
-            static public void IncomingSignal(BindingSource b)
-            { OnSignalReceived(new RefreshEventArgs(b)); }
+            //RefreshSignal.IncomingSignal(bsMaster);
+            //this is what refreshes DGV
         }
 
         public static class InsertSignal
@@ -168,5 +154,26 @@ namespace RFID
             dtAlias.Columns.Add("tagID");
             dtAlias.Columns.Add("alias");
         }
+
+        // Unused - - - - - v
+        public static class RefreshSignal
+        {
+            static public event EventHandler<RefreshEventArgs> SignalReceived = delegate { };
+
+            static public void OnSignalReceived(RefreshEventArgs v)
+            { SignalReceived?.Invoke(null, v); }
+
+            static public void IncomingSignal(BindingSource b)
+            { OnSignalReceived(new RefreshEventArgs(b)); }
+        }
     }
+
+    class RefreshEventArgs : EventArgs
+    {
+        readonly BindingSource b;
+        public BindingSource B { get { return b; } }
+        public RefreshEventArgs(BindingSource b)
+        { this.b = b; }
+    }
+    // Unused - - - - - ^
 }
